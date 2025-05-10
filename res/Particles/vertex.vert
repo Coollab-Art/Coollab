@@ -32,7 +32,7 @@ layout(std430, binding = 4) buffer _lifetime_maxs_buffer
 
 void main()
 {
-    if (_lifetimes[gl_InstanceID] <= 0 && _lifetime_maxs[gl_InstanceID] > 0)
+    if (_lifetimes[gl_InstanceID] <= 0 /* && _lifetime_maxs[gl_InstanceID] > 0 */)
     {
         // Discard dead particles
         gl_Position = vec4(0.);

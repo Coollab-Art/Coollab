@@ -1,0 +1,10 @@
+float main(float t)
+{
+    if (t < 0.0)
+        return 0.0;
+    if (t > 1.0)
+        return 1.0;
+    float p = 0.3;
+    float s = p / 4.0;
+    return -pow(2.0, 10.0 * (t - 1.0)) * sin((t - 1.0 - s) * (6.2831853) / p);
+}

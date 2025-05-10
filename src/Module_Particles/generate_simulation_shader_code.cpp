@@ -21,6 +21,8 @@ auto generate_simulation_shader_code(
 #define COOLLAB_PARTICLES_{N}D
 
 uniform bool _force_init_particles;
+uniform int _particle_to_init;
+uniform vec2 _particle_to_init_pos;
 
 layout(std430, binding = 0) buffer _positions_buffer
 {{
@@ -92,12 +94,18 @@ void cool_main()
     particle.color.w      = _colors[gid * 4 + 3];
     particle.index        = gid;
 
-    particle.needs_init = _force_init_particles || (particle.lifetime >= 0. && particle.lifetime - _delta_time < 0.);
+    particle.needs_init = particle.index == _particle_to_init;
     particle.lifetime -= _delta_time;
+    if( particle.lifetime  < 0.&& !particle.needs_init)
+    {{
+    // particle.size = 0.;
+    _lifetimes[gid]      = particle.lifetime;
+    return;
+            }}
     if (particle.needs_init)
     {{ // Default initialization
 #ifdef COOLLAB_PARTICLES_2D
-        particle.position = hash_0_to_1_2D_to_2D(vec2(gid, 0)) * 2. - 1.;
+        particle.position = _particle_to_init_pos; //hash_0_to_1_2D_to_2D(vec2(gid, 0)) * 2. - 1.;
         particle.velocity = hash_0_to_1_2D_to_2D(vec2(gid, 1)) * 2. - 1.;
 #else
         particle.position = hash_0_to_1_2D_to_3D(vec2(gid, 0)) * 2. - 1.;
@@ -105,7 +113,7 @@ void cool_main()
 #endif
         particle.size  = 0.01;
         particle.color = vec4(1.0);
-        particle.lifetime_max = -1.; // To be sure that the vertex shader will show the particles
+        // particle.lifetime_max = -1.; // To be sure that the vertex shader will show the particles
     }}
 
     CoollabContext coollab_context;

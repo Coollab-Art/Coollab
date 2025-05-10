@@ -1,6 +1,7 @@
 #include "Module_Particles.h"
 #include <glm/gtx/matrix_transform_2d.hpp>
 #include "Cool/Log/message_console.hpp"
+#include "Cool/OSC/OSCManager.h"
 #include "Module/ShaderBased/set_uniforms_for_shader_based_module.hpp"
 #include "Nodes/Node.h"
 
@@ -21,6 +22,25 @@ Module_Particles::Module_Particles(Cool::NodeId const& id_of_node_storing_partic
       }
     , _id_of_node_storing_particles_count{id_of_node_storing_particles_count}
 {
+}
+
+void Module_Particles::spawn_particle(glm::vec2 pos) const
+{
+    _particle_to_init = _next_particle_to_init;
+    _next_particle_to_init++;
+    _next_particle_to_init = _next_particle_to_init % _particle_system->particles_count();
+
+    _particle_init_pos = pos;
+}
+
+void Module_Particles::imgui_windows(Ui_Ref) const
+{
+    // ImGui::Begin("Particles");
+    // if (ImGui::Button("Spawn Particle"))
+    // {
+    //     spawn_particle({0., 1.});
+    // }
+    // ImGui::End();
 }
 
 void Module_Particles::on_time_reset()
@@ -138,7 +158,21 @@ void Module_Particles::update_particles(DataToPassToShader const& data)
     if (DebugOptions::log_when_updating_particles())
         Cool::Log::info(name(), "Updated particles");
 
+    float const id = Cool::osc_manager().get_value({"/ID"});
+    if (id != _last_osc_id)
+    {
+        _last_osc_id = id;
+        spawn_particle({
+            Cool::osc_manager().get_value({"/clickX"}),
+            Cool::osc_manager().get_value({"/clickY"}),
+        });
+    }
+
     _particle_system->simulation_shader().bind();
+    _particle_system->simulation_shader().bind();
+    _particle_system->simulation_shader().set_uniform("_particle_to_init", _particle_to_init.value_or(-1));
+    _particle_system->simulation_shader().set_uniform("_particle_to_init_pos", _particle_init_pos.value_or(glm::vec2{}));
+    _particle_to_init.reset();
     _particle_system->simulation_shader().set_uniform("_force_init_particles", _force_init_particles);
     set_uniforms_for_shader_based_module(_particle_system->simulation_shader(), _depends_on, data, modules_that_we_depend_on(), nodes_that_we_depend_on());
     _particle_system->update();

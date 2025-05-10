@@ -16,6 +16,8 @@ public:
     void on_time_changed() override;
     void imgui_generated_shader_code_tab() override;
 
+    void imgui_windows(Ui_Ref) const override;
+
     [[nodiscard]] auto needs_to_rerender() const -> bool override
     {
         return Module::needs_to_rerender() || _needs_to_update_particles;
@@ -34,15 +36,21 @@ private:
     void request_particles_to_reset();
     void request_particles_to_update() { _needs_to_update_particles = true; }
 
+    void spawn_particle(glm::vec2 pos) const;
+
 private:
     mutable std::optional<Cool::ParticleSystem> _particle_system{};
     int                                         _particle_system_dimension{};
     // ModuleDependencies                          _depends_on{}; // TODO(Particles) Two dependencies, one for each shader (simulation and render)
-    Cool::NodeId            _id_of_node_storing_particles_count{};
-    bool                    _needs_to_update_particles{true};
-    bool                    _force_init_particles{true};
-    mutable Cool::MessageId _simulation_shader_error_id{};
-    mutable std::string     _shader_code{};
+    Cool::NodeId                     _id_of_node_storing_particles_count{};
+    bool                             _needs_to_update_particles{true};
+    bool                             _force_init_particles{true};
+    mutable Cool::MessageId          _simulation_shader_error_id{};
+    mutable std::string              _shader_code{};
+    mutable std::optional<int>       _particle_to_init{};
+    mutable int                      _next_particle_to_init = 0;
+    mutable std::optional<glm::vec2> _particle_init_pos{};
+    float                            _last_osc_id = 0.f;
 
 private:
     // Serialization
