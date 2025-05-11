@@ -10,3 +10,4 @@ User data
 .venv
 **/__pycache__/
 build-dawn
+build-wgpu
