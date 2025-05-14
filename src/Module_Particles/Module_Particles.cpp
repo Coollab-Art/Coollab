@@ -179,6 +179,15 @@ void Module_Particles::request_particles_to_reset()
 void Module_Particles::update()
 {
     update_particles_count_ifn();
+    float const id = Cool::osc_manager().get_value({"/ID"});
+    if (id != _last_osc_id)
+    {
+        _last_osc_id = id;
+        spawn_particle({
+            Cool::osc_manager().get_value({"/clickX"}),
+            Cool::osc_manager().get_value({"/clickY"}),
+        });
+    }
 }
 
 void Module_Particles::on_time_changed()
