@@ -102,6 +102,8 @@ public: // Needs to be public so we can call it in the NodesConfig
     auto make_on_project_unloaded() -> OnProjectUnloaded;
     auto make_save_thumbnail() -> SaveThumbnail;
 
+    void quick_image_export();
+
 private:
     void compile_all_is0_nodes();
     auto project() -> Project& { return _project_manager.project(); }

@@ -1,7 +1,11 @@
 #include "App.h"
 #include <filesystem>
+#include "CommandCore/CommandsQueue.hpp"
 #include "CommandCore/command_to_string.h"
 #include "CommandCore/get_app.hpp"
+#include "CommandCore/make_command.h"
+#include "Commands/Command_ExportImage.h"
+#include "Commands/Command_Log.h"
 #include "Commands/Command_OpenImageExporter.h"
 #include "Commands/Command_OpenVideoExporter.h"
 #include "Cool/DebugOptions/debug_options_windows.h"
@@ -29,6 +33,7 @@
 #include "Cool/View/ViewsManager.h"
 #include "Cool/Webcam/WebcamsConfigs.hpp"
 #include "Cool/Websocket/Task_CheckForWebsocketConnections.hpp"
+#include "Cool/Websocket/Task_WebsocketConnection.hpp"
 #include "Debug/DebugOptions.h"
 #include "Dependencies/Camera2DManager.h"
 #include "ModulesGraph/ModulesGraph.h"
@@ -68,6 +73,24 @@ App::App(Cool::WindowManager& windows, Cool::ViewsManager& views)
 void App::init()
 {
     _project_manager.process_command_line_args(make_on_project_loaded(), make_on_project_unloaded(), make_window_title_setter());
+
+    Cool::command_handler() = [](std::string const& command) {
+        // TODO(Websocket) handle parsing error (throws an exception)
+        nlohmann::json json = nlohmann::json::parse(command);
+
+        auto const& cmd_code = std::string{json["command"]};
+
+        // TODO(Websocket) in a "debug mode" check all arguments and warn if there are some that are not used by the current command, to prevent programming mistakes (and then disable that check when shipping the script, to improve performance)
+
+        if (cmd_code == "ExportImage")
+        {
+            commands_queue().push_back(make_command(Command_ExportImage{}));
+        }
+        else if (cmd_code == "Log")
+        {
+            commands_queue().push_back(make_command(Command_Log{.title = std::string{json["title"]}, .content = std::string{json["content"]}}));
+        }
+    };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
 }
 
@@ -77,6 +100,8 @@ void App::update()
     _project_manager.open_requested_project_if_any(make_on_project_loaded(), make_on_project_unloaded(), make_window_title_setter());
 
     project().history.start_new_commands_group(); // All commands done in one frame are grouped together, and will be done / undone at once.
+
+    commands_queue().run_all_queued_commands(command_executor_top_level(), command_execution_context());
 
     user_settings().update();
 
@@ -736,9 +761,14 @@ void App::check_inputs()
     }
     if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_E))
     {
-        auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
-        on_image_export_start(exported_image_path);
+        quick_image_export();
     }
+}
+
+void App::quick_image_export()
+{
+    auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
+    on_image_export_start(exported_image_path);
 }
 
 void App::check_inputs__history()
