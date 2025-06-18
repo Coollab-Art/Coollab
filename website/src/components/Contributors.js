@@ -2,6 +2,7 @@ import React from "react"
 import Randomizedlist from "@site/src/components/RandomizedList"
 import Contributor from "@site/src/components/Contributor"
 
+// TODO just embed the table from "all contributions in the readme"
 export default ({}) => {
   return (
     <Randomizedlist

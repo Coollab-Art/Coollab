@@ -1,0 +1,43 @@
+{
+  "projectName": "Coollab",
+  "projectOwner": "Coollab-Art",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "JulesFouchy",
+      "name": "Jules Fouchy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/45451201?v=4",
+      "profile": "https://julesfouchy.github.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "TaliaKah",
+      "name": "taliakah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77100260?v=4",
+      "profile": "https://github.com/TaliaKah",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MeucheRoume",
+      "name": "MeucheRoume",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77018137?v=4",
+      "profile": "https://github.com/MeucheRoume",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": true
+}

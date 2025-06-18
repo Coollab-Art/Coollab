@@ -1,5 +1,9 @@
+1.3.1 Color Themes
+1.3.0 Color Themes
+--- Renamed node "Voronoise" as "Noise Voronoi"
+--- Removed node "Noise Cellular". Use "Noise Voronoi" instead, they were doing the exact same thing
+--- Renamed "Random1D" as "Random 1D" and moved it to the "Greyscale" category. Same for "Random2D"
 1.2.0 MacOS
-1.1.1 UI Scale Experimental(MacOS)
 1.1.1 UI Scale
 1.1.0 UI Scale
 1.0.1 Launcher

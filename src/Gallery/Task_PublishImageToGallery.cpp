@@ -45,23 +45,20 @@ TEST_CASE("process_link()")
 
 namespace Lab {
 
-void Task_PublishImageToGallery::execute()
+auto Task_PublishImageToGallery::execute() -> Cool::TaskCoroutine
 {
 #if CPPHTTPLIB_OPENSSL_SUPPORT
-    TaskWithProgressBar::change_notification_when_execution_starts();
-
-    auto const image_png_data =
-        img::save_png_to_string(
-            _image,
-            stbiw_SaveOptions{
-                .cancel_requested = [&]() { return cancel_requested(); },
-                .set_progress     = [&](float progress) { set_progress(0.9f * progress); },
-            }
-        );
+    auto const image_png_data = img::save_png_to_string(
+        _image,
+        stbiw_SaveOptions{
+            .cancel_requested = [&]() { return has_been_canceled(); },
+            .set_progress     = [&](float progress) { set_progress(0.9f * progress); },
+        }
+    );
     if (!image_png_data.has_value())
     {
         _result = tl::make_unexpected("Failed to convert image to PNG, please try again."s);
-        return;
+        co_return;
     }
     auto cli = httplib::SSLClient{"api.cloudinary.com"};
 

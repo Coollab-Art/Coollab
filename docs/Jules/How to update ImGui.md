@@ -1,0 +1,8 @@
+- Update all our imgui-related libraries, they might have some fixes for breaking changes introduced in the latest version of ImGui
+- Re-run `style_generator.py`
+- In ImGui_StyleEditor re-run the `generate_code.py` script
+- See the git diff of `Cool/ImGui/generated_style/json_get.inl` to find out all the style options that are new / changed / removed
+- See the git diff of `ImGui_StyleEditor/src/generated/register_all_imgui_color_elements.inl` to find out all the color options that are new / changed / removed
+- Add a UI in `StyleEditor.cpp` to edit the new style options (copy from `ShowStyleEditor()` in `imgui_demo.cpp`) (**NB:** don't forget to add the `b |=`)
+- For all the new style and color options, choose a value and add them in User Data Default of Coollab **AND** the Launcher
+- Also make sure to remove from User Data Default style / color options that have been removed

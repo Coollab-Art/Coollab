@@ -2,7 +2,7 @@
 
 INPUT int 'Seed';
 
-float main()
+float main(float a, float b, float c)
 {
-    return hash_0_to_1_1D_to_1D('Seed');
+    return hash_0_to_1_4D_to_1D(vec4(a, b, c, 'Seed'));
 }

@@ -1,0 +1,8 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Seed';
+
+float main()
+{
+    return hash_0_to_1_1D_to_1D('Seed' + 2); // We do a +2 because a seed of 0 gives pure black which might be confusing for users
+}

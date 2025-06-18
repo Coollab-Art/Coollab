@@ -3,6 +3,7 @@
 #include "CommandCore/CommandExecutionContext_Ref.h"
 #include "CommandCore/MakeReversibleCommandContext_Ref.h"
 #include "Nodes/Node.h"
+#include "Cool/Serialization/ImGui.hpp" 
 
 namespace Lab {
 

@@ -1,4 +1,5 @@
 #include "ProjectManager.hpp"
+#include <imgui.h>
 #include <ImGuiNotify/ImGuiNotify.hpp>
 #include <filesystem>
 #include <reg/src/generate_uuid.hpp>
@@ -457,9 +458,16 @@ void ProjectManager::imgui_project_name_in_the_middle_of_the_menu_bar(SetWindowT
     auto project_name = _next_project_name.value_or(_impl.project_name());
     // TODO(Launcher) make this an ImGuiExtras widget
     auto const width = ImGui::CalcTextSize(project_name.c_str()).x
-                       + 2.f * Cool::ImGuiExtras::GetStyle().tab_bar_padding.x;
+                       + 2.f * Cool::ImGuiExtras::GetStyle().frame_padding.x;
+    ImGui::Dummy({
+        ImGui::GetWindowSize().x * 0.5f
+            - width * 0.5f
+            - (ImGui::GetWindowSize().x - ImGui::GetContentRegionAvail().x)
+            - Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x
+            + ImGui::GetStyle().WindowPadding.x,
+        0.f,
+    });
     ImGui::SetNextItemWidth(width);
-    ImGui::SetCursorPosX(ImGui::GetWindowSize().x * 0.5f - width * 0.5f);
 
     if (ImGui::InputText("##project_name", &project_name))
         _next_project_name = project_name;

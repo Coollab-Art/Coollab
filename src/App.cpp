@@ -11,6 +11,7 @@
 #include "Cool/ImGui/Fonts.h"
 #include "Cool/ImGui/IcoMoonCodepoints.h"
 #include "Cool/ImGui/ImGuiExtras.h"
+#include "Cool/ImGui/ImGuiExtrasStyle.h"
 #include "Cool/ImGui/icon_fmt.h"
 #include "Cool/Image/SaveImage.h"
 #include "Cool/Input/CTRL_OR_CMD.hpp"
@@ -699,13 +700,14 @@ void App::imgui_menus()
     commands_menu();
 
     _project_manager.imgui_project_name_in_the_middle_of_the_menu_bar(make_window_title_setter());
-
-    ImGui::SetCursorPosX( // HACK while waiting for ImGui to support right-to-left layout. See issue https://github.com/ocornut/imgui/issues/5875
-        ImGui::GetWindowSize().x
-        - ImGui::CalcTextSize("AboutDebug").x
-        - 3.f * ImGui::GetStyle().ItemSpacing.x
-        - ImGui::GetStyle().WindowPadding.x
-    );
+    ImGui::Dummy({
+        // HACK while waiting for ImGui to support right-to-left layout. See issue https://github.com/ocornut/imgui/issues/5875
+        ImGui::GetContentRegionAvail().x
+            - ImGui::CalcTextSize("AboutDebug").x
+            - 4.f * Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x
+            - std::max(Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x - ImGui::GetStyle().WindowPadding.x, 0.f),
+        0.f,
+    });
     about_menu();
     debug_menu();
 }
@@ -729,7 +731,7 @@ void App::check_inputs()
     {
         _wants_view_in_fullscreen = false;
     }
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_E))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_E))
     {
         auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
         on_image_export_start(exported_image_path);
@@ -741,14 +743,14 @@ void App::check_inputs__history()
     auto exec = reversible_command_executor_without_history();
 
     // Undo
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Z))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Z))
     {
         project().history.move_backward(exec);
     }
 
     // Redo
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Y)
-        || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiMod_Shift | ImGuiKey_Z))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Y)
+        || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiMod_Shift | ImGuiKey_Z))
     {
         project().history.move_forward(exec);
     }
@@ -758,15 +760,15 @@ void App::check_inputs__project()
 {
     auto const ctx = command_execution_context();
 
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiMod_Shift | ImGuiKey_S))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiMod_Shift | ImGuiKey_S))
     {
         save_as();
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_S))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_S))
     {
         ctx.execute(Command_SaveProject{.is_autosave = false, .must_absolutely_succeed = false});
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_O))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_O))
     {
         if (DebugOptions::allow_user_to_open_any_file())
         {
@@ -775,13 +777,13 @@ void App::check_inputs__project()
                 ctx.execute(Command_OpenProjectOnNextFrame{*path});
         }
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_KeypadAdd)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Equal))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadAdd)
+             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Equal))
     {
         Cool::user_settings().change_ui_zoom(+1.f);
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_KeypadSubtract)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Minus))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadSubtract)
+             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Minus))
     {
         Cool::user_settings().change_ui_zoom(-1.f);
     }

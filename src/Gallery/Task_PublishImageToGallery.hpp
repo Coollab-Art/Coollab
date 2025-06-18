@@ -10,16 +10,15 @@ namespace Lab {
 class Task_PublishImageToGallery : public Cool::TaskWithProgressBar {
 public:
     Task_PublishImageToGallery(ArtworkInfo artwork_info, AuthorInfo author_info, LegalInfo legal_info, img::Image image)
-        : _artwork_info{std::move(artwork_info)}
+        : Cool::TaskWithProgressBar{fmt::format("Publishing image \"{}\"", artwork_info.title)}
+        , _artwork_info{std::move(artwork_info)}
         , _author_info{std::move(author_info)}
         , _legal_info{std::move(legal_info)}
         , _image{std::move(image)}
     {}
 
-    auto name() const -> std::string override { return fmt::format("Publishing image \"{}\"", _artwork_info.title); }
-
 private:
-    void execute() override;
+    auto execute() -> Cool::TaskCoroutine override;
     auto needs_user_confirmation_to_cancel_when_closing_app() const -> bool override { return true; }
     auto notification_after_execution_completes() const -> ImGuiNotify::Notification override;
 
