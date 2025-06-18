@@ -20,6 +20,7 @@
 #include "Cool/OSC/OSCManager.h"
 #include "Cool/Path/Path.h"
 #include "Cool/Server/ServerManager.hpp"
+#include "Cool/Task/TaskManager.hpp"
 #include "Cool/Time/ClockU.h"
 #include "Cool/Tips/TipsManager.h"
 #include "Cool/UserSettings/UserSettings.h"
@@ -27,6 +28,7 @@
 #include "Cool/View/View.h"
 #include "Cool/View/ViewsManager.h"
 #include "Cool/Webcam/WebcamsConfigs.hpp"
+#include "Cool/Websocket/Task_CheckForWebsocketConnections.hpp"
 #include "Debug/DebugOptions.h"
 #include "Dependencies/Camera2DManager.h"
 #include "ModulesGraph/ModulesGraph.h"
@@ -66,6 +68,7 @@ App::App(Cool::WindowManager& windows, Cool::ViewsManager& views)
 void App::init()
 {
     _project_manager.process_command_line_args(make_on_project_loaded(), make_on_project_unloaded(), make_window_title_setter());
+    Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
 }
 
 void App::update()
