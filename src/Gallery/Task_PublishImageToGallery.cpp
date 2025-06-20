@@ -112,6 +112,7 @@ auto Task_PublishImageToGallery::execute() -> Cool::TaskCoroutine
 #else
     assert(false && "Coollab was not built with the OpenSSL library because it was not found while compiling. You cannot use this function.");
     _result = tl::make_unexpected("This version of Coollab was not built with OpenSSL, you cannot publish images online."s);
+    co_return;
 #endif
 }
 
