@@ -5,7 +5,7 @@ namespace Lab {
 
 void Command_ExportImage::execute(CommandExecutionContext_Ref const& ctx) const
 {
-    ctx.app().quick_image_export();
+    ctx.app().image_export(image_params, autosave, override);
 }
 
 } // namespace Lab

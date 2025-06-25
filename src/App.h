@@ -103,6 +103,9 @@ public: // Needs to be public so we can call it in the NodesConfig
     auto make_save_thumbnail() -> SaveThumbnail;
 
     void quick_image_export();
+    void image_export(img::ImageParams const& image_params, bool const& autosave, bool const& override);
+
+    void close_app(bool const& force_kill_task_in_progress);
 
 private:
     void compile_all_is0_nodes();

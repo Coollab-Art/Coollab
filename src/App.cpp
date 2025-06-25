@@ -4,6 +4,7 @@
 #include "CommandCore/command_to_string.h"
 #include "CommandCore/get_app.hpp"
 #include "CommandCore/make_command.h"
+#include "Commands/Command_CloseApp.h"
 #include "Commands/Command_ExportImage.h"
 #include "Commands/Command_Log.h"
 #include "Commands/Command_OpenImageExporter.h"
@@ -84,11 +85,38 @@ void App::init()
 
         if (cmd_code == "ExportImage")
         {
-            commands_queue().push_back(make_command(Command_ExportImage{}));
+            std::optional<img::Size> size_opt;
+            if (json.contains("width") && json["width"].is_number_integer() && json.contains("height") && json["height"].is_number_integer())
+            {
+                auto w   = static_cast<uint32_t>(int{json["width"]});
+                auto h   = static_cast<uint32_t>(int{json["height"]});
+                size_opt = img::Size{w, h};
+            }
+            auto get_string_opt = [&](const std::string& key) -> std::optional<std::string> {
+                return (json.contains(key) && json[key].is_string()) ? std::optional<std::string>{json[key]} : std::nullopt;
+            };
+            commands_queue().push_back(make_command(Command_ExportImage{
+                .image_params = img::ImageParams{
+                    .size      = size_opt,
+                    .file_path = get_string_opt("file_path"),
+                    .filename  = get_string_opt("filename"),
+                    .format    = get_string_opt("format"),
+                },
+                .autosave = (json.contains("autosave") && json["autosave"].is_boolean()) ? bool{json["autosave"]} : false,
+                .override = (json.contains("override") && json["override"].is_boolean()) ? bool{json["override"]} : false,
+            }));
         }
         else if (cmd_code == "Log")
         {
             commands_queue().push_back(make_command(Command_Log{.title = std::string{json["title"]}, .content = std::string{json["content"]}}));
+        }
+        else if (cmd_code == "CloseApp")
+        {
+            commands_queue().push_back(make_command(Command_CloseApp{.force_kill_task_in_progress = bool{json["force_kill_task_in_progress"]}}));
+        }
+        else if (cmd_code == "OpenProject")
+        {
+            commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["project_path"]}}}));
         }
     };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
@@ -765,10 +793,16 @@ void App::check_inputs()
     }
 }
 
-void App::quick_image_export()
+void App::quick_image_export() // to_remove
 {
     auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
     on_image_export_start(exported_image_path);
+}
+void App::image_export(img::ImageParams const& image_params, bool const& autosave, bool const& override)
+{
+    auto const exported_image_path = project().exporter.export_image_depending_on_params_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks(), image_params, override);
+    if (autosave)
+        on_image_export_start(exported_image_path);
 }
 
 void App::check_inputs__history()
@@ -843,6 +877,11 @@ void App::open_video_exporter()
 void App::open_meshing_window_for_node(Cool::NodeId const& node_id)
 {
     project().meshing_gui.open_window(node_id);
+}
+
+void App::close_app(bool const& force_kill_task_in_progress)
+{
+    _main_window.close();
 }
 
 } // namespace Lab
