@@ -96,14 +96,14 @@ void App::init()
                 return (json.contains(key) && json[key].is_string()) ? std::optional<std::string>{json[key]} : std::nullopt;
             };
             commands_queue().push_back(make_command(Command_ExportImage{
-                .image_params = img::ImageParams{
-                    .size      = size_opt,
-                    .file_path = get_string_opt("file_path"),
-                    .filename  = get_string_opt("filename"),
-                    .format    = get_string_opt("format"),
+                .image_export_params = img::ImageExportParams{
+                    .size                  = size_opt,
+                    .folder                = get_string_opt("folder"),
+                    .filename              = get_string_opt("filename"),
+                    .extension             = get_string_opt("extension"),
+                    .project_autosave      = (json.contains("project_autosave") && json["project_autosave"].is_boolean()) ? bool{json["project_autosave"]} : false,
+                    .export_file_overwrite = (json.contains("export_file_overwrite") && json["export_file_overwrite"].is_boolean()) ? bool{json["export_file_overwrite"]} : false,
                 },
-                .autosave = (json.contains("autosave") && json["autosave"].is_boolean()) ? bool{json["autosave"]} : false,
-                .override = (json.contains("override") && json["override"].is_boolean()) ? bool{json["override"]} : false,
             }));
         }
         else if (cmd_code == "Log")
@@ -798,10 +798,10 @@ void App::quick_image_export() // to_remove
     auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
     on_image_export_start(exported_image_path);
 }
-void App::image_export(img::ImageParams const& image_params, bool const& autosave, bool const& override)
+void App::image_export(img::ImageExportParams const& image_export_params)
 {
-    auto const exported_image_path = project().exporter.export_image_depending_on_params_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks(), image_params, override);
-    if (autosave)
+    auto const exported_image_path = project().exporter.export_image_depending_on_params_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks(), image_export_params);
+    if (image_export_params.project_autosave)
         on_image_export_start(exported_image_path);
 }
 
