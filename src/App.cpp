@@ -79,7 +79,7 @@ void App::init()
         // TODO(Websocket) handle parsing error (throws an exception)
         nlohmann::json json = nlohmann::json::parse(command);
 
-        auto const& cmd_code = std::string{json["command"]};
+        auto const& cmd_code = std::string{json["command"]}; // TODO(Websocket) handle the case where there is no "command" in the json, or it's not of the right type
 
         // TODO(Websocket) in a "debug mode" check all arguments and warn if there are some that are not used by the current command, to prevent programming mistakes (and then disable that check when shipping the script, to improve performance)
 
