@@ -1,7 +1,7 @@
 import socket
 import json
 from time import sleep
-from typing import Optional
+from typing import Callable, Optional
 
 # TODO(Websocket) this test should be moved to Cool. And osc / http tests too probably
 
@@ -53,14 +53,54 @@ class Coollab:
                 )
             )
 
+    def close_app(self) -> None:
+        if self._s:
+            self._s.sendall(
+                self._encode_json(
+                    {
+                        "command": "CloseApp",
+                        "force_kill_task_in_progress": False,
+                    }
+                )
+            )
+
+    def wait_message(self) -> None:
+        if not self._s:
+            return
+        data = bytearray()
+        while True:
+            chunk = self._s.recv(1024)
+            if not chunk:
+                break
+            data += chunk
+            if b"\0" in chunk:
+                data = data.split(b"\0")[0]
+                break
+        print(data.decode())
+        d = json.loads(data.decode())
+        if d["event"] == "ImageExportFinished":
+            self.callback()
+
+    def on_image_export_finished(self, callback: Callable[[], None]) -> None:
+        self.callback = callback
+
 
 # Usage
 with Coollab() as coollab:
-    i = 0
-    while True:
-        i += 1
-        if i % 2 == 0:
-            coollab.export_image(width=500, height=500)
-        else:
-            coollab.log("Scripting", f"This is a script! {i}")
-        sleep(1)
+    IMAGE_MAX = 10
+    image_count = 0
+
+    def increase_image_count():
+        global image_count
+        image_count += 1
+        print(image_count)
+        if image_count == IMAGE_MAX:
+            coollab.close_app()
+
+    coollab.on_image_export_finished(increase_image_count)
+    for i in range(IMAGE_MAX):
+        coollab.export_image(width=500, height=500)
+        coollab.wait_message()
+        # sleep(0.5)
+    # for i in range(IMAGE_MAX):
+    #     coollab.wait_message()

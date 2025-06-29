@@ -3,7 +3,7 @@
 
 namespace Lab {
 
-struct Command_OpenProjectOnNextFrame {
+struct Command_OpenProjectOnNextFrame { // TODO(Commands) Rename as Command_OpenProject
     std::filesystem::path path{};
 
     void               execute(CommandExecutionContext_Ref const& ctx) const;
