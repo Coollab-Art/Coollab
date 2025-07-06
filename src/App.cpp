@@ -116,7 +116,7 @@ void App::init()
         }
         else if (cmd_code == "OpenProject")
         {
-            commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["project_path"]}}}));
+            commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["path"]}}}));
         }
     };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());

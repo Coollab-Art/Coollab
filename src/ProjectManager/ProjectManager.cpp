@@ -2,6 +2,7 @@
 #include <imgui.h>
 #include <ImGuiNotify/ImGuiNotify.hpp>
 #include <filesystem>
+#include <mutex>
 #include <reg/src/generate_uuid.hpp>
 #include "COOLLAB_FILE_EXTENSION.hpp"
 #include "CommandCore/execute_command.hpp"
@@ -13,6 +14,8 @@
 #include "Cool/Log/boxer_show.hpp"
 #include "Cool/Path/Path.h"
 #include "Cool/UserSettings/UserSettings.h"
+#include "Cool/Websocket/Event.hpp"
+#include "Cool/Websocket/EventQueue.hpp"
 #include "Debug/DebugOptions.h"
 #include "ProjectManagerImpl.hpp"
 #include "SaveAsOptions.hpp"
@@ -511,6 +514,12 @@ void ProjectManager::open_requested_project_if_any(OnProjectLoaded const& on_pro
     if (_project_to_open_on_next_frame.has_value())
     {
         open_project(*_project_to_open_on_next_frame, on_project_loaded, on_project_unloaded, set_window_title);
+        {
+            std::unique_lock lock{Cool::event_queue_mutex()};
+            Cool::event_queue().push_back(Cool::Event_OpenedProject{
+                .path = *_project_to_open_on_next_frame,
+            });
+        }
         _project_to_open_on_next_frame.reset();
     }
 }
