@@ -33,6 +33,7 @@
 #include "Cool/View/View.h"
 #include "Cool/View/ViewsManager.h"
 #include "Cool/Webcam/WebcamsConfigs.hpp"
+#include "Cool/Websocket/EventQueue.hpp"
 #include "Cool/Websocket/Task_CheckForWebsocketConnections.hpp"
 #include "Cool/Websocket/Task_WebsocketConnection.hpp"
 #include "Debug/DebugOptions.h"
@@ -117,6 +118,11 @@ void App::init()
         else if (cmd_code == "OpenProject")
         {
             commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["path"]}}}));
+        }
+        else if (cmd_code == "GetVersionName")
+        {
+            auto lock = std::unique_lock{Cool::event_queue_mutex()};
+            Cool::event_queue().push_back(Cool::Event_GetVersionName{});
         }
     };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
