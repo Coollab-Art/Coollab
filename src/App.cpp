@@ -33,7 +33,7 @@
 #include "Cool/View/View.h"
 #include "Cool/View/ViewsManager.h"
 #include "Cool/Webcam/WebcamsConfigs.hpp"
-#include "Cool/Websocket/EventQueue.hpp"
+#include "Cool/Websocket/ResponseQueue.hpp"
 #include "Cool/Websocket/Task_CheckForWebsocketConnections.hpp"
 #include "Cool/Websocket/Task_WebsocketConnection.hpp"
 #include "Debug/DebugOptions.h"
@@ -76,15 +76,15 @@ void App::init()
 {
     _project_manager.process_command_line_args(make_on_project_loaded(), make_on_project_unloaded(), make_window_title_setter());
 
-    Cool::command_handler() = [](std::string const& command) {
+    Cool::request_handler() = [](std::string const& request) {
         // TODO(Websocket) handle parsing error (throws an exception)
-        nlohmann::json json = nlohmann::json::parse(command);
+        nlohmann::json json = nlohmann::json::parse(request);
 
-        auto const& cmd_code = std::string{json["command"]}; // TODO(Websocket) handle the case where there is no "command" in the json, or it's not of the right type
+        auto const& req_code = std::string{json["request"]}; // TODO(Websocket) handle the case where there is no "request" in the json, or it's not of the right type
 
-        // TODO(Websocket) in a "debug mode" check all arguments and warn if there are some that are not used by the current command, to prevent programming mistakes (and then disable that check when shipping the script, to improve performance)
+        // TODO(Websocket) in a "debug mode" check all arguments and warn if there are some that are not used by the current request, to prevent programming mistakes (and then disable that check when shipping the script, to improve performance)
 
-        if (cmd_code == "ExportImage")
+        if (req_code == "ExportImage")
         {
             std::optional<img::Size> size_opt;
             if (json.contains("width") && json["width"].is_number_integer() && json.contains("height") && json["height"].is_number_integer())
@@ -107,22 +107,22 @@ void App::init()
                 },
             }));
         }
-        else if (cmd_code == "Log")
+        else if (req_code == "Log")
         {
             commands_queue().push_back(make_command(Command_Log{.title = std::string{json["title"]}, .content = std::string{json["content"]}}));
         }
-        else if (cmd_code == "CloseApp")
+        else if (req_code == "CloseApp")
         {
             commands_queue().push_back(make_command(Command_CloseApp{.force_kill_task_in_progress = bool{json["force_kill_task_in_progress"]}}));
         }
-        else if (cmd_code == "OpenProject")
+        else if (req_code == "OpenProject")
         {
             commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["path"]}}}));
         }
-        else if (cmd_code == "GetVersionName")
+        else if (req_code == "GetVersionName")
         {
-            auto lock = std::unique_lock{Cool::event_queue_mutex()};
-            Cool::event_queue().push_back(Cool::Event_GetVersionName{});
+            auto lock = std::unique_lock{Cool::response_queue_mutex()};
+            Cool::response_queue().push_back(Cool::Event_GetVersionName{});
         }
     };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
