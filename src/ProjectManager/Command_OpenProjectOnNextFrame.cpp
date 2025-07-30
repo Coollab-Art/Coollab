@@ -5,7 +5,7 @@ namespace Lab {
 
 void Command_OpenProjectOnNextFrame::execute(CommandExecutionContext_Ref const& ctx) const
 {
-    ctx.project_manager().open_project_on_next_frame(path);
+    ctx.project_manager().open_project_on_next_frame(path, _callback);
 }
 
 [[nodiscard]] auto Command_OpenProjectOnNextFrame::to_string() const -> std::string

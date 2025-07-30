@@ -504,23 +504,27 @@ auto ProjectManager::file_dialog_to_open_project() -> std::optional<std::filesys
     });
 }
 
-void ProjectManager::open_project_on_next_frame(std::filesystem::path const& file_path)
+void ProjectManager::open_project_on_next_frame(std::filesystem::path const& file_path, std::function<void(Cool::Event)> const& callback)
 {
-    _project_to_open_on_next_frame = file_path;
+    _next_frame_args = {._project_to_open_on_next_frame = file_path, ._callback = callback};
 }
 
 void ProjectManager::open_requested_project_if_any(OnProjectLoaded const& on_project_loaded, OnProjectUnloaded const& on_project_unloaded, SetWindowTitle const& set_window_title)
 {
-    if (_project_to_open_on_next_frame.has_value())
+    if (_next_frame_args._project_to_open_on_next_frame.has_value())
     {
-        open_project(*_project_to_open_on_next_frame, on_project_loaded, on_project_unloaded, set_window_title);
+        open_project(*_next_frame_args._project_to_open_on_next_frame, on_project_loaded, on_project_unloaded, set_window_title);
         {
-            std::unique_lock lock{Cool::response_queue_mutex()};
-            Cool::response_queue().push_back(Cool::Event_OpenedProject{
-                .path = *_project_to_open_on_next_frame,
-            });
+            if (_next_frame_args._callback)
+            {
+                std::unique_lock lock{Cool::response_queue_mutex()};
+                _next_frame_args._callback(Cool::Event_OpenedProject{
+                    .path = *_next_frame_args._project_to_open_on_next_frame,
+                });
+            }
         }
-        _project_to_open_on_next_frame.reset();
+        _next_frame_args._project_to_open_on_next_frame.reset();
+        _next_frame_args._callback = nullptr;
     }
 }
 

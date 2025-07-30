@@ -11,6 +11,7 @@
 #include "Cool/View/ForwardingOrTextureView.hpp"
 #include "Cool/View/TextureView.hpp"
 #include "Cool/View/ViewsManager.h"
+#include "Cool/Websocket/Event.hpp"
 #include "Cool/Window/WindowManager.h"
 #include "Debug/DebugOptions.h"
 #include "Gallery/GalleryPublisher.hpp"
@@ -102,8 +103,12 @@ public: // Needs to be public so we can call it in the NodesConfig
     auto make_on_project_unloaded() -> OnProjectUnloaded;
     auto make_save_thumbnail() -> SaveThumbnail;
 
-    void quick_image_export();
-    void image_export(img::ImageExportParams const& image_export_params);
+    // void quick_image_export();
+    void image_export(
+        img::ImageExportParams const&           image_export_params = {},
+        std::function<void(Cool::Event)> const& start_callback      = nullptr,
+        std::function<void(Cool::Event)> const& end_callback        = nullptr
+    );
 
     void close_app(bool const& force_kill_task_in_progress);
 

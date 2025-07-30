@@ -21,7 +21,7 @@ public:
     void create_new_project_in_file(std::filesystem::path file_path, OnProjectLoaded const&, SetWindowTitle const&);
 
     // We only open projects at the beginning of a frame, because
-    void open_project_on_next_frame(std::filesystem::path const& file_path);
+    void open_project_on_next_frame(std::filesystem::path const& file_path, std::function<void(Cool::Event)> const& callback = nullptr);
     void open_requested_project_if_any(OnProjectLoaded const&, OnProjectUnloaded const&, SetWindowTitle const&);
 
     auto autosave_project(bool must_absolutely_succeed, SetWindowTitle const&) -> bool;
@@ -50,9 +50,14 @@ private:
     auto is_valid_project_name(std::string const& name, NameValidityChecks) const -> bool;
     auto is_valid_project_path(std::filesystem::path const& file_path, NameValidityChecks) const -> bool;
 
+    struct NextFrameArgs {
+        std::optional<std::filesystem::path> _project_to_open_on_next_frame{};
+        std::function<void(Cool::Event)> _callback = nullptr;
+    };
+
 private:
     internal::ProjectManagerImpl         _impl{};
-    std::optional<std::filesystem::path> _project_to_open_on_next_frame{};
+    NextFrameArgs _next_frame_args{};
 
     std::optional<std::string> _next_project_name{};
 };

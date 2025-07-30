@@ -80,8 +80,8 @@ void App::init()
         // TODO(Websocket) handle parsing error (throws an exception)
         nlohmann::json json = nlohmann::json::parse(request);
 
-        auto const& req_code = std::string{json["request"]}; // TODO(Websocket) handle the case where there is no "request" in the json, or it's not of the right type
-
+        auto const& req_code = std::string{json["request"]};                                    // TODO(Websocket) handle the case where there is no "request" in the json, or it's not of the right type
+        auto const  req_id   = json.contains("request_id") ? json["request_id"].get<int>() : 0; // Default = 0 if no id is provided
         // TODO(Websocket) in a "debug mode" check all arguments and warn if there are some that are not used by the current request, to prevent programming mistakes (and then disable that check when shipping the script, to improve performance)
 
         if (req_code == "ExportImage")
@@ -105,6 +105,8 @@ void App::init()
                     .project_autosave      = (json.contains("project_autosave") && json["project_autosave"].is_boolean()) ? bool{json["project_autosave"]} : false,
                     .export_file_overwrite = (json.contains("export_file_overwrite") && json["export_file_overwrite"].is_boolean()) ? bool{json["export_file_overwrite"]} : false,
                 },
+                ._start_callback = [req_id](const Cool::Event& event) { Cool::response_queue().push_back(Cool::Response(req_id, event)); },
+                ._end_callback   = [req_id](const Cool::Event& event) { Cool::response_queue().push_back(Cool::Response(req_id, event)); },
             }));
         }
         else if (req_code == "Log")
@@ -117,12 +119,15 @@ void App::init()
         }
         else if (req_code == "OpenProject")
         {
-            commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{.path = std::filesystem::path{std::string{json["path"]}}}));
+            commands_queue().push_back(make_command(Command_OpenProjectOnNextFrame{
+                .path      = std::filesystem::path{std::string{json["path"]}},
+                ._callback = [req_id](const Cool::Event& event) { Cool::response_queue().push_back(Cool::Response(req_id, event)); },
+            }));
         }
         else if (req_code == "GetVersionName")
         {
             auto lock = std::unique_lock{Cool::response_queue_mutex()};
-            Cool::response_queue().push_back(Cool::Event_GetVersionName{});
+            Cool::response_queue().push_back(Cool::Response(req_id, Cool::Event_GetVersionName{}));
         }
     };
     Cool::task_manager().submit(std::make_shared<Cool::Task_CheckForWebsocketConnections>());
@@ -795,18 +800,22 @@ void App::check_inputs()
     }
     if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_E))
     {
-        quick_image_export();
+        image_export();
     }
 }
 
-void App::quick_image_export() // to_remove
+// void App::quick_image_export() // TODO remove
+// {
+//     auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
+//     on_image_export_start(exported_image_path);
+// }
+void App::image_export(
+    img::ImageExportParams const&           image_export_params,
+    std::function<void(Cool::Event)> const& start_callback,
+    std::function<void(Cool::Event)> const& end_callback
+)
 {
-    auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
-    on_image_export_start(exported_image_path);
-}
-void App::image_export(img::ImageExportParams const& image_export_params)
-{
-    auto const exported_image_path = project().exporter.export_image_depending_on_params_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks(), image_export_params);
+    auto const exported_image_path = project().exporter.export_image_depending_on_params_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks(), image_export_params, start_callback, end_callback);
     if (image_export_params.project_autosave)
         on_image_export_start(exported_image_path);
 }

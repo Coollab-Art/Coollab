@@ -5,7 +5,7 @@ namespace Lab {
 
 void Command_ExportImage::execute(CommandExecutionContext_Ref const& ctx) const
 {
-    ctx.app().image_export(image_export_params);
+    ctx.app().image_export(image_export_params, _start_callback, _end_callback);
 }
 
 } // namespace Lab
