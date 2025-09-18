@@ -1,0 +1,15 @@
+.buttonsRow {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .buttonsRow {
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,44 @@
+.gallerySection {
+  padding: 0 1.5em 0 1.5em;
+  background-color: var(--coollab-primary-color);
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.imageTile {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-max);
+  transition: transform 0.3s ease;
+}
+
+.imageTile:hover {
+  transform: scale(1.03);
+}
+
+.narrow {
+  flex: 0 0 35%;
+}
+
+.wide {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .narrow,
+  .wide {
+    flex: none;
+    width: 100%;
+  }
+}

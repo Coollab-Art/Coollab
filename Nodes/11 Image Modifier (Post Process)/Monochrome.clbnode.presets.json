@@ -9,22 +9,6 @@
                         {
                             "index": 7,
                             "data": {
-                                "Name": "Image",
-                                "Value": {
-                                    "sRGB": {
-                                        "x": 0.0,
-                                        "y": 0.0,
-                                        "z": 0.0
-                                    }
-                                },
-                                "Metadata": {
-                                    "Is HDR": false
-                                }
-                            }
-                        },
-                        {
-                            "index": 7,
-                            "data": {
                                 "Name": "Color",
                                 "Value": {
                                     "sRGB": {
@@ -42,11 +26,11 @@
                             "index": 2,
                             "data": {
                                 "Name": "Brightness",
-                                "Value": 0.6561224460601807,
+                                "Value": 0.656000018119812,
                                 "Metadata": {
                                     "Bounds": {
                                         "Has min bound": true,
-                                        "Min": 0.0,
+                                        "Min": 9.999999974752428e-7,
                                         "Has max bound": false,
                                         "Max": 1.0,
                                         "Drag speed": 0.009999999776482582,

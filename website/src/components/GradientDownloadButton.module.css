@@ -1,0 +1,17 @@
+.gradientDownloadButton {
+  display: inline-block;
+  color: var(--coollab-light-color);
+  background: var(--coollab-gradient);
+  border-radius: var(--radius-mid);
+  padding: 0.5rem 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.gradientDownloadButton:hover {
+  filter: brightness(1.2);
+  color: var(--coollab-light-color);
+  text-decoration: none;
+  border-radius: var(--radius-max);
+}

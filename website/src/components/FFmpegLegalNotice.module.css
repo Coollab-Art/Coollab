@@ -1,0 +1,14 @@
+.ffmpegLegalNotice {
+  font-style: italic;
+  font-size: 0.8rem;
+  width: 60%;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .ffmpegLegalNotice {
+    width: 80%;
+    font-size: 0.7em;
+  }
+}

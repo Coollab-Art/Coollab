@@ -1,21 +1,21 @@
-import React from "react";
-// import {Carousel} from '3d-react-carousal';
-import Link from "@docusaurus/Link";
+import React from "react"
+import styles from "./GalleryImpl.module.css"
+import LinkExternal from "./LinkExternal"
+import LinkInternal from "./LinkInternal"
 
 class GalleryImpl extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       images: [],
-
       Opened: false,
       currentImageIndex: null,
       previousImageIndex: [],
       nextImageIndex: [],
       index: 0,
-
       animate: false,
-    };
+      transitionDirection: null,
+    }
   }
 
   componentDidMount() {
@@ -23,39 +23,34 @@ class GalleryImpl extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         const images = data.resources.map((info) => {
-          const metadata =
-            info.context !== undefined ? info.context.custom : {};
+          const metadata = info.context !== undefined ? info.context.custom : {}
           return {
             url: `https://res.cloudinary.com/coollab/image/upload/v${info.version}/${info.public_id}.${info.format}`,
             title: metadata.title || "Untitled",
             description: metadata.description || "",
             author_name: metadata.author_name || "",
             author_link: metadata.author_link || "",
-          };
-        });
-        this.setState({ ...this.state, images });
-      });
+          }
+        })
+        this.setState({ images })
+      })
 
-    document.addEventListener("keydown", this.handleKeyDown);
-    document.addEventListener("click", this.handleClick);
+    document.addEventListener("keydown", this.handleKeyDown)
+    document.addEventListener("click", this.handleClick)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown)
   }
 
-  // Possible evolution: if we had a type "favorite" in metadata, we could easily display the best pictures!
-  // generateCarouselImagesTag() {
-  //     const images = this.state.images.slice(0, 5);
-  //     return images.map((image, index) => (
-  //         <img key={index} src={image.url} alt={image.title}/>
-  //     ));
-  // }
-
   openImg = (index) => {
-    this.setSurroundingsFullScreenImages(index);
-    this.setState({ Opened: true });
-  };
+    this.setSurroundingsFullScreenImages(index)
+    this.setState({
+      Opened: true,
+      transitionDirection: null,
+      animate: false,
+    })
+  }
 
   setSurroundingsFullScreenImages = (index) => {
     this.setState({
@@ -63,138 +58,142 @@ class GalleryImpl extends React.Component {
         index - 1 < 0 ? this.state.images.length - 1 : index - 1,
       currentImageIndex: index,
       nextImageIndex: index + 1 > this.state.images.length - 1 ? 0 : index + 1,
-    });
-  };
+    })
+  }
 
   setPrevFullScreenImage = () => {
-    this.setSurroundingsFullScreenImages(this.state.previousImageIndex);
-  };
+    this.setState({ transitionDirection: "left" }, () => {
+      this.setSurroundingsFullScreenImages(this.state.previousImageIndex)
+    })
+  }
 
   setNextFullScreenImage = () => {
-    this.setSurroundingsFullScreenImages(this.state.nextImageIndex);
-  };
+    this.setState({ transitionDirection: "right" }, () => {
+      this.setSurroundingsFullScreenImages(this.state.nextImageIndex)
+    })
+  }
 
   getCurrentFullScreenImage = () => {
-    return this.state.images[this.state.currentImageIndex].url;
-  };
+    return this.state.images[this.state.currentImageIndex].url
+  }
 
   closeImg = () => {
     this.setState({ animate: true }, () => {
       setTimeout(() => {
-        this.setState({ Opened: false, fullImageSrc: null, animate: false });
-      }, 400); /* Duration of the animation in milliseconds */
-    });
-  };
+        this.setState({ Opened: false, fullImageSrc: null, animate: false })
+      }, 400)
+    })
+  }
 
   handleKeyDown = (event) => {
     if (this.state.Opened) {
-      if (event.key === "Escape") this.closeImg();
-      if (event.key === "ArrowLeft") this.setPrevFullScreenImage();
-      if (event.key === "ArrowRight") this.setNextFullScreenImage();
+      if (event.key === "Escape") this.closeImg()
+      if (event.key === "ArrowLeft") this.setPrevFullScreenImage()
+      if (event.key === "ArrowRight") this.setNextFullScreenImage()
     }
-  };
+  }
 
   handleClick = (event) => {
     if (this.state.Opened) {
-      const openingImg = [...document.querySelectorAll(".gallery-img")];
-      const leftButton = document.querySelector(".prev-button");
-      const rightButton = document.querySelector(".next-button");
-      const closeButton = document.querySelector(".close-button");
+      const overlay = document.querySelector(`.${styles.imgOverlay}`)
+      const isInsideOverlay = overlay && overlay.contains(event.target)
 
-      if (
-        openingImg.includes(event.target) ||
-        event.target === leftButton ||
-        event.target === rightButton ||
-        event.target === closeButton
-      ) {
-        return;
+      const isButton =
+        event.target.closest(`.${styles.prevButton}`) ||
+        event.target.closest(`.${styles.nextButton}`) ||
+        event.target.closest(`.${styles.closeButton}`)
+
+      if (!isInsideOverlay || isButton) {
+        return
       }
-      this.closeImg();
+
+      this.closeImg()
     }
-  };
+  }
 
   render() {
-    const images = this.state.images.map((image, i) => {
-      return (
-        <div className="gallery-frame" key={i}>
-          <img
-            src={image.url}
-            className="gallery-img"
-            alt=""
-            onClick={() => this.openImg(i)}
-          ></img>
+    const images = this.state.images.map((image, i) => (
+      <div className={styles.galleryFrame} key={i}>
+        <img
+          src={image.url}
+          className={styles.galleryImg}
+          alt=""
+          onClick={() => this.openImg(i)}
+          style={{ animationDelay: `${i * 100}ms` }}
+        />
 
-          <div className="gallery-infos">
-            <h2>{image.title}</h2>
-            <h3>
-              {image.author_name || image.author_link ? (
-                <span>
-                  by{" "}
-                  {image.author_link ? (
-                    <a href={image.author_link} target="_blank">
-                      {image.author_name || "Unknown"}
-                    </a>
-                  ) : (
-                    image.author_name || "Unknown"
-                  )}
-                </span>
-              ) : null}
-            </h3>
-
-            {image.description && <>{image.description}</>}
-            <br></br>
-          </div>
+        <div className={styles.galleryInfos}>
+          <h2>{image.title}</h2>
+          <h3>
+            {image.author_name || image.author_link ? (
+              <span>
+                by{" "}
+                {image.author_link ? (
+                  <LinkExternal to={image.author_link}>
+                    {image.author_name || "Unknown"}
+                  </LinkExternal>
+                ) : (
+                  image.author_name || "Unknown"
+                )}
+              </span>
+            ) : null}
+          </h3>
+          {image.description && <>{image.description}</>}
         </div>
-      );
-    });
+      </div>
+    ))
 
     return (
-      <div className="gallery">
+      <div className={styles.gallery}>
         <h2>Discover all of the community's incredible art!</h2>
         <h3>
-          <i>
-            Submit your own artwork with <Link to="/Download">Coollab️</Link> 🎨
-          </i>
+          Submit your own artwork with{" "}
+          <LinkInternal to="/Download">Coollab️</LinkInternal> 🎨
         </h3>
-        {/*<Carousel*/}
-        {/*    slides={this.generateCarouselImagesTag()}*/}
-        {/*    autoplay={true}*/}
-        {/*    interval={3000}*/}
-        {/*/>*/}
-        {/*<div className="gallery-header">*/}
-        {/*    <h3><i>Hover to know more 🖱️</i></h3>*/}
-        {/*</div>*/}
+
         <div
-          className="gallery-impl"
+          className={styles.galleryImpl}
           style={{ pointerEvents: this.state.Opened ? "none" : "auto" }}
         >
-          {/* So as we cannot click on other images behind when one full screen */}
           {images}
         </div>
 
         {this.state.Opened && (
-          <div className="img-overlay">
+          <div className={styles.imgOverlay}>
             <img
+              key={`${this.state.Opened}-${this.state.currentImageIndex}-${
+                this.state.transitionDirection || "open"
+              }`}
               src={this.getCurrentFullScreenImage()}
-              className={
-                this.state.animate ? "animate-scale-down" : "full-image"
-              }
-              alt="Fullscreen image"
+              className={[
+                styles.fullImage,
+                this.state.animate
+                  ? styles.animateScaleDown
+                  : this.state.transitionDirection === "left"
+                  ? styles.slideLeftEnter
+                  : this.state.transitionDirection === "right"
+                  ? styles.slideRightEnter
+                  : styles.animateScaleUp,
+              ].join(" ")}
+              alt=""
             />
-            <i className="close-button fa fa-times" onClick={this.closeImg}></i>
             <i
-              className="prev-button fa fa-arrow-left"
+              className={`fa fa-times ${styles.closeButton}`}
+              onClick={this.closeImg}
+            ></i>
+            <i
+              className={`fa fa-arrow-left ${styles.prevButton}`}
               onClick={this.setPrevFullScreenImage}
             ></i>
             <i
-              className="next-button fa fa-arrow-right"
+              className={`fa fa-arrow-right ${styles.nextButton}`}
               onClick={this.setNextFullScreenImage}
             ></i>
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default GalleryImpl;
+export default GalleryImpl

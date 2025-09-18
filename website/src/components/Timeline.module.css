@@ -1,0 +1,80 @@
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  column-gap: 30px;
+  row-gap: 8rem;
+
+  position: relative;
+}
+
+.image {
+  width: 300px;
+  border-radius: var(--radius-max);
+  border: 2px solid;
+}
+
+.dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.number {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+}
+
+/* Line connecting the dots */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 54.64%;
+  top: 10%;
+  bottom: 10%;
+  width: 4px;
+  background: var(--coollab-gradient-vertical);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.centerInCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerVerticallyInCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    padding: 0 2em;
+  }
+  /* .timeline::before {
+    height: 65%;
+    top: 17%;
+    width: 5px;
+  } */
+  .step {
+    margin: 2.5rem 0;
+  }
+  .stepImage {
+    width: 220px;
+    height: 120px;
+  }
+  .stepLabel {
+    font-size: 1.2rem;
+  }
+}

@@ -45,48 +45,45 @@ TEST_CASE("process_link()")
 
 namespace Lab {
 
-void Task_PublishImageToGallery::execute()
+auto Task_PublishImageToGallery::execute() -> Cool::TaskCoroutine
 {
 #if CPPHTTPLIB_OPENSSL_SUPPORT
-    TaskWithProgressBar::change_notification_when_execution_starts();
-
-    auto const image_png_data =
-        img::save_png_to_string(
-            _image,
-            stbiw_SaveOptions{
-                .cancel_requested = [&]() { return cancel_requested(); },
-                .set_progress     = [&](float progress) { set_progress(0.9f * progress); },
-            }
-        );
+    auto const image_png_data = img::save_png_to_string(
+        _image,
+        stbiw_SaveOptions{
+            .cancel_requested = [&]() { return has_been_canceled(); },
+            .set_progress     = [&](float progress) { set_progress(0.9f * progress); },
+        }
+    );
     if (!image_png_data.has_value())
     {
         _result = tl::make_unexpected("Failed to convert image to PNG, please try again."s);
-        return;
+        co_return;
     }
     auto cli = httplib::SSLClient{"api.cloudinary.com"};
 
     // Create the multipart/form-data request
-    auto const items = httplib::MultipartFormDataItems{
+    auto const items = httplib::UploadFormDataItems{
         // Add the image file as a binary data item
-        httplib::MultipartFormData{
+        httplib::UploadFormData{
             .name         = "file",
             .content      = *image_png_data,
             .filename     = "image.png",
             .content_type = "image/png",
         },
-        httplib::MultipartFormData{
+        httplib::UploadFormData{
             .name         = "upload_preset",
             .content      = "gallery",
             .filename     = {},
             .content_type = {},
         },
-        httplib::MultipartFormData{
+        httplib::UploadFormData{
             .name         = "tags",
             .content      = "gallery",
             .filename     = {},
             .content_type = {},
         },
-        httplib::MultipartFormData{
+        httplib::UploadFormData{
             .name    = "context",
             .content = fmt::format(
                 "title={}|description={}|author_name={}|author_link={}|email={}|agreed_to_have_it_shared_on_our_instagram={}",
@@ -125,7 +122,7 @@ auto Task_PublishImageToGallery::notification_after_execution_completes() const 
         return {
             .type                 = ImGuiNotify::Type::Success,
             .title                = name(),
-            .custom_imgui_content = []() {
+            .custom_imgui_content = [](auto&&) {
                 Cool::ImGuiExtras::markdown("You can now see your image online at [https://coollab-art.com/Gallery](https://coollab-art.com/Gallery)");
             },
         };

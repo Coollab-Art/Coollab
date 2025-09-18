@@ -1,0 +1,25 @@
+INPUT UV->LinearRGB_PremultipliedA 'Image';
+INPUT float 'Strength';
+
+LinearRGB_PremultipliedA main(UV uv)
+{
+    const float kernel[9] = float[](
+        0, -1, 0,
+        -1, 5, -1,
+        0, -1, 0
+    );
+    vec4 color = vec4(0.);
+    int  i     = 0;
+
+    for (int y = -1; y <= 1; y++)
+    {
+        for (int x = -1; x <= 1; x++)
+        {
+            vec2 offset = vec2(float(x), float(y)) * 'Strength' / 1000.;
+            color += 'Image'(uv + offset) * kernel[i];
+            i++;
+        }
+    }
+
+    return color;
+}

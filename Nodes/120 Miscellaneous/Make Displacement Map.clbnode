@@ -2,20 +2,27 @@
 
 INPUT UV->float 'Height Map';
 INPUT bool 'Normalize';
+INPUT bool 'Absolute Value';
+INPUT float 'Precision';
 
 vec2 main(UV uv)
 {
-    float off = 0.0001;
+    float off = 'Precision' / 10000.f;
 
-    vec2 bob = (vec2(
+    vec2 res = (vec2(
                     'Height Map'(uv + off * vec2(1, 0)),
                     'Height Map'(uv + off * vec2(0, 1))
                 )
-                - 'Height Map'(uv)
+                - vec2(
+                    'Height Map'(uv - off * vec2(1, 0)),
+                    'Height Map'(uv - off * vec2(0, 1))
+                )
                )
-               / off;
+               / off / 2.f;
 
     if ('Normalize')
-        bob = normalize(bob);
-    return bob;
+        res = normalize(res);
+    if ('Absolute Value')
+        res = abs(res);
+    return res;
 }

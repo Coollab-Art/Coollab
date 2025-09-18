@@ -11,7 +11,9 @@
 #include "Cool/ImGui/Fonts.h"
 #include "Cool/ImGui/IcoMoonCodepoints.h"
 #include "Cool/ImGui/ImGuiExtras.h"
+#include "Cool/ImGui/ImGuiExtrasStyle.h"
 #include "Cool/ImGui/icon_fmt.h"
+#include "Cool/ImGui/markdown.h"
 #include "Cool/Image/SaveImage.h"
 #include "Cool/Input/CTRL_OR_CMD.hpp"
 #include "Cool/Log/message_console.hpp"
@@ -113,7 +115,9 @@ void App::update()
     if (!project().exporter.is_exporting())
     {
         project().clock.update();
-        auto const render_size = render_view().desired_image_size(project().view_constraint); // TODO(JF) Integrate the notion of View Constraint inside the TextureView ? But that's may be too much coupling
+        auto const render_size = spout_out_manager().is_active()
+                                     ? spout_out_manager().texture_size()
+                                     : render_view().desired_image_size(project().view_constraint); // TODO(JF) Integrate the notion of View Constraint inside the TextureView ? But that's may be too much coupling
         polaroid().render(render_size, project().clock.time(), project().clock.delta_time());
     }
     else
@@ -159,6 +163,7 @@ void App::on_shutdown()
     _tips_manager.on_app_shutdown();
     _is_shutting_down = true;
     DebugOptions::save();
+    _project_manager.on_shutdown();
 }
 
 void App::on_project_loaded()
@@ -169,6 +174,9 @@ void App::on_project_loaded()
     project().view_constraint.set_shared_aspect_ratio(project().shared_aspect_ratio);
     project().exporter.set_shared_aspect_ratio(project().shared_aspect_ratio);
     _gallery_publisher.set_shared_aspect_ratio(project().shared_aspect_ratio);
+    spout_out_manager().set_shared_aspect_ratio(project().shared_aspect_ratio);
+
+    project().spout_out_manager.activate_ifn();
 
     auto const ctx = command_execution_context();
     for (auto& [_, node] : project().modules_graph->graph().nodes())
@@ -270,6 +278,9 @@ static void imgui_window_console()
 
 void App::render(img::Size size, Cool::Time time, Cool::Time delta_time)
 {
+    if (_project_manager.is_in_safe_mode())
+        return;
+
     if (_last_time != time)
     {
         _last_time = time;
@@ -279,6 +290,9 @@ void App::render(img::Size size, Cool::Time time, Cool::Time delta_time)
         data_to_pass_to_shader(size, time, delta_time),
         data_to_generate_shader_code()
     );
+
+    if (spout_out_manager().is_active())
+        spout_out_manager().send_texture(project().modules_graph->final_texture());
 }
 
 void App::imgui_window_cameras()
@@ -324,6 +338,16 @@ void App::imgui_window_cameras()
 
 void App::imgui_window_view()
 {
+    if (_project_manager.is_in_safe_mode())
+    {
+        ImGui::Begin(Cool::icon_fmt("Crash", ICOMOON_LIFEBUOY).c_str());
+        Cool::ImGuiExtras::warning_text("Safe Mode");
+        Cool::ImGuiExtras::markdown("Rendering is disabled because the project crashed last time. Undo your recent changes to the nodes patch, and once you think it shouldn't crash anymore press \"Go!\"");
+        if (ImGui::Button("Go!"))
+            _project_manager.exit_safe_mode();
+        ImGui::End();
+    }
+
     bool const view_in_fullscreen = project().exporter.is_exporting() || _wants_view_in_fullscreen;
     {
         if (!_view_was_in_fullscreen_last_frame && view_in_fullscreen)
@@ -471,6 +495,7 @@ void App::imgui_windows()
     imgui_window_view();
     imgui_window_exporter();
     imgui_window_console();
+    spout_out_manager().imgui_window();
     if (inputs_are_allowed())
         imgui_windows_only_when_inputs_are_allowed();
 }
@@ -661,6 +686,8 @@ void App::commands_menu()
             if (_output_view.is_open())
                 project().shared_aspect_ratio.fill_the_view = true;
         }
+        if (ImGui::Selectable(ICOMOON_IMAGE " Spout/Syphon OUT config"))
+            spout_out_manager().open_imgui_window();
         if (ImGui::Selectable(ICOMOON_FOLDER_OPEN " Open user-data folder"))
             Cool::open_folder_in_explorer(Cool::Path::user_data());
         ImGui::EndMenu();
@@ -682,6 +709,7 @@ void App::about_menu()
     {
         if (ImGui::Button("Website"))
             Cool::open_link("https://coollab-art.com/");
+        ImGui::SetItemTooltip("%s", "https://coollab-art.com/");
         if (ImGui::Button("License"))
             _license_window_is_open = true;
 
@@ -699,13 +727,14 @@ void App::imgui_menus()
     commands_menu();
 
     _project_manager.imgui_project_name_in_the_middle_of_the_menu_bar(make_window_title_setter());
-
-    ImGui::SetCursorPosX( // HACK while waiting for ImGui to support right-to-left layout. See issue https://github.com/ocornut/imgui/issues/5875
-        ImGui::GetWindowSize().x
-        - ImGui::CalcTextSize("AboutDebug").x
-        - 3.f * ImGui::GetStyle().ItemSpacing.x
-        - ImGui::GetStyle().WindowPadding.x
-    );
+    ImGui::Dummy({
+        // HACK while waiting for ImGui to support right-to-left layout. See issue https://github.com/ocornut/imgui/issues/5875
+        ImGui::GetContentRegionAvail().x
+            - ImGui::CalcTextSize("AboutDebug").x
+            - 4.f * Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x
+            - std::max(Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x - ImGui::GetStyle().WindowPadding.x, 0.f),
+        0.f,
+    });
     about_menu();
     debug_menu();
 }
@@ -729,7 +758,7 @@ void App::check_inputs()
     {
         _wants_view_in_fullscreen = false;
     }
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_E))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_E))
     {
         auto const exported_image_path = project().exporter.export_image_with_current_settings_using_a_task(project().clock.time(), project().clock.delta_time(), polaroid(), image_export_path_checks());
         on_image_export_start(exported_image_path);
@@ -741,14 +770,14 @@ void App::check_inputs__history()
     auto exec = reversible_command_executor_without_history();
 
     // Undo
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Z))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Z))
     {
         project().history.move_backward(exec);
     }
 
     // Redo
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Y)
-        || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiMod_Shift | ImGuiKey_Z))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Y)
+        || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiMod_Shift | ImGuiKey_Z))
     {
         project().history.move_forward(exec);
     }
@@ -758,15 +787,15 @@ void App::check_inputs__project()
 {
     auto const ctx = command_execution_context();
 
-    if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiMod_Shift | ImGuiKey_S))
+    if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiMod_Shift | ImGuiKey_S))
     {
         save_as();
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_S))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_S))
     {
         ctx.execute(Command_SaveProject{.is_autosave = false, .must_absolutely_succeed = false});
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_O))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_O))
     {
         if (DebugOptions::allow_user_to_open_any_file())
         {
@@ -775,13 +804,13 @@ void App::check_inputs__project()
                 ctx.execute(Command_OpenProjectOnNextFrame{*path});
         }
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_KeypadAdd)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Equal))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadAdd)
+             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Equal))
     {
         Cool::user_settings().change_ui_zoom(+1.f);
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_KeypadSubtract)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Shortcut | ImGuiKey_Minus))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadSubtract)
+             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Minus))
     {
         Cool::user_settings().change_ui_zoom(-1.f);
     }

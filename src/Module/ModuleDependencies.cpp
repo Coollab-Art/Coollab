@@ -60,6 +60,11 @@ void update_dependencies_from_nodes_graph(ModuleDependencies& dependencies, Cool
                     if (webcam)
                         dependencies.always_rerender = true;
                 }
+                {
+                    auto const* spout_syphon = std::get_if<Cool::SharedVariable<Cool::TextureDescriptor_SpoutSyphon>>(&value_input);
+                    if (spout_syphon)
+                        dependencies.always_rerender = true;
+                }
             }
         });
     }

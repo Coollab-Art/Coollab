@@ -1,6 +1,8 @@
-import YoutubeVideo from "@site/src/components/YoutubeVideo"
+import YoutubePlaylist from "@site/src/components/YoutubePlaylist"
 
-<YoutubeVideo id="swMZGsGje4E "/>
+Coollab's main goal is to be as intuitive and easy to use as possible. Effects are high-level and they just work out of the box!
+Start with any image or shape, like your Webcam, add any modifier on top of it, like a Kaleidoscope, and you already have some cool results. You can then play with the 100s of effects to change the color, distort the image, add particles, react to audio, and much more!
+<YoutubePlaylist id="PLuMMMaL5kN3mG6fSeSYTqC-sc_OTX3unQ"/>
 <br/>
 Hello and welcome to this first tutorial series on the Coollab software!
 This series focuses on various basic aspects of the software and serves as an introduction for new users.

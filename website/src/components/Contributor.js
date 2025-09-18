@@ -1,18 +1,21 @@
 import React from "react"
+import style from "./Contributor.module.css"
+import LinkExternal from "./LinkExternal"
 
-export default ({ name, github_name, link, roles }) => {
+export default function ({ name, github_name, link, roles }) {
   return (
-    <span>
-      <b>
-        <a href={link} target="_blank">
-          <img
-            src={`https://avatars.githubusercontent.com/${github_name}`}
-            width={20}
-          />{" "}
-          {name}
-        </a>
-      </b>
-      , <i>{roles.join(" | ")}</i>
-    </span>
+    <LinkExternal to={link}>
+      <div className={style.contributorCard}>
+        <img
+          className={style.contributorAvatar}
+          src={`https://avatars.githubusercontent.com/${github_name}`}
+          alt={name}
+        />
+        <div>
+          <div className={style.contributorName}>{name}</div>
+          <div className={style.contributorRoles}>{roles.join(", ")}</div>
+        </div>
+      </div>
+    </LinkExternal>
   )
 }

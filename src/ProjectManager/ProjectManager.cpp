@@ -1,11 +1,14 @@
 #include "ProjectManager.hpp"
+#include <imgui.h>
 #include <ImGuiNotify/ImGuiNotify.hpp>
 #include <filesystem>
+#include <open/open.hpp>
 #include <reg/src/generate_uuid.hpp>
 #include "COOLLAB_FILE_EXTENSION.hpp"
 #include "CommandCore/execute_command.hpp"
 #include "Command_OpenProjectOnNextFrame.hpp"
 #include "Cool/CommandLineArgs/CommandLineArgs.h"
+#include "Cool/CrashDetection/CrashDetection.hpp"
 #include "Cool/File/File.h"
 #include "Cool/ImGui/ImGuiExtras.h"
 #include "Cool/ImGui/ImGuiExtrasStyle.h"
@@ -93,6 +96,24 @@ void ProjectManager::process_command_line_args(OnProjectLoaded const& on_project
     }
 }
 
+void ProjectManager::on_shutdown() const
+{
+    remove_crash_marker();
+}
+
+void ProjectManager::create_crash_marker_and_check_for_previous_crash()
+{
+    if (Cool::has_crashed(project_path()))
+        _safe_mode = true;
+    Cool::create_crash_marker(project_path());
+}
+
+void ProjectManager::remove_crash_marker() const
+{
+    if (!_safe_mode) // In safe mode we don't remove the crash marker, so that we know next time we open that we still need to be in safe mode
+        Cool::remove_crash_marker(project_path());
+}
+
 void ProjectManager::create_new_project(OnProjectLoaded const& on_project_loaded, SetWindowTitle const& set_window_title)
 {
     create_new_project_in_folder(Cool::Path::user_data() / "Projects", on_project_loaded, set_window_title);
@@ -116,6 +137,7 @@ void ProjectManager::create_new_project_in_file(std::filesystem::path file_path,
     file_path = Cool::File::find_available_path(file_path, Cool::PathChecks{});
     // Save immediately, so that no one will try to create another project with the same name, thinking the name is not in use
     std::ignore = save_project_impl(file_path, true /*must_absolutely_succeed*/, set_window_title);
+    create_crash_marker_and_check_for_previous_crash();
 }
 
 void ProjectManager::open_project(std::filesystem::path const& file_path, OnProjectLoaded const& on_project_loaded, OnProjectUnloaded const& on_project_unloaded, SetWindowTitle const& set_window_title)
@@ -130,21 +152,26 @@ void ProjectManager::open_project(std::filesystem::path const& file_path, OnProj
             ImGuiNotify::send({
                 .type     = ImGuiNotify::Type::Error,
                 .title    = "Failed to open project",
-                .content  = fmt::format("We failed to save the current project, so we didn't open the new one because we would have lost the changes to the current project.\n{}", Cool::File::weakly_canonical(file_path)),
+                .content  = fmt::format("We failed to save the current project, so we didn't open the new one because we would have lost the changes to the current project."),
                 .duration = std::nullopt,
             });
             return;
         }
         on_project_unloaded();
+        remove_crash_marker();
     }
 
     auto maybe_project = _impl.load(file_path);
     if (!maybe_project.has_value())
     {
         ImGuiNotify::send({
-            .type     = ImGuiNotify::Type::Error,
-            .title    = "Failed to open project",
-            .content  = maybe_project.error() + fmt::format("\n{}", Cool::File::weakly_canonical(file_path)),
+            .type                 = ImGuiNotify::Type::Error,
+            .title                = "Failed to open project",
+            .content              = maybe_project.error(),
+            .custom_imgui_content = [file_path](auto&&) {
+                if (ImGui::Button("Try to open in file explorer"))
+                    Cool::open_focused_in_explorer(Cool::File::weakly_canonical(file_path));
+            },
             .duration = std::nullopt,
         });
         create_new_project_in_folder(Cool::File::without_file_name(file_path), on_project_loaded, set_window_title);
@@ -154,6 +181,7 @@ void ProjectManager::open_project(std::filesystem::path const& file_path, OnProj
     _impl.set_project(std::move(maybe_project.value()), on_project_loaded);
     _impl.set_project_path(file_path, set_window_title);
     _impl.register_last_write_time(file_path);
+    create_crash_marker_and_check_for_previous_crash();
 }
 
 auto ProjectManager::autosave_project(bool must_absolutely_succeed, SetWindowTitle const& set_window_title) -> bool
@@ -322,17 +350,23 @@ auto ProjectManager::save_project_as(std::filesystem::path file_path, SaveThumbn
             .type                 = ImGuiNotify::Type::Success,
             .title                = fmt::format("Saved as"),
             .content              = Cool::File::weakly_canonical(file_path).string(),
-            .custom_imgui_content = [wants_to_switch_to_new_project, file_path, old_file_path = _impl.project_path()]() {
+            .custom_imgui_content = [wants_to_switch_to_new_project, file_path, old_file_path = _impl.project_path()](ImGuiNotify::NotificationId const& this_notification_id) {
                 if (wants_to_switch_to_new_project)
                 {
                     if (ImGui::Button(fmt::format("Switch back to \"{}\"", Cool::File::file_name_without_extension(old_file_path)).c_str()))
+                    {
                         execute_command(Command_OpenProjectOnNextFrame{old_file_path});
+                        ImGuiNotify::close_immediately(this_notification_id);
+                    }
                     Cool::ImGuiExtras::help_marker("If you always want to switch back you can make this the default behaviour by enabling \"Save As behaves as a Save Backup\" in the  " ICOMOON_COG "Settings menu");
                 }
                 else
                 {
                     if (ImGui::Button(fmt::format("Switch to \"{}\"", Cool::File::file_name_without_extension(file_path)).c_str()))
+                    {
                         execute_command(Command_OpenProjectOnNextFrame{file_path});
+                        ImGuiNotify::close_immediately(this_notification_id);
+                    }
                     Cool::ImGuiExtras::help_marker("If you always want to switch you can make this the default behaviour by disabling \"Save As behaves as a Save Backup\" in the  " ICOMOON_COG "Settings menu");
                 }
             },
@@ -386,10 +420,13 @@ auto ProjectManager::rename_project(std::string new_name, SetWindowTitle const& 
     if (!save_project_impl(_impl.project_path(new_name), false, set_window_title))
         return false;
 
+    Cool::create_crash_marker(project_path()); // "Rename" the crash marker (the old one is removed below)
+
     if (!_impl.file_contains_data_that_we_did_not_write_ourselves(old_path))
     {
         Cool::File::remove_file(old_path);
         _impl.remove_info_folder_for_the_launcher(old_path);
+        Cool::remove_crash_marker(old_path);
     }
 
     return true;
@@ -457,9 +494,16 @@ void ProjectManager::imgui_project_name_in_the_middle_of_the_menu_bar(SetWindowT
     auto project_name = _next_project_name.value_or(_impl.project_name());
     // TODO(Launcher) make this an ImGuiExtras widget
     auto const width = ImGui::CalcTextSize(project_name.c_str()).x
-                       + 2.f * Cool::ImGuiExtras::GetStyle().tab_bar_padding.x;
+                       + 2.f * Cool::ImGuiExtras::GetStyle().frame_padding.x;
+    ImGui::Dummy({
+        ImGui::GetWindowSize().x * 0.5f
+            - width * 0.5f
+            - (ImGui::GetWindowSize().x - ImGui::GetContentRegionAvail().x)
+            - Cool::ImGuiExtras::GetStyle().menu_bar_spacing.x
+            + ImGui::GetStyle().WindowPadding.x,
+        0.f,
+    });
     ImGui::SetNextItemWidth(width);
-    ImGui::SetCursorPosX(ImGui::GetWindowSize().x * 0.5f - width * 0.5f);
 
     if (ImGui::InputText("##project_name", &project_name))
         _next_project_name = project_name;

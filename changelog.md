@@ -1,5 +1,86 @@
 # Changelog
 
+##
+
+- 🟦 Added a Seed parameter to "Film Grain"
+
+## 1.6.1 Caching
+
+- 🐛 Fix crash when creating a new project
+
+## 1.6.0 Caching
+
+- ✨ Added a "Caching" node that can help the performance a lot in some cases (e.g. when putting it before a Chromatic Aberration, a Glow, or any other node that needs to sample its input several times, i.e. nodes that have a Quality / Count / Iterations parameter). What the Caching node does is render an image of everything that comes before it, and pass it to the next nodes. This can prevent recomputing complex nodes several times, but can also lead to some visual artifacts (i.e. a Translate would need information that is outside of the cached image and will not be able to get it)
+![](https://github.com/user-attachments/assets/75f613a5-2fcb-4b2a-a697-824d258e82d6)
+- ✨ We now detect if a project crashed and open it in "safe mode" which doesn't render anything to make sure it doesn't crash again. This allow you to undo the last changes you made to your patch to prevent it from crashing again
+- 🤏 After a "Save As", the notification that offers to switch project now closes immediately if you use it
+- 🤏 In the very rare event that a crash would occur in the middle of a save, we now make sure that your file will not get corrupted
+- 🐛 Fixed: clicking on a color ramp to add a mark did not work anymore
+- 🐛 Fixed precision artifacts of Make Displacement Map
+
+## 1.5.0 Spout IN
+
+- 🟦 Added "Spout/Syphon IN" node
+![](https://github.com/user-attachments/assets/2668feb8-f802-4931-8d6b-c5309cb82ba8)
+
+## 1.4.2 Spout OUT
+
+- 🟦 Added a "Julia Fractal" node
+![](https://github.com/user-attachments/assets/ad8f0ca0-bf28-4e87-8faa-e7bf36c41696)
+- 🟦 Renamed node "Video from File" as "Video"
+- 🐛 Disabled multi-viewport on all Linux distributions by default, which should fix UI problems with clicks being offset in context menus
+- 🐛 Fix turning output window fullscreen when multi-viewport is disabled
+- 🐛 Fix missing default image when creating an Image node
+- 🤏 Added a default video when creating a Video node
+- 🤏 Improved error message when we fail to open a project
+- 🤏 Improved error message when we fail to read an image / video file or webcam
+
+## 1.4.1 Spout OUT
+
+- 🟦 Added a "Sharpen" node
+![](https://github.com/user-attachments/assets/f80ff011-e0fb-449d-a57c-2760bd7c7882)
+- 🟦 Improved "Make Displacement Map" node, added two parameters "Absolute Value" and "Precision"
+- 🟦 Added "Get X (Vec2)" and "Get Y (Vec2)" nodes
+- 🤏 In the color picker, RGB values now go from 0 to 255 instead of 0 to 1. HSL values go to respectively 360, 100 and 100
+
+## 1.4.0 Spout OUT
+
+- ✨ Added Spout output
+![](https://github.com/user-attachments/assets/0aed9b02-4302-4e1c-b303-64d230db2050)
+
+## 1.3.3 Color Themes
+
+- 🐛 Fixed: a project created on Windows would fail to open on Linux
+
+## 1.3.2 Color Themes
+
+- 🟦🐛 Fixed the Dithering nodes: they now render as a perfect grid of squares instead of letting the contours of the image show through
+![](https://github.com/user-attachments/assets/04912870-b3d7-43a0-ae99-840a522c65dd)
+
+## 1.3.1 Color Themes
+
+- 🐛 Fix missing padding on the left of the windows' title bars
+- 🤏 Add an icon for the "video export in progress" window
+
+## 1.3.0 Color Themes
+
+- ✨ We exposed the option to create your own color themes!
+![](https://github.com/user-attachments/assets/100088a9-3fdf-4e66-9683-33f262b4a794)
+- 🟦 Added a **colored** version of the "Dithering" node
+![](https://github.com/user-attachments/assets/a5d09fac-894b-4bff-933b-d63a91c7d8bf)
+- 🟦 Added a "Random" node that gives a single random number (as opposed to "Random 1D" which gives an entire strip of random numbers)
+![](https://github.com/user-attachments/assets/fa273c31-ae0c-47e1-a562-f61d6df0bf8a)
+- 🟦 Added a "Random 3D" node
+- 🟦 Renamed node "Random1D" as "Random 1D" and moved it to the "Greyscale" category. Same for "Random2D"
+- 🟦 Renamed node "Voronoise" as "Noise Voronoi"
+- 🟦 Removed node "Noise Cellular" (because it was doing the exact same thing as "Noise Voronoi")
+- ⚡ Slightly improved the speed of the video export
+- 🤏 Improved the remaining time estimation during video export, and made the progress bar update more smoothly instead of freezing and then jumping forward
+- 🐛 Fixed the UI being a bit buggy on Linux Wayland and clicks being offset
+- 🐛 Fixed the missing window decorations on Linux (by switching to X11 instead of Wayland)
+- 🐛 Fixed the ability to drag panels outside of the main window on Linux (by switching to X11 instead of Wayland)
+- 👩‍💻 Important internal change: we can now run as many tasks in parallel as we want. This will prevent e.g. an image export to be stuck at 0% if we are already saturated with other tasks
+
 ## 1.2.0 MacOS
 
 - 💥 [**YOU NEED TO INSTALL THE LATEST VERSION OF THE LAUNCHER (2.0.0)**](https://coollab-art.com/Download). We had a nasty bug that could cause some projects to not appear properly in the launcher. We fixed it but this means all projects created with new versions of Coollab will not work well with the old launcher. We are sorry to add this annoying breaking change, but we decided to do it now while we don't have too many users, and while you don't have too many projects, rather than having the bug break some projects randomly in the future. 
@@ -201,8 +282,8 @@ After:
 - ✨ Added the "Paint" blend mode.
 
 | ![image](https://github.com/Coollab-Art/.github/assets/45451201/6f57a43d-a422-4056-81e1-c691e4c85d84) | ![image](https://github.com/Coollab-Art/.github/assets/45451201/9b12b5bf-7f15-408b-93e9-552e0caa30ea) |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| "Light" mode (what was already there in Coollab)                                                   | "Paint" mode (the new blend mode)                                                                  |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| "Light" mode (what was already there in Coollab)                                                      | "Paint" mode (the new blend mode)                                                                     |
 
 - ✨ Added an Output window that you can project during live shows, while still having your View window on your screen to move the camera and the widgets. To open this window, go in the `Commands` menu and select `Open output window`.
 ![image](https://github.com/Coollab-Art/.github/assets/45451201/3d6a14ec-69ca-44b1-81e0-1d4139b72544)

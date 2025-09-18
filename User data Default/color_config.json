@@ -12,6 +12,11 @@
      "Brightness delta": 0.10499999672174454,
      "Name": "Brighter",
      "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Transparent",
+     "Opacity": 0.5
     }
    ],
    "Name": "Bright"
@@ -283,6 +288,10 @@
    "Category": "Accent",
    "Group": "Normal"
   },
+  "InputTextCursor": {
+   "Category": "Text",
+   "Group": "Normal"
+  },
   "MenuBarBg": {
    "Category": "Bright",
    "Group": "Normal"
@@ -291,7 +300,7 @@
    "Category": "Background",
    "Group": "Modal"
   },
-  "NavHighlight": {
+  "NavCursor": {
    "Category": "Accent",
    "Group": "Normal"
   },
@@ -463,21 +472,29 @@
    "Category": "Medium",
    "Group": "Normal"
   },
-  "TabActive": {
+  "TabDimmed": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TabDimmedSelected": {
    "Category": "Bright",
+   "Group": "Normal"
+  },
+  "TabDimmedSelectedOverline": {
+   "Category": "Accent",
    "Group": "Normal"
   },
   "TabHovered": {
    "Category": "Bright",
    "Group": "Brighter"
   },
-  "TabUnfocused": {
-   "Category": "Medium",
-   "Group": "Normal"
-  },
-  "TabUnfocusedActive": {
+  "TabSelected": {
    "Category": "Bright",
    "Group": "Normal"
+  },
+  "TabSelectedOverline": {
+   "Category": "Accent",
+   "Group": "Brighter"
   },
   "TableBorderLight": {
    "Category": "Background",
@@ -506,6 +523,10 @@
   "TextDisabled": {
    "Category": "Text",
    "Group": "Darker"
+  },
+  "TextLink": {
+   "Category": "Accent",
+   "Group": "Normal"
   },
   "TextSelectedBg": {
    "Category": "Accent",
@@ -538,6 +559,10 @@
   "ToggleHovered": {
    "Category": "Accent",
    "Group": "Brighter"
+  },
+  "TreeLines": {
+   "Category": "Bright",
+   "Group": "Transparent"
   },
   "UrlLink": {
    "Category": "Text",

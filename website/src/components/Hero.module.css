@@ -1,0 +1,96 @@
+.svgWave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 3;
+}
+
+.heroSection {
+  overflow: hidden;
+  position: relative;
+}
+
+.heroContent2 {
+  position: relative;
+  height: 110vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: var(--radius-max);
+  box-sizing: border-box;
+}
+
+.heroContent2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--coollab-gradient);
+  opacity: 0.5;
+  /* mix-blend-mode: screen; */ /* TODO(Website)? */
+  z-index: 1;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/img/chromabb-disk.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px); /* TODO(Website) Remove the blur? but i don't think so */
+  transform: scale(1.05);
+  z-index: 0;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  color: white;
+  margin-top: -10vh;
+}
+
+.heroTitle,
+.heroSubtitle {
+  line-height: 1.1;
+}
+
+.heroTitle {
+  font-size: 7.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  padding: 0;
+  color: white;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .heroSection {
+    height: 95vh;
+  }
+  .heroContent {
+    padding: 0em 2em;
+  }
+  .heroTitle {
+    font-size: 5em;
+    margin-top: 1em;
+  }
+  .heroSubtitle {
+    font-size: 1.3em;
+  }
+}

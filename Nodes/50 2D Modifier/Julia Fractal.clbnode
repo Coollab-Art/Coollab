@@ -1,0 +1,13 @@
+INPUT int 'Detail';
+INPUT float 'Shape';
+INPUT Point2D 'Seed';
+
+UV main(UV Image)
+{
+    vec2 z = Image;
+    vec2 c = 'Seed';
+
+    for (int i = 0; i < 'Detail'; i++)
+        z = complex_pow(z, 'Shape') + c;
+    return z;
+}

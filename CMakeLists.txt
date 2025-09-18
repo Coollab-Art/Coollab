@@ -46,11 +46,15 @@ target_link_libraries(Coollab-Properties INTERFACE Cool::Core)
 cool_setup(${PROJECT_NAME})
 Cool__set_app_icon(${PROJECT_NAME} "res/logo.png" "${CMAKE_SOURCE_DIR}/app-resources/icon.rc")
 
-# Include cmd
+# -----------------
+# ---cmd---
+# -----------------
 add_subdirectory(lib/cmd)
 target_link_libraries(Coollab-Properties INTERFACE cmd::cmd)
 
-# Include range-v3
+# -----------------
+# ---range-v3---
+# -----------------
 target_include_directories(Coollab-Properties SYSTEM INTERFACE lib/range-v3/include)
 install(FILES "lib/range-v3/LICENSE.txt" DESTINATION "license/range-v3")
 
@@ -61,6 +65,7 @@ set(COOLLAB_REQUIRE_ALL_FEATURES OFF CACHE BOOL "Some features are optional, lik
 # -----------------
 set(OPENSSL_USE_STATIC_LIBS ON CACHE BOOL "" FORCE)
 set(HTTPLIB_INSTALL OFF CACHE BOOL "" FORCE)
+set(HTTPLIB_USE_ZSTD_IF_AVAILABLE OFF CACHE BOOL "" FORCE)
 
 if(COOLLAB_REQUIRE_ALL_FEATURES)
     set(HTTPLIB_REQUIRE_OPENSSL ON CACHE BOOL "" FORCE)

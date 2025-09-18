@@ -1,0 +1,71 @@
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.centered {
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  border: 2px solid;
+  border-radius: var(--radius-max);
+  background-color: var(--coollab-secondary-color);
+  padding: 0.7rem;
+  transition: 0.2s ease-in-out;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.cardIcon {
+  min-width: 60px;
+  height: 60px;
+  border-radius: var(--radius-max);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--coollab-light-color);
+  font-size: 1.8rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid var(--coollab-light-color);
+}
+
+.cardText {
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+  color: white;
+}
+
+.notCompactCardText {
+  text-align: center;
+  padding: 0 0.4em;
+}
+
+@media (max-width: 768px) {
+  .cardList {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    align-items: center;
+  }
+  .cardIcon {
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+    margin-right: 0.7rem;
+  }
+  .cardText {
+    font-size: 0.95rem;
+  }
+}

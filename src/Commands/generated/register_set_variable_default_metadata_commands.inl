@@ -32,6 +32,7 @@ LAB_REGISTER_COMMAND(Lab::Command_SetVariableDefaultMetadata<Cool::OSCChannel>)
 LAB_REGISTER_COMMAND(Lab::Command_SetVariableDefaultMetadata<Cool::TimeSpeed>)
 LAB_REGISTER_COMMAND(Lab::Command_SetVariableDefaultMetadata<Cool::TextureDescriptor_Video>)
 LAB_REGISTER_COMMAND(Lab::Command_SetVariableDefaultMetadata<Cool::Time>)
+LAB_REGISTER_COMMAND(Lab::Command_SetVariableDefaultMetadata<Cool::TextureDescriptor_SpoutSyphon>)
 
 LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<bool>)
 LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<int>)
@@ -60,3 +61,4 @@ LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadat
 LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<Cool::TimeSpeed>)
 LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<Cool::TextureDescriptor_Video>)
 LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<Cool::Time>)
+LAB_REGISTER_REVERSIBLE_COMMAND(Lab::ReversibleCommand_SetVariableDefaultMetadata<Cool::TextureDescriptor_SpoutSyphon>)

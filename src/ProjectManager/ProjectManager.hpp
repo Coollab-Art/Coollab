@@ -12,8 +12,15 @@ public:
     auto project() -> Project& { return _impl.project(); }
     auto project() const -> Project const& { return _impl.project(); }
     auto project_path() const -> std::filesystem::path { return _impl.project_path(); }
+    auto project_name() const -> std::string const& { return _impl.project_name(); }
     auto info_folder_for_the_launcher() const -> std::optional<std::filesystem::path> { return _impl.info_folder_for_the_launcher(); }
     auto has_registered_project_to_the_launcher() const -> bool { return _impl.has_registered_project_to_the_launcher(); }
+
+    void on_shutdown() const;
+    /// We are in safe mode when the program crashed last time, and so we should try to avoid actions that could cause it to crash again
+    /// until the users fixes it and tells us to exit safe mode
+    auto is_in_safe_mode() const -> bool { return _safe_mode; }
+    void exit_safe_mode() { _safe_mode = false; }
 
     void process_command_line_args(OnProjectLoaded const&, OnProjectUnloaded const&, SetWindowTitle const&);
     void create_new_project(OnProjectLoaded const&, SetWindowTitle const&);
@@ -50,11 +57,16 @@ private:
     auto is_valid_project_name(std::string const& name, NameValidityChecks) const -> bool;
     auto is_valid_project_path(std::filesystem::path const& file_path, NameValidityChecks) const -> bool;
 
+    void create_crash_marker_and_check_for_previous_crash();
+    void remove_crash_marker() const;
+
 private:
     internal::ProjectManagerImpl         _impl{};
     std::optional<std::filesystem::path> _project_to_open_on_next_frame{};
 
     std::optional<std::string> _next_project_name{};
+
+    bool _safe_mode{false};
 };
 
 } // namespace Lab

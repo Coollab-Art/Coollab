@@ -1,0 +1,53 @@
+.downloadWrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.downloadImage {
+  width: 50%;
+  position: relative;
+  background-color: var(--coollab-secondary-color);
+  border-radius: var(--radius-max);
+}
+
+.downloadImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-max);
+}
+
+.downloadContent {
+  width: 50%;
+  background-color: var(--coollab-primary-color);
+  border-radius: var(--max);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2rem;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .downloadWrapper {
+    flex-direction: column;
+  }
+
+  .downloadImage,
+  .downloadContent {
+    width: 100%;
+    height: 50vh;
+    text-align: center;
+  }
+
+  .downloadContent {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .downloadContent .sectionTitle {
+    font-size: 2.5rem;
+  }
+}

@@ -107,6 +107,8 @@ private:
     auto project() -> Project& { return _project_manager.project(); }
     auto project() const -> Project const& { return _project_manager.project(); }
     void about_menu();
+    auto spout_out_manager() -> Cool::SpoutOutManager& { return project().spout_out_manager; }
+    auto spout_out_manager() const -> Cool::SpoutOutManager const& { return project().spout_out_manager; }
 
 private:
     Cool::Window&                   _main_window;
