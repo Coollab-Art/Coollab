@@ -24,33 +24,6 @@ def all_debug_options():
 
     return [
         DebugOption(
-            name_in_code="generate_dump_file",
-            name_in_ui="Info Dump: Generate file",
-            available_in_release=True,
-            kind=Kind.BUTTON,
-            detailed_description="Creates an info_dump.txt file next to your executable. It can be used when submitting a bug report, in order to give the devs more information.",
-        ),
-        DebugOption(
-            name_in_code="copy_info_dump_to_clipboard",
-            name_in_ui="Info Dump: Copy to clipboard",
-            available_in_release=True,
-            kind=Kind.BUTTON,
-            detailed_description="Copies an info dump to your clipboard. It can be used when submitting a bug report, in order to give the devs more information.",
-        ),
-        DebugOption(
-            name_in_code="show_framerate_window",
-            name_in_ui="Framerate window",
-            available_in_release=True,
-            window_name="Framerate",
-            kind=Kind.WINDOW,
-            default_value=False,
-        ),
-        DebugOption(
-            name_in_code="show_imgui_demo_window",
-            name_in_ui="ImGui Demo window",
-            available_in_release=True,
-        ),
-        DebugOption(
             name_in_code="show_history_window",
             name_in_ui="Show history",
             window_name="History",
@@ -60,6 +33,11 @@ def all_debug_options():
         DebugOption(
             name_in_code="show_nodes_and_links_registries",
             name_in_ui="Show nodes and links registries",
+            available_in_release=True,
+        ),
+        DebugOption(
+            name_in_code="force_rerender_every_frame",
+            name_in_ui="Force rerender every frame",
             available_in_release=True,
         ),
         DebugOption(
@@ -100,23 +78,16 @@ def all_debug_options():
             kind=Kind.WINDOW,
         ),
         DebugOption(
-            name_in_code="test_all_variable_widgets__window",
-            name_in_ui="Test all Variable Widgets",
-            kind=Kind.WINDOW,
-            available_in_release=True,
-        ),
-        DebugOption(
             name_in_code="test_shaders_compilation__window",
             name_in_ui="Test Shaders Compilation",
             kind=Kind.WINDOW,
             available_in_release=True,
         ),
         DebugOption(
-            name_in_code="empty_window",
-            name_in_ui="Open Empty Window",
-            kind=Kind.WINDOW,
+            name_in_code="allow_user_to_open_any_file",
+            name_in_ui="Allow opening any file",
             available_in_release=True,
-            detailed_description="Useful when you want some blank space in your windows layout.",
+            detailed_description="This is dangerous. If you try to open a file that was made with a version of Coollab not compatible with the current one, it might corrupt your file. Prefer opening your project from the Launcher, which will choose the right version for you.",
         ),
     ]
 
@@ -127,6 +98,6 @@ if __name__ == "__main__":
     generate_debug_options(
         output_folder="generated",
         namespace="Lab",
-        cache_file_name="debug-options-lab",
+        cache_file_name="debug_options_lab",
         debug_options=all_debug_options(),
     )

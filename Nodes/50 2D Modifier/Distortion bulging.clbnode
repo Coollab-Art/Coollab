@@ -12,5 +12,5 @@ vec2 distort(vec2 uv, float power)
 
 UV main(UV uv)
 {
-    return distort(uv - 'Center', 'strength');
+    return distort(uv - 'Center', 'strength') + 'Center';
 }

@@ -1,0 +1,9 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+INPUT bool 'Interior Distance'; /// When enabled there will be negative distance values inside the shape. If you disable it the distance will be 0 everywhere inside the shape.
+
+float main(SignedDistance Shape)
+{
+    return 'Interior Distance'
+               ? Shape
+               : max(Shape, 0.);
+}

@@ -1,11 +1,9 @@
 :::info Download
-[**Download Coollab for Windows**](/Coollab-Windows.exe)<br/>
-[**Download Coollab for Linux**](/Coollab-Linux.sh) ⚠ You also need to install FFmpeg: `sudo apt-get install ffmpeg`<br/>
-[**Download Coollab for MacOS**](/Coollab-Mac.dmg) ⚠ You also need to install FFmpeg: [open a terminal](https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac), install [Homebrew](https://brew.sh/) by typing `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`, and then install FFmpeg by typing `brew install ffmpeg`. If you need help [feel free to reach out on any of our social media](https://linktr.ee/coollab_art).
+[**🪟 Coollab for Windows**](/Coollab-Launcher-Windows.exe)<br/>
+[**🐧 Coollab for Linux**](/Coollab-Launcher.AppImage) (If you need help running the AppImage, [check out the official AppImage website](https://appimage.org/))<br/>
+[**🍎 Coollab for MacOS**](/Coollab-Launcher-MacOS.zip)
 
-🌱 **This is the _beta-17_ release** 🌱<br/>
-Coollab is already usable and powerful, but many things are still to be improved.<br/>
-Please share us your feedback [on our Discord](https://discord.gg/QEjqnEy4aT) or at https://github.com/CoolLibs/Lab/issues/new/choose.
+**If you see any problem or missing feature, please share us your feedback [on our Discord](https://discord.com/channels/846087110758891540/1359454789636853921) or [on GitHub](https://github.com/Coollab-Art/Coollab/issues/new/choose)**
 :::
 
-*This software uses code of [FFmpeg](http://ffmpeg.org) licensed under the [GPLv3.0](https://www.gnu.org/licenses/gpl-3.0.html) and its source can be downloaded [here](https://github.com/CoolLibs/Lab).*
+*This software uses code of [FFmpeg](http://ffmpeg.org) licensed under the [GPLv3.0](https://www.gnu.org/licenses/gpl-3.0.html) and its source can be downloaded [here](https://github.com/Coollab-Art/Coollab)*

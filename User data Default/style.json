@@ -1,159 +1,163 @@
 {
-    "value0": {
-        "ImGui Style": {
-            "Alpha": 1.0,
-            "DisabledAlpha": 0.3799999952316284,
-            "WindowPadding": {
-                "x": 8.0,
-                "y": 8.0
-            },
-            "WindowRounding": 2.0,
-            "WindowBorderSize": 1.0,
-            "WindowMinSize": {
-                "x": 32.0,
-                "y": 32.0
-            },
-            "WindowTitleAlign": {
-                "x": 0.0,
-                "y": 0.5
-            },
-            "WindowMenuButtonPosition": 1,
-            "ChildRounding": 2.0,
-            "ChildBorderSize": 1.0,
-            "PopupRounding": 2.0,
-            "PopupBorderSize": 1.0,
-            "FramePadding": {
-                "x": 9.0,
-                "y": 6.0
-            },
-            "FrameRounding": 12.0,
-            "FrameBorderSize": 0.0,
-            "ItemSpacing": {
-                "x": 4.0,
-                "y": 4.0
-            },
-            "ItemInnerSpacing": {
-                "x": 8.0,
-                "y": 4.0
-            },
-            "CellPadding": {
-                "x": 4.0,
-                "y": 4.0
-            },
-            "TouchExtraPadding": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "IndentSpacing": 21.0,
-            "ColumnsMinSpacing": 6.0,
-            "ScrollbarSize": 15.0,
-            "ScrollbarRounding": 12.0,
-            "GrabMinSize": 17.0,
-            "GrabRounding": 12.0,
-            "LogSliderDeadzone": 3.0,
-            "TabRounding": 4.0,
-            "TabBorderSize": 0.0,
-            "TabMinWidthForCloseButton": 0.0,
-            "ColorButtonPosition": 0,
-            "ButtonTextAlign": {
-                "x": 0.5,
-                "y": 0.5
-            },
-            "SelectableTextAlign": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "SeparatorTextBorderSize": 2.0,
-            "SeparatorTextAlign": {
-                "x": 0.0,
-                "y": 0.5
-            },
-            "SeparatorTextPadding": {
-                "x": 0.0,
-                "y": 3.0
-            },
-            "DisplayWindowPadding": {
-                "x": 19.0,
-                "y": 19.0
-            },
-            "DisplaySafeAreaPadding": {
-                "x": 3.0,
-                "y": 3.0
-            },
-            "MouseCursorScale": 1.0,
-            "AntiAliasedLines": true,
-            "AntiAliasedLinesUseTex": true,
-            "AntiAliasedFill": true,
-            "CurveTessellationTol": 1.25,
-            "CircleTessellationMaxError": 0.30000001192092898,
-            "HoverFlagsForTooltipMouse": 16384,
-            "HoverFlagsForTooltipNav": 16384,
-            "HoverDelayShort": 0.15000000596046449,
-            "HoverDelayNormal": 0.4000000059604645,
-            "HoverStationaryDelay": 0.15000000596046449
-        },
-        "ImGuiExtras Style": {
-            "Floating buttons spacing": 4.0,
-            "Frame padding": {
-                "x": 9.0,
-                "y": 4.0
-            },
-            "Tab bar padding": {
-                "x": 9.0,
-                "y": 6.0
-            },
-            "Menu bar spacing": {
-                "x": 5.0,
-                "y": 4.0
-            },
-            "Node title vertical alignment": 0.3089999854564667
-        },
-        "ImNodes Style": {
-            "NodePadding": {
-                "x": 8.0,
-                "y": 8.0,
-                "z": 8.0,
-                "w": 8.0
-            },
-            "NodeRounding": 2.0,
-            "NodeBorderWidth": 0.0,
-            "HoveredNodeBorderWidth": 3.0,
-            "SelectedNodeBorderWidth": 6.0,
-            "PinRounding": 4.0,
-            "PinBorderWidth": 0.0,
-            "LinkStrength": 100.0,
-            "SourceDirection": {
-                "x": 1.0,
-                "y": 0.0
-            },
-            "TargetDirection": {
-                "x": -1.0,
-                "y": 0.0
-            },
-            "ScrollDuration": 0.3499999940395355,
-            "FlowMarkerDistance": 30.0,
-            "FlowSpeed": 150.0,
-            "FlowDuration": 2.0,
-            "PivotAlignment": {
-                "x": 0.5,
-                "y": 0.5
-            },
-            "PivotSize": {
-                "x": 0.0,
-                "y": 0.0
-            },
-            "PivotScale": {
-                "x": 1.0,
-                "y": 1.0
-            },
-            "PinCorners": 240.0,
-            "PinRadius": 0.0,
-            "PinArrowSize": 0.0,
-            "PinArrowWidth": 0.0,
-            "GroupRounding": 2.0,
-            "GroupBorderWidth": 1.0,
-            "HighlightConnectedLinks": 0.0,
-            "SnapLinkToPinDir": 0.0
-        }
-    }
+ "ImGui": {
+  "Alpha": 1.0,
+  "AntiAliasedFill": true,
+  "AntiAliasedLines": true,
+  "AntiAliasedLinesUseTex": true,
+  "ButtonTextAlign": {
+   "x": 0.5,
+   "y": 0.5
+  },
+  "CellPadding": {
+   "x": 3.0,
+   "y": 3.0
+  },
+  "ChildBorderSize": 1.0,
+  "ChildRounding": 1.0,
+  "CircleTessellationMaxError": 0.30000001192092896,
+  "ColorButtonPosition": 0,
+  "ColumnsMinSpacing": 4.0,
+  "CurveTessellationTol": 1.25,
+  "DisabledAlpha": 0.3799999952316284,
+  "DisplaySafeAreaPadding": {
+   "x": 2.0,
+   "y": 2.0
+  },
+  "DisplayWindowPadding": {
+   "x": 15.0,
+   "y": 15.0
+  },
+  "DockingSeparatorSize": 2.0,
+  "FrameBorderSize": 0.0,
+  "FramePadding": {
+   "x": 7.0,
+   "y": 4.0
+  },
+  "FrameRounding": 9.0,
+  "GrabMinSize": 13.0,
+  "GrabRounding": 9.0,
+  "HoverDelayNormal": 0.4000000059604645,
+  "HoverDelayShort": 0.15000000596046448,
+  "HoverFlagsForTooltipMouse": 16384,
+  "HoverFlagsForTooltipNav": 16384,
+  "HoverStationaryDelay": 0.15000000596046448,
+  "IndentSpacing": 16.0,
+  "ItemInnerSpacing": {
+   "x": 6.0,
+   "y": 3.0
+  },
+  "ItemSpacing": {
+   "x": 3.0,
+   "y": 3.5
+  },
+  "LayoutAlign": 0.5,
+  "LogSliderDeadzone": 2.0,
+  "MouseCursorScale": 0.0,
+  "PopupBorderSize": 1.0,
+  "PopupRounding": 1.0,
+  "ScrollbarRounding": 9.0,
+  "ScrollbarSize": 12.0,
+  "SelectableTextAlign": {
+   "x": 0.0,
+   "y": 0.0
+  },
+  "SeparatorTextAlign": {
+   "x": 0.0,
+   "y": 0.5
+  },
+  "SeparatorTextBorderSize": 2.0,
+  "SeparatorTextPadding": {
+   "x": 0.0,
+   "y": 2.0
+  },
+  "TabBarBorderSize": 1.0,
+  "TabBorderSize": 0.0,
+  "TabMinWidthForCloseButton": 0.0,
+  "TabRounding": 3.0,
+  "TableAngledHeadersAngle": 0.6108652949333191,
+  "TouchExtraPadding": {
+   "x": 0.0,
+   "y": 0.0
+  },
+  "WindowBorderSize": 1.0,
+  "WindowMenuButtonPosition": 1,
+  "WindowMinSize": {
+   "x": 25.0,
+   "y": 25.0
+  },
+  "WindowPadding": {
+   "x": 6.0,
+   "y": 6.0
+  },
+  "WindowRounding": 1.0,
+  "WindowTitleAlign": {
+   "x": 0.0,
+   "y": 0.5
+  }
+ },
+ "ImGuiExtras": {
+  "Floating buttons spacing": 3.0,
+  "Frame padding": {
+   "x": 7.0,
+   "y": 3.0
+  },
+  "Menu bar spacing": {
+   "x": 4.0,
+   "y": 3.0
+  },
+  "Node title vertical alignment": 0.3089999854564667,
+  "Tab bar padding": {
+   "x": 7.0,
+   "y": 4.0
+  }
+ },
+ "ImNodes": {
+  "FlowDuration": 2.0,
+  "FlowMarkerDistance": 24.0,
+  "FlowSpeed": 150.0,
+  "GroupBorderWidth": 0.800000011920929,
+  "GroupRounding": 1.600000023841858,
+  "HighlightConnectedLinks": 0.0,
+  "HoveredNodeBorderOffset": 0.0,
+  "HoveredNodeBorderWidth": 2.4000000953674316,
+  "LinkStrength": 100.0,
+  "NodeBorderWidth": 0.0,
+  "NodePadding": {
+   "w": 6.400000095367432,
+   "x": 6.400000095367432,
+   "y": 6.400000095367432,
+   "z": 6.400000095367432
+  },
+  "NodeRounding": 1.600000023841858,
+  "PinArrowSize": 0.0,
+  "PinArrowWidth": 0.0,
+  "PinBorderWidth": 0.0,
+  "PinCorners": 240.0,
+  "PinRadius": 0.0,
+  "PinRounding": 3.200000047683716,
+  "PivotAlignment": {
+   "x": 0.5,
+   "y": 0.5
+  },
+  "PivotScale": {
+   "x": 0.800000011920929,
+   "y": 0.800000011920929
+  },
+  "PivotSize": {
+   "x": 0.0,
+   "y": 0.0
+  },
+  "ScrollDuration": 0.3499999940395355,
+  "SelectedNodeBorderOffset": 0.0,
+  "SelectedNodeBorderWidth": 4.800000190734863,
+  "SnapLinkToPinDir": 0.0,
+  "SourceDirection": {
+   "x": 1.0,
+   "y": 0.0
+  },
+  "TargetDirection": {
+   "x": -1.0,
+   "y": 0.0
+  }
+ }
 }

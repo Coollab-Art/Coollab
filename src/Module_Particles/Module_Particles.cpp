@@ -1,13 +1,24 @@
 #include "Module_Particles.h"
 #include <glm/gtx/matrix_transform_2d.hpp>
-#include "Cool/Exception/Exception.h"
-#include "Module/ShaderBased/set_uniforms_for_shader_based_module.h"
+#include "Cool/Log/message_console.hpp"
+#include "Module/ShaderBased/set_uniforms_for_shader_based_module.hpp"
 #include "Nodes/Node.h"
 
 namespace Lab {
 
-Module_Particles::Module_Particles(Cool::NodeId const& id_of_node_storing_particles_count)
-    : Module{"Particles"}
+static auto module_id()
+{
+    static auto i{0};
+    return i++;
+}
+
+Module_Particles::Module_Particles(Cool::NodeId const& id_of_node_storing_particles_count, std::string texture_name_in_shader, std::vector<std::shared_ptr<Module>> modules_that_we_depend_on, std::vector<Cool::NodeId> nodes_that_we_depend_on)
+    : Module{
+          fmt::format("Particles {}", module_id()),
+          std::move(texture_name_in_shader),
+          std::move(modules_that_we_depend_on),
+          std::move(nodes_that_we_depend_on)
+      }
     , _id_of_node_storing_particles_count{id_of_node_storing_particles_count}
 {
 }
@@ -22,13 +33,13 @@ void Module_Particles::set_simulation_shader_code(tl::expected<std::string, std:
 {
     if (!shader_code)
     {
-        log_simulation_shader_error(shader_code.error());
+        log_simulation_shader_error(tl::make_unexpected(Cool::ErrorMessage{shader_code.error()})); // TODO(Logs) should be a notification
         return;
     }
 
     _shader_code               = *shader_code;
     _particle_system_dimension = dimension;
-    _simulation_shader_error_sender.clear();
+    Cool::message_console().remove(_simulation_shader_error_id);
 
     // TODO(Particles) Don't recreate the particle system every time, just change the shader but keep the current position and velocity of the particles
     try
@@ -63,10 +74,11 @@ void Module_Particles::set_simulation_shader_code(tl::expected<std::string, std:
     }
     catch (Cool::Exception const& e)
     {
-        log_simulation_shader_error(e.error_message());
+        log_simulation_shader_error(tl::make_unexpected(Cool::ErrorMessage{e.error_message()}));
         return;
     }
-    _depends_on = {};
+    _depends_on      = {};
+    _depends_on.time = true; // Particle modules always depend on time
     update_dependencies_from_shader_code(_depends_on, _shader_code);
     request_particles_to_reset();
 }
@@ -84,9 +96,9 @@ auto Module_Particles::desired_particles_count() const -> size_t
     return maybe_node->particles_count().value_or(default_particles_count);
 }
 
-void Module_Particles::log_simulation_shader_error(Cool::OptionalErrorMessage const& maybe_err) const
+void Module_Particles::log_simulation_shader_error(tl::expected<void, Cool::ErrorMessage> const& error) const
 {
-    log_module_error(maybe_err, _simulation_shader_error_sender);
+    log_module_error(error, _simulation_shader_error_id);
 }
 
 void Module_Particles::update_particles_count_ifn()
@@ -112,65 +124,76 @@ void Module_Particles::update()
     update_particles_count_ifn();
 }
 
-void Module_Particles::update_particles(SystemValues const& system_values)
+void Module_Particles::on_time_changed()
+{
+    request_particles_to_update();
+}
+
+void Module_Particles::update_particles(DataToPassToShader const& data)
 {
     //     if (!_particle_system)
     //         return;
 
+    // TODO(WebGPU)
     // #if !defined(COOL_PARTICLES_DISABLED_REASON)
     //     if (DebugOptions::log_when_updating_particles())
-    //         Cool::Log::ToUser::info(name(), "Updated particles");
-
-    //     _particle_system->simulation_shader().bind();
-    //     _particle_system->simulation_shader().set_uniform("_force_init_particles", _force_init_particles);
-    //     set_uniforms_for_shader_based_module(_particle_system->simulation_shader(), system_values, _depends_on, *_feedback_double_buffer, *_nodes_graph);
-    //     _particle_system->update();
-    //     _force_init_particles      = false;
-    //     _needs_to_update_particles = false;
+    //         Cool::Log::info(name(), "Updated particles");
+    //
+    //    _particle_system->simulation_shader().bind();
+    //    _particle_system->simulation_shader().set_uniform("_force_init_particles", _force_init_particles);
+    //   set_uniforms_for_shader_based_module(_particle_system->simulation_shader(), _depends_on, data, modules_that_we_depend_on(), nodes_that_we_depend_on());
+    //    _particle_system->update();
+    //    _force_init_particles      = false;
+    //    _needs_to_update_particles = false;
     // #else
-    //     std::ignore = system_values;
+    //     std::ignore = data;
     // #endif
 }
 
-void Module_Particles::imgui_windows(Ui_Ref) const
+void Module_Particles::imgui_generated_shader_code_tab()
 {
+    if (ImGui::BeginTabItem(fmt::format("{} (Simulation)", name()).c_str()))
+    {
+        if (Cool::ImGuiExtras::input_text_multiline("##Particles simulation", &_shader_code, ImVec2{-1.f, -1.f}))
+            set_simulation_shader_code(_shader_code, false, _particle_system ? _particle_system->dimension() : _particle_system_dimension);
+        ImGui::EndTabItem();
+    }
 }
 
-void Module_Particles::imgui_show_generated_shader_code()
-{
-    // if (Cool::ImGuiExtras::input_text_multiline("##Particles simulation", &_shader_code, ImVec2{-1.f, -1.f}))
-    //     set_simulation_shader_code(_shader_code, false, _particle_system ? _particle_system->dimension() : _particle_system_dimension);
-}
-
-void Module_Particles::render(wgpu::RenderPassEncoder render_pass, SystemValues const& system_values)
+void Module_Particles::render(wgpu::RenderPassEncoder render_pass, DataToPassToShader const& data)
 {
     //     if (!_particle_system)
     //         return;
-
+    // TODO(WebGPU)
     //     if (_needs_to_update_particles)
-    //         update_particles(system_values);
+    //         update_particles(data);
 
     // #if !defined(COOL_PARTICLES_DISABLED_REASON)
-    //     set_uniforms_for_shader_based_module(_particle_system->render_shader(), system_values, _depends_on, *_feedback_double_buffer, *_nodes_graph);
+    //     render_target().set_size(data.system_values.render_target_size);
+    //     render_target().render([&]() {
+    //         glClearColor(0.f, 0.f, 0.f, 0.f);
+    //         glClear(GL_COLOR_BUFFER_BIT);
+    //         set_uniforms_for_shader_based_module(_particle_system->render_shader(), _depends_on, data, modules_that_we_depend_on(), nodes_that_we_depend_on());
 
-    //     auto const view_proj_matrix_2D_mat3 = system_values.camera_2D_view_projection_matrix();
-    //     auto const view_proj_matrix_2D_mat4 = glm::mat4{
-    //         glm::vec4{view_proj_matrix_2D_mat3[0], 0.f},
-    //         glm::vec4{view_proj_matrix_2D_mat3[1], 0.f},
-    //         glm::vec4{0.f},
-    //         glm::vec4{view_proj_matrix_2D_mat3[2][0], view_proj_matrix_2D_mat3[2][1], 0.f, view_proj_matrix_2D_mat3[2][2]}
-    //     };
+    //         auto const view_proj_matrix_2D_mat3 = data.system_values.camera_2D_view_projection_matrix();
+    //         auto const view_proj_matrix_2D_mat4 = glm::mat4{
+    //             glm::vec4{view_proj_matrix_2D_mat3[0], 0.f},
+    //             glm::vec4{view_proj_matrix_2D_mat3[1], 0.f},
+    //             glm::vec4{0.f},
+    //             glm::vec4{view_proj_matrix_2D_mat3[2][0], view_proj_matrix_2D_mat3[2][1], 0.f, view_proj_matrix_2D_mat3[2][2]}
+    //         };
 
-    //     if (_particle_system->dimension() == 2)
-    //     {
-    //         _particle_system->render_shader().set_uniform("view_proj_matrix", view_proj_matrix_2D_mat4);
-    //     }
-    //     else if (_particle_system->dimension() == 3)
-    //     {
-    //         _particle_system->render_shader().set_uniform("view_proj_matrix", view_proj_matrix_2D_mat4 * system_values.camera_3D.view_projection_matrix(1.f /* The aspect ratio is already taken into account in the camera 2D matrix */));
-    //         _particle_system->render_shader().set_uniform("cool_camera_view", system_values.camera_3D.view_matrix());
-    //     }
-    //     _particle_system->render();
+    //         if (_particle_system->dimension() == 2)
+    //         {
+    //             _particle_system->render_shader().set_uniform("view_proj_matrix", view_proj_matrix_2D_mat4);
+    //         }
+    //         else if (_particle_system->dimension() == 3)
+    //         {
+    //             _particle_system->render_shader().set_uniform("view_proj_matrix", view_proj_matrix_2D_mat4 * data.system_values.camera_3D.view_projection_matrix(1.f /* The aspect ratio is already taken into account in the camera 2D matrix */));
+    //             _particle_system->render_shader().set_uniform("cool_camera_view", data.system_values.camera_3D.view_matrix());
+    //         }
+    //         _particle_system->render();
+    //     });
     // #endif
 }
 

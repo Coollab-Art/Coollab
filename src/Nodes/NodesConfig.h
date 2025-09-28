@@ -37,13 +37,14 @@ public:
         , _audio_manager{audio_manager}
         , _command_executor{command_executor}
     {}
-
+    void               node_context_menu(Cool::Node&, Cool::NodeId const&);
     auto               name(Cool::Node const&) const -> std::string;
     auto               category_name(Cool::Node const&) const -> std::string;
     void               imgui_above_node_pins(Cool::Node&, Cool::NodeId const&);
     void               imgui_below_node_pins(Cool::Node&, Cool::NodeId const&);
     void               imgui_in_inspector_above_node_info(Cool::Node&, Cool::NodeId const&);
     void               imgui_in_inspector_below_node_info(Cool::Node&, Cool::NodeId const&);
+    void               imgui_inspector_content_when_no_node_is_selected();
     [[nodiscard]] auto node_color(Cool::Node const&, Cool::NodeId const&) const -> Cool::Color;
     [[nodiscard]] auto pin_color(Cool::Pin const&, size_t pin_index, Cool::Node const&, Cool::NodeId const&) const -> Cool::Color;
     void               on_link_created_between_existing_nodes(Cool::Link const&, Cool::LinkId const&);
@@ -55,13 +56,11 @@ public:
     void               on_node_created(Cool::Node&, Cool::NodeId const&, Cool::Pin const* pin_linked_to_new_node);
     [[nodiscard]] auto copy_nodes() const -> std::string;
     /// Returns true iff successfully pasted nodes
-    auto        paste_nodes(std::string_view clipboard_string) -> bool;
-    void        change_node_definition(Cool::NodeId const&, Cool::Node&, Cool::NodeDefinition const&);
-    void        update_node_with_new_definition(Cool::Node&, Cool::NodeDefinition const&);
-    void        update_node_with_new_definition(Node&, Cool::NodeDefinition const&, bool store_links_deletion_in_history = false);
-    static void widget_to_rename_node(Cool::Node&);
-    auto        maybe_disable_node_definition() const -> Cool::MaybeDisableNodeDefinition;
-    void        node_context_menu(Cool::Node&, Cool::NodeId const&) {}
+    auto paste_nodes(std::string_view clipboard_string) -> bool;
+    void change_node_definition(Cool::NodeId const&, Cool::Node&, Cool::NodeDefinition const&);
+    void update_node_with_new_definition(Cool::Node&, Cool::NodeDefinition const&);
+    void update_node_with_new_definition(Node&, Cool::NodeDefinition const&, bool store_links_deletion_in_history = false);
+    auto maybe_disable_node_definition() const -> Cool::MaybeDisableNodeDefinition;
 
 private:
     auto make_node(Cool::NodeDefinitionAndCategoryName const&) -> Node;

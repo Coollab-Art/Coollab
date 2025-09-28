@@ -68,7 +68,7 @@
                                             }
                                         }
                                     ],
-                                    "Wrap Mode": 0,
+                                    "Wrap Mode": 1,
                                     "Interpolation Mode": 0
                                 },
                                 "Metadata": {
@@ -147,7 +147,7 @@
                                             }
                                         }
                                     ],
-                                    "Wrap Mode": 0,
+                                    "Wrap Mode": 1,
                                     "Interpolation Mode": 0
                                 },
                                 "Metadata": {
@@ -170,17 +170,6 @@
                                 "Name": "Color Gradient",
                                 "Value": {
                                     "Gradient": [
-                                        {
-                                            "Mark position": {
-                                                "Relative position": 0.0
-                                            },
-                                            "Mark color": {
-                                                "x": 0.002346101449802518,
-                                                "y": 0.0,
-                                                "z": 0.35913366079330447,
-                                                "w": 1.0
-                                            }
-                                        },
                                         {
                                             "Mark position": {
                                                 "Relative position": 0.20000000298023225
@@ -237,7 +226,7 @@
                                             }
                                         }
                                     ],
-                                    "Wrap Mode": 0,
+                                    "Wrap Mode": 1,
                                     "Interpolation Mode": 2
                                 },
                                 "Metadata": {
@@ -283,7 +272,7 @@
                                             }
                                         }
                                     ],
-                                    "Wrap Mode": 0,
+                                    "Wrap Mode": 1,
                                     "Interpolation Mode": 0
                                 },
                                 "Metadata": {

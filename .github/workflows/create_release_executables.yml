@@ -21,23 +21,17 @@ jobs:
           - {
               name: Windows,
               os: windows-latest,
-              cmake_configure_args: -D CMAKE_C_COMPILER=cl CMAKE_CXX_COMPILER=cl -G Ninja,
-              cpack_generator: NSIS,
-              installer_name: Coollab-Windows.exe,
+              cmake_configure_args: -D CMAKE_C_COMPILER=cl CMAKE_CXX_COMPILER=cl -G Ninja -D VCPKG_TARGET_TRIPLET=x64-windows-static,
             }
           - {
               name: Linux,
-              os: ubuntu-latest,
+              os: ubuntu-22.04, # Some distros (like Debian 12) are still using an "old" glibc version (2.36). In order to be compatible with them we stay on this runner, which uses glibc 2.36
               cmake_configure_args: -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -G Ninja,
-              cpack_generator: STGZ,
-              installer_name: Coollab-Linux.sh,
             }
           - {
               name: MacOS,
-              os: macos-12, # 13 and 14 run on M1 chips, and we get a linker error when using them
-              cmake_configure_args: -D CMAKE_C_COMPILER=$(brew --prefix llvm@15)/bin/clang -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@15)/bin/clang++ -G Ninja -D OPENSSL_ROOT_DIR=/usr/local/opt/openssl -D OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include,
-              cpack_generator: Bundle,
-              installer_name: Coollab-Mac.dmg,
+              os: macos-latest,
+              cmake_configure_args: -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -G Ninja -D OPENSSL_ROOT_DIR=/usr/local/opt/openssl,
             }
 
     steps:
@@ -45,13 +39,44 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: mjp41/workaround8649@c8550b715ccdc17f89c8d5c28d7a48eeff9c94a8 # Temporary workaround for Linux Clang not working atm. See https://github.com/actions/runner-images/issues/8659
-        with:
-          os: ${{ matrix.config.os }}
-
       - name: Set up MSVC # NOTE: required to find cl.exe when using the Ninja generator. And we need to use Ninja in order for ccache to be able to cache stuff with MSVC.
         if: matrix.config.name == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1.13.0
+
+      - name: Cache vcpkg
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/vcpkg
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: vcpkg-${{ runner.os }}-
+
+      - name: Cache vcpkg installed packages
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/vcpkg/installed
+            ${{ runner.temp }}/vcpkg/buildtrees
+          key: vcpkg-packages-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: vcpkg-packages-${{ runner.os }}-
+
+      - name: Install vcpkg
+        if: runner.os == 'Windows'
+        run: |
+          if not exist "${{ runner.temp }}\vcpkg" (
+            git clone https://github.com/microsoft/vcpkg.git ${{ runner.temp }}\vcpkg
+            cd ${{ runner.temp }}\vcpkg
+            .\bootstrap-vcpkg.bat
+          )
+        shell: cmd
+
+      - name: Install Windows dependencies
+        if: runner.os == 'Windows'
+        run: |
+          ${{ runner.temp }}\vcpkg\vcpkg.exe install openssl:x64-windows-static
+        shell: cmd
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -61,6 +86,8 @@ jobs:
           sudo apt-get install -y libssl-dev
           sudo apt-get install -y libpulse-dev libasound2-dev
           sudo apt-get install -y libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswresample-dev libswscale-dev
+          sudo apt-get install -y libdbus-1-dev
+          sudo apt-get install -y libjpeg-dev
 
       - name: Install MacOS dependencies
         if: runner.os == 'MacOS'
@@ -72,22 +99,185 @@ jobs:
         with:
           key: ${{matrix.config.name}} Clang-Release # Key name should match the one used in build_and_run_tests.yml so that we can reuse its cache.
 
+      - name: Set CMake Toolchain Argument
+        if: runner.os == 'Windows'
+        run: echo "CMAKE_TOOLCHAIN_ARG=-D CMAKE_TOOLCHAIN_FILE=${{ runner.temp }}\vcpkg\scripts\buildsystems\vcpkg.cmake" >> $GITHUB_ENV
+        shell: bash
+
       - name: Build
         uses: lukka/run-cmake@v3
         with:
           cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
           cmakeListsTxtPath: ${{github.workspace}}/${{env.cmakelists_folder}}/CMakeLists.txt
-          cmakeAppendedArgs: ${{env.cmake_configure_args}} -D CPACK_GENERATOR=${{matrix.config.cpack_generator}} -D CMAKE_BUILD_TYPE=Release ${{matrix.config.cmake_configure_args}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmakeAppendedArgs: ${{env.cmake_configure_args}} -D CPACK_GENERATOR=${{matrix.config.cpack_generator}} -D CMAKE_BUILD_TYPE=Release ${{matrix.config.cmake_configure_args}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache ${{ env.CMAKE_TOOLCHAIN_ARG }}
           buildWithCMakeArgs: --config Release --target ${{env.cmake_target}}
           cmakeBuildType: Release
           buildDirectory: ${{github.workspace}}/build
 
-      - name: Create installer
+      - name: Build app bundle (MacOS)
+        if: runner.os == 'MacOS'
+        run: |
+          mkdir -p "${{github.workspace}}/app-resources/Coollab.app/Contents/Resources"
+          mkdir -p "${{github.workspace}}/app-resources/Coollab.app/Contents/MacOS"
+          rsync -av --exclude='Coollab' "${{github.workspace}}/bin/Release/" "${{github.workspace}}/app-resources/Coollab.app/Contents/Resources/"
+          cp "${{github.workspace}}/bin/Release/Coollab" "${{github.workspace}}/app-resources/Coollab.app/Contents/MacOS/Coollab"
+
+          # Recursively find and copy all dynamic libraries
+
+          EXECUTABLE="${{ github.workspace }}/app-resources/Coollab.app/Contents/MacOS/Coollab"
+          FRAMEWORKS_DIR="${{ github.workspace }}/app-resources/Coollab.app/Contents/Frameworks"
+
+          mkdir -p "$FRAMEWORKS_DIR"
+
+          function resolve_rpath_lib {
+              LIB_NAME=$1
+              LIB_PATH=$(find /usr/local /opt/homebrew -name "$LIB_NAME" 2>/dev/null | head -n 1)
+              echo "$LIB_PATH"
+          }
+
+          function process_library {
+              TARGET_LIB=$1
+              otool -L "$TARGET_LIB" | awk '{print $1}' | while read -r lib; do
+                BASENAME=$(basename "$lib")
+
+                if [[ "$lib" == @rpath/* ]]; then
+                    REAL_LIB_PATH=$(resolve_rpath_lib "$BASENAME")
+                elif [[ "$lib" == "$HOMEBREW_PREFIX"* ]]; then
+                    REAL_LIB_PATH="$lib"
+                else
+                    continue
+                fi
+
+                if [[ -n "$REAL_LIB_PATH" && ! -f "$FRAMEWORKS_DIR/$BASENAME" ]]; then
+                    echo "Copying $REAL_LIB_PATH to $FRAMEWORKS_DIR"
+                    cp "$REAL_LIB_PATH" "$FRAMEWORKS_DIR/"
+                    chmod +w "$FRAMEWORKS_DIR/$BASENAME"
+                    process_library "$FRAMEWORKS_DIR/$BASENAME"
+                fi
+              done
+          }
+          process_library "$EXECUTABLE"
+
+          # Update rpath for copied libraries:
+
+          install_name_tool -add_rpath "@executable_path/../Frameworks" "$EXECUTABLE"
+
+          # Change library paths in the executable
+          otool -L "$EXECUTABLE" | awk '{print $1}' | grep "^/opt/homebrew\|^/usr/local" | while read -r lib; do
+            BASENAME=$(basename "$lib")
+            DEST_LIB="$FRAMEWORKS_DIR/$BASENAME"
+
+            if [[ -f "$DEST_LIB" ]]; then
+              echo "Updating $EXECUTABLE: changing $lib -> @rpath/$BASENAME"
+              install_name_tool -change "$lib" "@rpath/$BASENAME" "$EXECUTABLE"
+            fi
+          done
+
+          # Change library paths for each copied Homebrew library
+          for LIB in "$FRAMEWORKS_DIR"/*; do
+            otool -L "$LIB" | awk '{print $1}' | grep "^/opt/homebrew\|^/usr/local" | while read -r dep; do
+              DEP_BASENAME=$(basename "$dep")
+              DEST_DEP="$FRAMEWORKS_DIR/$DEP_BASENAME"
+
+              if [[ -f "$DEST_DEP" ]]; then
+                echo "Updating $LIB: changing $dep -> @rpath/$DEP_BASENAME"
+                install_name_tool -change "$dep" "@rpath/$DEP_BASENAME" "$LIB"
+              fi
+            done
+          done
+
+      - name: Copy licenses (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
         run: |
           cd ${{github.workspace}}/build
-          cpack
+          cmake --install . --prefix tmp_install
+          New-Item -ItemType Directory -Path "${{github.workspace}}/bin/Release/license"
+          Copy-Item -Path tmp_install/license/* -Destination ${{github.workspace}}/bin/Release/license/ -Recurse
 
-      - name: Release
+      - name: Copy licenses (MacOS)
+        if: runner.os == 'MacOS'
+        run: |
+          cd ${{github.workspace}}/build
+          cmake --install . --prefix tmp_install
+          mkdir -p "${{github.workspace}}/app-resources/Coollab.app/Contents/Resources/license"
+          cp -r tmp_install/license/* "${{github.workspace}}/app-resources/Coollab.app/Contents/Resources/license/"
+
+      - name: Copy licenses (Linux)
+        if: runner.os == 'Linux'
+        shell: pwsh
+        run: |
+          cd ${{github.workspace}}/build
+          cmake --install . --prefix tmp_install
+          New-Item -ItemType Directory -Path "${{github.workspace}}/app-resources/Coollab.AppDir/usr/share/licenses/coollab"
+          Copy-Item -Path tmp_install/license/* -Destination ${{github.workspace}}/app-resources/Coollab.AppDir/usr/share/licenses/coollab -Recurse
+
+      - name: Codesign and Notarize (MacOS)
+        if: runner.os == 'MacOS'
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          APPLE_ID_USERNAME: ${{ secrets.APPLE_ID_USERNAME }}
+          APPLE_ID_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_APP_SPECIFIC_PASSWORD }}
+          TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          echo "$CERTIFICATE_BASE64" | base64 --decode > certificate.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security import certificate.p12 -k build.keychain -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          rm certificate.p12
+          find "${{github.workspace}}/app-resources/Coollab.app" -name "*.dylib" -exec codesign --force --timestamp --options runtime --sign "Developer ID Application: Jules Fouchy ($TEAM_ID)" {} \;
+          codesign --timestamp --options runtime --sign "Developer ID Application: Jules Fouchy ($TEAM_ID)" "${{github.workspace}}/app-resources/Coollab.app"
+          ditto -c -k --keepParent "${{github.workspace}}/app-resources/Coollab.app" Coollab.zip
+          xcrun notarytool submit Coollab.zip --apple-id "$APPLE_ID_USERNAME" --password "$APPLE_ID_APP_SPECIFIC_PASSWORD" --team-id "$TEAM_ID" --wait
+          xcrun stapler staple "${{github.workspace}}/app-resources/Coollab.app"
+
+      - name: Zip Release binaries (Windows)
+        if: runner.os == 'Windows'
+        # The launcher doesn't need the DLLs because it has them already, and it saves a lot of download time if we don't have to download the DLLs. For convenience we still provide a WithDLLs version, just in case someone wants to download a specific version of Coollab manually.
+        run: |
+          Compress-Archive -Path ${{github.workspace}}\bin\Release\* -DestinationPath ${{github.workspace}}\build\Coollab-${{matrix.config.name}}-WithDLLs.zip
+          Get-ChildItem -Path ${{github.workspace}}\bin\Release\ -Filter "*.dll" -Recurse | Remove-Item -Force
+          Compress-Archive -Path ${{github.workspace}}\bin\Release\* -DestinationPath ${{github.workspace}}\build\Coollab-${{matrix.config.name}}.zip
+
+      - name: Build AppImage (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          cd app-resources
+          mkdir -p Coollab.AppDir/usr/bin/
+          cp -r "${{github.workspace}}/bin/Release/"* Coollab.AppDir/usr/bin/
+          strip Coollab.AppDir/usr/bin/Coollab
+          chmod +x Coollab.AppDir/AppRun
+          sudo apt-get install -y appstream
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/latest/download/linuxdeploy-x86_64.AppImage
+          chmod +x linuxdeploy-x86_64.AppImage
+          ./linuxdeploy-x86_64.AppImage --appdir Coollab.AppDir --output appimage
+          mv Coollab-x86_64.AppImage Coollab.AppImage
+
+      - name: Zip Release binaries (MacOS)
+        if: runner.os == 'MacOS'
+        run: |
+          ditto -c -k --keepParent "${{github.workspace}}/app-resources/Coollab.app" Coollab-${{matrix.config.name}}.zip
+
+      - name: Release (Windows)
+        if: runner.os == 'Windows'
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{runner.os != 'Windows' && github.workspace || ''}}${{runner.os != 'Windows' && '/' || ''}}build/${{matrix.config.installer_name}}
+          files: |
+            build/Coollab-${{matrix.config.name}}.zip
+            build/Coollab-${{matrix.config.name}}-WithDLLs.zip
+
+      - name: Release (Linux)
+        if: runner.os == 'Linux'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{github.workspace}}/app-resources/Coollab.AppImage
+
+      - name: Release (MacOS)
+        if: runner.os == 'MacOS'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "${{github.workspace}}/Coollab-${{matrix.config.name}}.zip"

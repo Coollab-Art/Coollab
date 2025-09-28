@@ -1,0 +1,34 @@
+// Credit: [illtellyoulater](https://github.com/Coollab-Art/Coollab/issues/110)
+
+INPUT UV->Oklab_PremultipliedA 'Image';
+INPUT float 'Brightness';
+INPUT float 'Size';
+INPUT int 'Quality'; /// The higher the number the smoother the result, but it will start to get laggy if set too high.
+INPUT float 'Mask';
+
+vec4 blur(vec2 uv)
+{
+    vec4 color = vec4(0.);
+    for (int x = -'Quality'; x <= 'Quality'; x++)
+    {
+        for (int y = -'Quality'; y <= 'Quality'; y++)
+        {
+            vec2 offset = vec2(x, y) / 'Quality' * 'Size';
+            color += 'Image'(uv + offset);
+        }
+    }
+
+    float weights_sum = (2. * 'Quality' + 1.) * (2. * 'Quality' + 1.);
+    return color / weights_sum;
+}
+
+Oklab_PremultipliedA main(UV uv)
+{
+    vec4 blurred = blur(uv);
+    vec4 glow    = blurred * 'Brightness';
+    vec4 base    = 'Image'(uv);
+
+    // Combine original image and glow
+    // return mix(base, glow, 'Blend Strength');
+    return base + glow * 'Mask';
+}

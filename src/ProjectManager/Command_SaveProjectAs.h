@@ -1,10 +1,12 @@
 #pragma once
 #include "CommandCore/CommandExecutionContext_Ref.h"
+#include "SaveAsOptions.hpp"
 
 namespace Lab {
 
 struct Command_SaveProjectAs {
     std::filesystem::path path{};
+    SaveAsOptions         options{};
 
     void               execute(CommandExecutionContext_Ref const& ctx) const;
     [[nodiscard]] auto to_string() const -> std::string;

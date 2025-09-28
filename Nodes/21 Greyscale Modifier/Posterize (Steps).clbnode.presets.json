@@ -1,0 +1,32 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "6c8dece0-150c-4d76-b279-3b2dfa9c2502",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 1,
+                            "data": {
+                                "Name": "Count",
+                                "Value": 6,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 2,
+                                        "Has max bound": false,
+                                        "Max": 12,
+                                        "Drag speed": 0.03999999910593033,
+                                        "Use slider": false,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

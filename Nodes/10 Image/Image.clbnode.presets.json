@@ -1,0 +1,33 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "be4532e3-7c16-42f8-b4a3-4aac99505b68",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 16,
+                            "data": {
+                                "Name": "Image",
+                                "Value": {
+                                    "Source": {
+                                        "index": 0,
+                                        "data": {
+                                            "Path": "res/images/logo.png"
+                                        }
+                                    },
+                                    "Sampler": {
+                                        "Repeat Mode": 1,
+                                        "Interpolation Mode": 9729
+                                    }
+                                },
+                                "Metadata": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

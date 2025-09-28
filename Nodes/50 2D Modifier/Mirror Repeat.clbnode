@@ -1,8 +1,9 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
 INPUT vec2 'Cell Size';
+INPUT float 'Content Size';
 
 UV main(UV _2D_Object)
 {
-    return (1. - 2. * (abs(mod(_2D_Object / 'Cell Size' * 0.5 + 0.5, 2.) - 1.))) * 'Cell Size';
+    return (1. - 2. * (abs(mod(_2D_Object / 'Cell Size' * 0.5 + 0.5, 2.) - 1.))) * 'Cell Size' / 'Content Size';
 }

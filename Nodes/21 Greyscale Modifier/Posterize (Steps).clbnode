@@ -1,0 +1,9 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Count';
+
+float main(float Greyscale)
+{
+    float n = float('Count');
+    return floor(Greyscale * n) / (n - 1);
+}

@@ -1,6 +1,8 @@
 #include "NodesCategoryConfig.h"
 #include <filesystem>
 #include <smart/smart.hpp>
+#include "Cool/File/File.h"
+#include "Cool/Log/ErrorMessage.hpp"
 #include "Cool/Path/Path.h"
 #include "Cool/Variables/internal/color_utils.h"
 #include "NodeColor.h"
@@ -17,14 +19,9 @@ void NodesCategoryConfig::save_to_json() const
 void NodesCategoryConfig::load_from_json()
 {
     do_load(*this, _path_to_json)
-        .send_error_if_any([&](std::string const& message) {
-            return Cool::Message{
-                .category = "Nodes Category",
-                .message  = fmt::format("Failed to load category config for '{}':\n{}", _path_to_json, message),
-                .severity = Cool::MessageSeverity::Warning,
-            };
-        },
-                           Cool::Log::ToUser::console());
+        .or_else([&](Cool::ErrorMessage const& err) {
+            Cool::Log::warning("Nodes Category", fmt::format("Failed to load category config \"{}\":\n{}", Cool::File::weakly_canonical(_path_to_json), err.message), err.clipboard_contents);
+        });
 }
 
 auto NodesCategoryConfig::imgui_popup() -> bool

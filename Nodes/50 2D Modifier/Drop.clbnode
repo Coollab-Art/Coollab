@@ -82,7 +82,7 @@ float map(vec3 p)
 UV main(UV uv)
 {
     vec3 s      = vec3(0., 0., -17.);
-    vec3 r      = normalize(vec3(-uv - 'Center', 'Scale'));
+    vec3 r      = normalize(vec3(uv - 'Center', 'Scale'));
     vec3 p      = s;
     bool inside = false;
     // main raymarching loop

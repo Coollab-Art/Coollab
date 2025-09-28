@@ -1,17 +1,17 @@
 #include "generate_simulation_shader_code.h"
 #include <Nodes/PrimitiveType.h>
-#include "Module/ShaderBased/generate_shader_code.h"
+#include "Module/ShaderBased/generate_shader_code.hpp"
 #include "Nodes/Node.h"
 #include "simulation_code_gen_helpers.h"
 
 namespace Lab {
 
 auto generate_simulation_shader_code(
-    Cool::NodesGraph const&                     graph,
-    Cool::NodeId const&                         root_node_id,
-    Cool::NodeId&                               id_of_node_storing_particles_count,
-    Cool::GetNodeDefinition_Ref<NodeDefinition> get_node_definition,
-    int                                         dimension
+    Cool::NodeId const&             root_node_id,
+    Cool::NodeId&                   id_of_node_storing_particles_count,
+    int                             dimension,
+    DataToGenerateShaderCode const& data,
+    MaybeGenerateModule const&      maybe_generate_module
 ) -> tl::expected<std::string, std::string>
 {
     using fmt::literals::operator""_a;
@@ -143,21 +143,20 @@ void cool_main()
         .arity = 1,
     };
 
-    auto const node_definition_callback = [&graph, &id_of_node_storing_particles_count](auto const& node_id, auto const&) {
-        auto const* maybe_node = graph.try_get_node<Node>(node_id);
+    auto const node_definition_callback = [&](Cool::NodeId const& node_id, NodeDefinition const& node_definition) {
+        auto const* maybe_node = data.nodes_graph.try_get_node<Node>(node_id);
         if (maybe_node && maybe_node->particles_count().has_value())
             id_of_node_storing_particles_count = node_id;
-        return std::nullopt;
+        return maybe_generate_module(node_id, node_definition);
     };
 
     return generate_shader_code(
-        graph,
         root_node_id,
-        get_node_definition,
         node_definition_callback,
         main_function_signature,
         content,
-        []() { return std::vector<std::string>{}; }
+        []() { return std::vector<std::string>{}; },
+        data
     );
 }
 

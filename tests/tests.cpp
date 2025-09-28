@@ -4,10 +4,6 @@
 #include <doctest/doctest.h>
 
 class PathsConfig : public Cool::PathsConfig {
-public:
-    PathsConfig()
-        : Cool::PathsConfig{"Coollab-Tests"}
-    {}
 };
 
 // NB: the tests are defined alongside the file that they test, not here.

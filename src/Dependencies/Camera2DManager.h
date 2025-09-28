@@ -18,11 +18,15 @@ public:
 
     void imgui(Ui_Ref);
     void hook_events(Cool::MouseEventDispatcher<Cool::ViewCoordinates>& events, CommandExecutor const&);
+    void unhook_events(Cool::MouseEventDispatcher<Cool::ViewCoordinates>& events);
     void reset_camera(CommandExecutor const&);
 
 private:
     Cool::SharedVariable<Cool::Camera2D> _camera;
     bool                                 _is_editable_in_view{true};
+
+    reg::AnyId _scroll_callback_id{};
+    reg::AnyId _drag_callback_id{};
 
 private:
     // Serialization

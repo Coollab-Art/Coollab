@@ -1,0 +1,6 @@
+1.2.0 MacOS
+1.1.1 UI Scale Experimental(MacOS)
+1.1.1 UI Scale
+1.1.0 UI Scale
+1.0.1 Launcher
+1.0.0 Launcher

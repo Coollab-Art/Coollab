@@ -1,7 +1,0 @@
-// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
-
-sRGB_StraightA main(UV uv)
-{
-    uv = unnormalize_uv(to_view_space(uv));
-    return texture(sampler2D(_previous_frame_texture, _previous_frame_texture_sampler), uv);
-}

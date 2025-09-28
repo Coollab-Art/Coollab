@@ -4,7 +4,8 @@
 namespace Lab {
 
 struct Command_SaveProject {
-    bool is_autosave = false;
+    bool is_autosave             = false;
+    bool must_absolutely_succeed = false;
 
     void               execute(CommandExecutionContext_Ref const& ctx) const;
     [[nodiscard]] auto to_string() const -> std::string;

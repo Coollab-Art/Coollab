@@ -1,4 +1,5 @@
 #pragma once
+#include "Cool/Serialization/Json.hpp"
 
 namespace Lab {
 
@@ -7,18 +8,18 @@ struct AuthorInfo {
     std::string link{};
 
     auto imgui() -> bool;
-
-private:
-    // Serialization
-    friend class ser20::access;
-    template<class Archive>
-    void serialize(Archive& archive)
-    {
-        archive(
-            ser20::make_nvp("Name", name),
-            ser20::make_nvp("Link", link)
-        );
-    }
 };
+
+inline void to_json(nlohmann::json& json, AuthorInfo const& info)
+{
+    Cool::json_set(json, "Name", info.name);
+    Cool::json_set(json, "Link", info.link);
+}
+
+inline void from_json(nlohmann::json const& json, AuthorInfo& info)
+{
+    Cool::json_get(json, "Name", info.name);
+    Cool::json_get(json, "Link", info.link);
+}
 
 } // namespace Lab

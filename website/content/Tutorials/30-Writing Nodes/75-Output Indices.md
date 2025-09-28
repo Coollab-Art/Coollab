@@ -2,7 +2,7 @@
 Some nodes can output some values that can be used by the nodes that come before them. This is typically used by nodes that duplicate their input, so that said input can change between each iteration / instantiation.<br/>
 Such outputs are declared with the `OUTPUT` keyword, must have a name that starts and ends with single quotes (`'`) and must be of type `float`[^1]. If your output is an int, just cast it to a float. If your output is a vector, just declare several outputs.
 
-[^1]: If you have a use case for outputs that are not of type float, feel free to [contact us](https://github.com/CoolLibs/Lab/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature-suggestion.yaml&title=%5BFeature%5D+) and we will happily consider your use case and improve Coollab to make it fit your needs.
+[^1]: If you have a use case for outputs that are not of type float, feel free to [contact us](https://github.com/Coollab-Art/Coollab/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature-suggestion.yaml&title=%5BFeature%5D+) and we will happily consider your use case and improve Coollab to make it fit your needs.
 
 You can then simply assign to your output whenever it needs to change.
 

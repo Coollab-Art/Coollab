@@ -1,0 +1,74 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "0356d5d2-57ff-4b7a-87fb-6af24dde0111",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 3,
+                            "data": {
+                                "Name": "Bottom Left",
+                                "Value": {
+                                    "Point2D": {
+                                        "x": -1.0,
+                                        "y": -1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Drag speed": 0.00009999999747378752
+                                }
+                            }
+                        },
+                        {
+                            "index": 3,
+                            "data": {
+                                "Name": "Bottom Right",
+                                "Value": {
+                                    "Point2D": {
+                                        "x": 1.0,
+                                        "y": -1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Drag speed": 0.00009999999747378752
+                                }
+                            }
+                        },
+                        {
+                            "index": 3,
+                            "data": {
+                                "Name": "Top Left",
+                                "Value": {
+                                    "Point2D": {
+                                        "x": -0.5396344065666199,
+                                        "y": 0.7591465711593628
+                                    }
+                                },
+                                "Metadata": {
+                                    "Drag speed": 0.00009999999747378752
+                                }
+                            }
+                        },
+                        {
+                            "index": 3,
+                            "data": {
+                                "Name": "Top Right",
+                                "Value": {
+                                    "Point2D": {
+                                        "x": 0.38109779357910159,
+                                        "y": 0.29268303513526919
+                                    }
+                                },
+                                "Metadata": {
+                                    "Drag speed": 0.00009999999747378752
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

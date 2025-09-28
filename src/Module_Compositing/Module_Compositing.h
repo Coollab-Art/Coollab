@@ -1,53 +1,33 @@
 #pragma once
-#include <Cool/Log/MessageSender.h>
-#include <Cool/Nodes/NodesGraph.h>
-#include <Module/ModuleDependencies.h>
-#include "Cool/Gpu/DoubleBufferedRenderTarget.h"
-#include "Cool/WebGPU/FullscreenPipelineGLSL.h"
+#include "Cool/Gpu/FullscreenPipeline.h"
+#include "Cool/Log/MessageId.h"
+#include "Cool/Nodes/NodesGraph.h"
 #include "Module/Module.h"
 
 namespace Lab {
 
 class Module_Compositing : public Module {
 public:
-    Module_Compositing();
-    Module_Compositing(Module_Compositing const&)                    = delete;
-    auto operator=(Module_Compositing const&) -> Module_Compositing& = delete;
-    // Module_Compositing(Module_Compositing&&) noexcept                    = default; // TODO(Modules)
-    // auto operator=(Module_Compositing&&) noexcept -> Module_Compositing& = default; // TODO(Modules)
-
-    Cool::NodesGraph const* _nodes_graph; // TODO(Modules) Remove
+    Module_Compositing() = default;
+    Module_Compositing(std::string texture_name_in_shader, std::vector<std::shared_ptr<Module>> modules_that_we_depend_on, std::vector<Cool::NodeId> nodes_that_we_depend_on);
 
     void update() override;
-    void imgui_windows(Ui_Ref) const override;
-    void imgui_show_generated_shader_code();
+    void imgui_generated_shader_code_tab() override;
 
     void reset_shader();
-    void on_time_reset();
 
-    void set_render_target_size(img::Size const& size);
     void set_shader_code(tl::expected<std::string, std::string> const& shader_code);
 
-    [[nodiscard]] auto depends_on() const -> ModuleDependencies const& { return _depends_on; }
-    void               update_dependencies_from_nodes_graph(Cool::NodesGraph const& graph) { Lab::update_dependencies_from_nodes_graph(_depends_on, graph); }
-
-    auto shader_is_valid() const -> bool { return _pipeline.has_value(); } // TODO(Modules) Remove
-    // auto shader() -> auto const& { return *_pipeline.shader(); }                    // TODO(Modules) Remove
-    auto feedback_double_buffer() const -> Cool::DoubleBufferedRenderTarget const& { return _feedback_double_buffer; }
+private:
+    void render(wgpu::RenderPassEncoder render_pass, DataToPassToShader const&) override;
+    void log_shader_error(tl::expected<void, Cool::ErrorMessage> const&) const;
 
 private:
-    void render(wgpu::RenderPassEncoder render_pass, SystemValues const&) override;
-    void render_impl(wgpu::RenderPassEncoder render_pass, SystemValues const&);
-    void log_shader_error(Cool::OptionalErrorMessage const&) const;
-
-private:
-    mutable std::string                                 _shader_code{};
+    mutable std::string              _shader_code{};
     mutable std::optional<Cool::FullscreenPipelineGLSL> _pipeline{};          // TODO(WebGPU)
     std::optional<Cool::BindGroup>                      _bind_group{};        // TODO(WebGPU) Move these 3 optionals into a single optional struct
     std::optional<Cool::BindGroupLayout>                _bind_group_layout{}; // TODO(WebGPU)
-    mutable Cool::MessageSender                         _shader_error_sender{};
-    Cool::DoubleBufferedRenderTarget                    _feedback_double_buffer{};
-    mutable ModuleDependencies                          _depends_on{};
+    mutable Cool::MessageId          _shader_error_id{};
 
 private:
     // Serialization

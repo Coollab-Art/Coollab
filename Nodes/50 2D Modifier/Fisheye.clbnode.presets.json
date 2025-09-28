@@ -1,0 +1,32 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "56b22f36-07ff-4f1d-847a-20159df85228",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Strength",
+                                "Value": 6.0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.000009999999747378752,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.003000000026077032,
+                                        "Use slider": false,
+                                        "Is logarithmic": true
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

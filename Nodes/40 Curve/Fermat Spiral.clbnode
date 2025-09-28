@@ -1,9 +1,10 @@
 INPUT float 'Radius';
 INPUT int 'Twist';
+INPUT float 'Swirl';
 
 vec2 spiral(float radius, float t)
 {
-    float r = radius * sqrt(t);
+    float r = radius * pow(t, 'Swirl');
     return vec2_from_polar(r, TAU * t * 'Twist');
 }
 

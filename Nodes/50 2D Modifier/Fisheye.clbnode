@@ -1,5 +1,6 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
-INPUT float 'strength';
+INPUT float 'Strength';
 
 float delta(vec2 uv)
 {
@@ -9,10 +10,8 @@ float delta(vec2 uv)
 UV main(UV uv)
 {
     if (length_squared(uv) >= 1)
-        return vec2(acosh(0)); // we want to return the NaN but there is no such value in glsl
+        return vec2(acosh(0)); // We want to return NaN but there is no such value in glsl
 
-    vec2 direction_uv = normalize(uv) / 'strength';
-    vec2 temp_val     = direction_uv * acosh(1 + delta(uv));
-
-    return temp_val;
+    vec2 direction = normalize(uv) / 'Strength';
+    return direction * acosh(1 + delta(uv));
 }

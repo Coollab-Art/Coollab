@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(Coollab)
-set(COOLLAB_VERSION "beta-18 WIP")
+set(COOL_APP_VERSION "1.2.0 MacOS")
 add_executable(${PROJECT_NAME})
 add_library(Coollab-Properties INTERFACE) # This is needed by both Coollab and its tests
 target_link_libraries(${PROJECT_NAME} PRIVATE Coollab-Properties)
@@ -10,9 +10,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Coollab-Properties)
 target_compile_features(Coollab-Properties INTERFACE cxx_std_20)
 
 # Set the folder where the executable is created
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE}) # Needed for OpenCV to copy some DLLs in this folder
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
 # Set warning level
 if(MSVC)
@@ -32,16 +30,20 @@ if(WARNINGS_AS_ERRORS_FOR_COOLLAB)
     endif()
 endif()
 
+# Embed the manifest file into the executable. This manifest tells windows that our app supports long paths
+if(WIN32)
+    target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/app-resources/Coollab.manifest")
+endif()
+
+# Include Cool
 # Choose our GPU API and its version
 # set(COOL_USE_VULKAN 110)
 set(COOL_USE_OPENGL $<IF:$<PLATFORM_ID:Darwin>,410,430>) # Must be >= 330 for ImGui to work properly # We use 410 when building on Mac because it doesn't support higher versions of OpenGL
-
-# Include Cool
+set(COOL_USE_MACOS_BUNDLE ON)
+set(COOL_APP_NAME "Coollab")
 add_subdirectory(Cool)
 target_link_libraries(Coollab-Properties INTERFACE Cool::Core)
 cool_setup(${PROJECT_NAME})
-
-# Set app icon
 Cool__set_app_icon(${PROJECT_NAME} "res/logo.png" "${CMAKE_SOURCE_DIR}/app-resources/icon.rc")
 
 # Include cmd
@@ -49,58 +51,37 @@ add_subdirectory(lib/cmd)
 target_link_libraries(Coollab-Properties INTERFACE cmd::cmd)
 
 # Include range-v3
-target_include_directories(Coollab-Properties INTERFACE lib/range-v3/include)
+target_include_directories(Coollab-Properties SYSTEM INTERFACE lib/range-v3/include)
 install(FILES "lib/range-v3/LICENSE.txt" DESTINATION "license/range-v3")
 
 set(COOLLAB_REQUIRE_ALL_FEATURES OFF CACHE BOOL "Some features are optional, like making HTTPS requests to post images to the Coollab gallery. If you don't have the necessary dependencies these features will be disabled. If you want to make sure you have all the features of Coollab enabled, set this option to ON.")
-set(COOLLAB_BUILD_WITH_OPENSSL ON CACHE BOOL "Needed to make HTTPS requests to post images to the Coollab gallery.")
 
-# ----------------
-# ---OpenSSL---
-# ----------------
-# Link OpenSSL if we find it. It will be used
-# to send images to the Coollab gallery.
-# If OpenSSL is not found this feature will be disabled.
-# Note: cpp-httplib can only work with OpenSSL versions 3 or 1.1.1
-# Set the path to OpenSSL library directory
-if(COOLLAB_BUILD_WITH_OPENSSL)
-    set(OPENSSL_USE_STATIC_LIBS TRUE)
+# -----------------
+# ---cpp-httplib---
+# -----------------
+set(OPENSSL_USE_STATIC_LIBS ON CACHE BOOL "" FORCE)
+set(HTTPLIB_INSTALL OFF CACHE BOOL "" FORCE)
 
-    if(NOT APPLE) # Disabled on Mac for now, because brew installs versions 3.3 now, which isn't compatible with cpp-httplib
-        find_package(OpenSSL 3)
-
-        if(NOT OpenSSL_FOUND)
-            if(COOLLAB_REQUIRE_ALL_FEATURES)
-                find_package(OpenSSL 1.1.1 REQUIRED)
-            else()
-                find_package(OpenSSL 1.1.1)
-            endif()
-        endif()
-    endif()
-
-    if(OpenSSL_FOUND)
-        message("[Coollab] Found OpenSSL.")
-        target_link_libraries(Coollab-Properties INTERFACE OpenSSL::SSL OpenSSL::Crypto)
-        target_compile_definitions(Coollab-Properties INTERFACE "COOLLAB_HAS_OPENSSL")
-    else()
-        message("[Coollab] Did not find OpenSSL. Posting images to the Coollab gallery will be disabled.")
-    endif()
+if(COOLLAB_REQUIRE_ALL_FEATURES)
+    set(HTTPLIB_REQUIRE_OPENSSL ON CACHE BOOL "" FORCE)
+    set(HTTPLIB_USE_OPENSSL_IF_AVAILABLE OFF CACHE BOOL "" FORCE)
 else()
-    message("[Coollab] Disabled building with OpenSSL.")
+    set(HTTPLIB_REQUIRE_OPENSSL OFF CACHE BOOL "" FORCE)
+    set(HTTPLIB_USE_OPENSSL_IF_AVAILABLE ON CACHE BOOL "" FORCE)
 endif()
 
+add_subdirectory(lib/cpp-httplib)
+target_link_libraries(Coollab-Properties INTERFACE httplib)
 install(FILES "lib/cpp-httplib/LICENSE" DESTINATION "license/cpp-httplib")
-install(FILES "LICENSE.txt" DESTINATION "license" RENAME "Coollab-LICENSE.txt")
+install(FILES "lib/openssl/LICENSE.txt" DESTINATION "license/openssl")
 
 # Grab all the source files
-file(GLOB_RECURSE COOL_LAB_SOURCES CONFIGURE_DEPENDS src/*)
-set(COOLLAB_VERSION_STRING "\"${COOLLAB_VERSION}\"")
-configure_file("src/Dump/coollab_version.cpp.in" "src/Dump/coollab_version.cpp")
-list(APPEND COOL_LAB_SOURCES "src/Dump/coollab_version.cpp")
-target_sources(${PROJECT_NAME} PRIVATE ${COOL_LAB_SOURCES})
+file(GLOB_RECURSE COOLLAB_SOURCES CONFIGURE_DEPENDS src/*)
+target_sources(${PROJECT_NAME} PRIVATE ${COOLLAB_SOURCES})
 
 # Set include directories
-target_include_directories(Coollab-Properties SYSTEM INTERFACE src lib)
+target_include_directories(Coollab-Properties INTERFACE src)
+target_include_directories(Coollab-Properties SYSTEM INTERFACE lib)
 
 # Copy resources to the output folder (where the executable is created) after each build
 # and register them for installation when creating the installer.
@@ -113,7 +94,12 @@ endfunction()
 
 Lab_copy_folder("res")
 Lab_copy_folder("User data Default")
+Lab_copy_folder("User data Init")
 Lab_copy_folder("Nodes")
+
+# License
+install(FILES "LICENSE.txt" DESTINATION "license" RENAME "Coollab-LICENSE.txt")
+Cool__target_copy_file(${PROJECT_NAME} LICENSE.txt)
 
 if(MSVC)
     target_compile_options(Coollab-Properties INTERFACE /bigobj) # We use too many templates apparently so we need this flag O:)
@@ -122,76 +108,10 @@ endif()
 # ---------------------
 # ---Setup the tests---
 # ---------------------
-list(REMOVE_ITEM COOL_LAB_SOURCES ${CMAKE_SOURCE_DIR}/src/main.cpp)
-add_executable(Tests-Coollab tests/tests.cpp ${COOL_LAB_SOURCES})
+list(REMOVE_ITEM COOLLAB_SOURCES ${CMAKE_SOURCE_DIR}/src/main.cpp)
+add_executable(Tests-Coollab tests/tests.cpp ${COOLLAB_SOURCES})
 target_compile_definitions(Tests-Coollab PRIVATE LAB_ENABLE_TESTS)
 target_link_libraries(Tests-Coollab PRIVATE Coollab-Properties)
 target_link_libraries(Tests-Coollab PRIVATE doctest::doctest)
-
-# ---------------------
-# ---CPack---
-# ---------------------
-if(APPLE)
-    install(TARGETS ${PROJECT_NAME} DESTINATION ../MacOS) # MacOS bundles must be installed at the root of the package: https://gitlab.kitware.com/cmake/community/-/wikis/doc/cpack/PackageGenerators#dragndrop-osx-only
-else()
-    install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-endif()
-
-if(WIN32)
-    set(SEP "\\\\")
-else()
-    set(SEP "/")
-endif()
-
-# Installer Info
-set(CPACK_PACKAGE_NAME "Coollab")
-set(CPACK_PACKAGE_VERSION "${COOLLAB_VERSION}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Coollab") # Don't put this in a Coollab parent folder. In NSIS this messes up the install and prevents our app to appear in "Apps and Features" to uninstall it for example.
-set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/app-resources${SEP}installer_banner.bmp") # Seems like it has to be .bmp, at least for NSIS. NB: if there is any transparency in the image, NSIS won't be able to render it at all. Exporting a fully opaque .bmp from Paint.net works. 150x57 pixels is the ideal size to avoid uggly downscale artifacts.
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}${SEP}LICENSE.txt")
-set(CPACK_PACKAGE_VENDOR "Coollab")
-set(CPACK_PACKAGE_EXECUTABLES "Coollab" "Coollab") # Creates Start Menu shortcuts
-set(CPACK_PACKAGE_CONTACT "coollab.lib@gmail.com")
-
-# Name of the installer exe file
-if(WIN32)
-    set(OS_NAME "Windows")
-elseif(APPLE)
-    set(OS_NAME "Mac")
-else()
-    set(OS_NAME "Linux")
-endif()
-
-set(CPACK_PACKAGE_FILE_NAME "Coollab-${OS_NAME}")
-
-# NSIS specifics
-set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
-set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\Coollab.exe")
-
-# .coollab extension
-# --- Windows
-set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-    WriteRegStr HKCR '.coollab' '' 'CoollabFile'
-    WriteRegStr HKCR 'CoollabFile' '' 'Coollab File'
-    WriteRegStr HKCR 'CoollabFile\\\\shell' '' 'open'
-    WriteRegStr HKCR 'CoollabFile\\\\DefaultIcon' \\\\
-    '' '$INSTDIR\\\\bin\\\\coollab.exe,0'
-    WriteRegStr HKCR 'CoollabFile\\\\shell\\\\open\\\\command' \\\\
-    '' '$INSTDIR\\\\bin\\\\coollab.exe \\\"%1\\\"'
-    WriteRegStr HKCR 'CoollabFile\\\\shell\\\\edit\\\\command' \\\\
-    '' '$INSTDIR\\\\bin\\\\coollab.exe \\\"%1\\\"'
-    System::Call \\\\
-    'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
-")
-set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-    DeleteRegKey HKCR '.coollab'
-    DeleteRegKey HKCR 'CoollabFile'
-")
-
-# MacOS Bundle specifics
-set(CPACK_BUNDLE_NAME "Coollab")
-set(CPACK_BUNDLE_PLIST "${CMAKE_SOURCE_DIR}/app-resources/Info.plist")
-set(CPACK_BUNDLE_ICON "${CMAKE_SOURCE_DIR}/app-resources/icon.icns")
-
-#
-include(CPack)
+set_target_properties(Tests-Coollab PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/tests/${CMAKE_BUILD_TYPE})
+cool_setup(Tests-Coollab)

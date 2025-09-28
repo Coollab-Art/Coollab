@@ -57,10 +57,10 @@ public:
     Node() = default;
     Node(Cool::NodeDefinitionIdentifier const& id_names, size_t number_of_main_input_pins, size_t number_of_function_inputs)
         : _d{
-              .id_names                  = id_names,
-              .number_of_main_input_pins = number_of_main_input_pins,
-              .number_of_function_inputs = number_of_function_inputs,
-          }
+            .id_names                  = id_names,
+            .number_of_main_input_pins = number_of_main_input_pins,
+            .number_of_function_inputs = number_of_function_inputs,
+        }
     {}
     explicit Node(NodePodPart const& pod_part)
         : _d{pod_part}
@@ -68,6 +68,7 @@ public:
 
     auto name() const -> std::string { return _d.name; }
     void set_name(std::string const& name) { _d.name = name; }
+    auto name_ref() -> std::string& { return _d.name; }
 
     auto definition_name() const -> std::string { return _d.id_names.definition_name; }
     auto category_name() const -> std::string { return _d.id_names.category_name; }

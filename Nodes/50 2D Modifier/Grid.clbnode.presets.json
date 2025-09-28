@@ -2,15 +2,15 @@
     "Presets": {
         "Underlying container": [
             {
-                "first": "64556122-7e67-4466-abbe-c069d72e511d",
+                "first": "11237216-c2a3-45fa-80c9-462c5cb0eaf0",
                 "second": {
                     "Name": "Default",
                     "Values": [
                         {
                             "index": 2,
                             "data": {
-                                "Name": "Nb cells",
-                                "Value": 3.0,
+                                "Name": "Cell Size",
+                                "Value": 0.33333298563957217,
                                 "Metadata": {
                                     "Bounds": {
                                         "Has min bound": true,
@@ -19,7 +19,25 @@
                                         "Max": 1.0,
                                         "Drag speed": 0.009999999776482582,
                                         "Use slider": false,
-                                        "Is logarithmic": false
+                                        "Is logarithmic": true
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Content Size",
+                                "Value": 1.0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": false,
+                                        "Is logarithmic": true
                                     }
                                 }
                             }

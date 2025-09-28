@@ -1,0 +1,26 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'X Repetitions';
+INPUT int 'Y Repetitions';
+
+INPUT float 'X Spacing';
+INPUT float 'Y Spacing';
+
+OUTPUT float 'X Index';
+OUTPUT float 'Y Index';
+
+UV main(UV pos)
+{
+    int x_repetition_number = 'X Repetitions' - 1;
+    int y_repetition_number = 'Y Repetitions' - 1;
+
+    vec2 right      = vec2(x_repetition_number / 2, y_repetition_number / 2);
+    vec2 left       = -right - vec2(x_repetition_number % 2 == 0 ? 0. : 1., y_repetition_number % 2 == 0 ? 0. : 1.);
+    vec2 cell_radii = vec2('X Spacing', 'Y Spacing');
+
+    vec2 cell_index = clamp(round(pos / cell_radii), left, right);
+    vec2 q          = pos - cell_radii * cell_index;
+    'X Index'       = cell_index.x;
+    'Y Index'       = cell_index.y;
+    return q;
+}

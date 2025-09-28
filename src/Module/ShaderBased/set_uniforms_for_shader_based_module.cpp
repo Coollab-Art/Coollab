@@ -1,17 +1,20 @@
-#include "set_uniforms_for_shader_based_module.h"
+#include "set_uniforms_for_shader_based_module.hpp"
 #include "Cool/Camera/CameraShaderU.h"
 #include "Cool/ColorSpaces/ColorAndAlphaSpace.h"
 #include "Cool/ColorSpaces/ColorSpace.h"
 #include "Cool/Exception/Exception.h"
 #include "Cool/Midi/MidiManager.h"
 #include "Cool/StrongTypes/set_uniform.h"
+#include "Cool/TextureSource/TextureLibrary_Image.h"
+#include "ImGuiNotify/ImGuiNotify.hpp"
+#include "Module/Module.h"
 #include "Nodes/Node.h"
 #include "Nodes/valid_input_name.h"
 
 namespace Lab {
 
 template<typename T>
-static void set_uniform(Cool::FullscreenPipelineGLSL const& pipeline, Cool::SharedVariable<T> const& var)
+static void set_uniform(Cool::FullscreenPipelineGLSL const& pipeline, Cool::SharedVariable<T> const& var, std::string const& node_name)
 {
     auto const value = [&] {
         if constexpr (std::is_same_v<T, Cool::Color>)
@@ -47,20 +50,21 @@ static void set_uniform(Cool::FullscreenPipelineGLSL const& pipeline, Cool::Shar
             valid_input_name(var),
             value
         );
-        Cool::Log::ToUser::console().remove(var.message_id());
+        ImGuiNotify::close_immediately(var.notification_id());
     }
-    catch (Cool::Exception const& e)
+    catch (Cool::Exception const& e) // Can be thrown for example when an OSC Channel does not exist
     {
-        e.error_message().send_error_if_any(
-            var.message_id(),
-            [&](std::string const& msg) {
-                return Cool::Message{
-                    .category = "Invalid node parameter",
-                    .message  = msg,
-                    .severity = Cool::MessageSeverity::Error,
-                };
+        assert(e.error_message().clipboard_contents.empty() && "Ignoring clipboard contents");
+        ImGuiNotify::send_or_change(
+            var.notification_id(),
+            {
+                .type     = ImGuiNotify::Type::Error,
+                .title    = "Invalid node parameter",
+                .content  = fmt::format("In node \"{}\":\n{}", node_name, e.error_message().message),
+                .duration = std::nullopt,
+                .closable = false,
             },
-            Cool::Log::ToUser::console()
+            false /*trigger_notification_callbacks_when_changed*/ // To avoid spamming the log file. Otherwise each time we rerender we would re-log the error
         );
     }
 
@@ -70,66 +74,85 @@ static void set_uniform(Cool::FullscreenPipelineGLSL const& pipeline, Cool::Shar
         auto const err = Cool::get_error(value.source);
         if (err)
         {
-            Cool::Log::ToUser::console().send(
-                var.message_id(),
-                Cool::Message{
-                    .category = "Missing Texture",
-                    .message  = err.value(),
-                    .severity = Cool::MessageSeverity::Error,
-                }
+            ImGuiNotify::send_or_change(
+                var.notification_id(),
+                {
+                    .type     = ImGuiNotify::Type::Error,
+                    .title    = "Missing Texture",
+                    .content  = err.value(),
+                    .duration = std::nullopt,
+                    .closable = false,
+                },
+                false /*trigger_notification_callbacks_when_changed*/ // To avoid spamming the log file. Otherwise each time we rerender we would re-log the error
             );
         }
         else
         {
-            Cool::Log::ToUser::console().remove(var.message_id());
+            ImGuiNotify::close_immediately(var.notification_id());
         }
     }
 }
 
-auto set_uniforms_for_shader_based_module(
+void set_uniforms_for_shader_based_module(
     Cool::FullscreenPipelineGLSL const&     pipeline,
-    SystemValues const&                     system_values,
-    ModuleDependencies const&               depends_on,
-    Cool::DoubleBufferedRenderTarget const& feedback_double_buffer,
-    Cool::NodesGraph const&                 nodes_graph
-) -> void
+    ModuleDependencies const&                   depends_on,
+    DataToPassToShader const&                   data,
+    std::vector<std::shared_ptr<Module>> const& modules_that_we_depend_on,
+    std::vector<Cool::NodeId> const&            nodes_that_we_depend_on
+)
 {
-    pipeline.set_uniform_with_name("_camera2D_transform", system_values.camera_2D.transform_matrix());
-    pipeline.set_uniform_with_name("_camera2D_view", system_values.camera_2D.view_matrix());
-    pipeline.set_uniform_with_name("_height", system_values.height());
-    pipeline.set_uniform_with_name("_last_midi_button_pressed", Cool::midi_manager().all_values().last_button_pressed());
+    shader.bind();
+    pipeline.set_uniform_with_name("_camera2D_transform", data.system_values.camera_2D.transform_matrix());
+    pipeline.set_uniform_with_name("_camera2D_view", data.system_values.camera_2D.view_matrix());
+    pipeline.set_uniform_with_name("_height", data.system_values.height());
+ pipeline.set_uniform_with_name("_last_midi_button_pressed", Cool::midi_manager().all_values().last_button_pressed());
     pipeline.set_uniform_with_name("_last_last_midi_button_pressed", Cool::midi_manager().all_values().last_last_button_pressed());
     pipeline.set_uniform_with_name("_time_since_last_midi_button_pressed", Cool::midi_manager().all_values().time_since_last_button_pressed().as_seconds_float());
-    pipeline.set_uniform_with_name("_aspect_ratio", system_values.aspect_ratio());
-    pipeline.set_uniform_with_name("_inverse_aspect_ratio", system_values.inverse_aspect_ratio());
-    pipeline.set_uniform_with_name("_time", system_values.time.as_seconds_float());
-    pipeline.set_uniform_with_name("_delta_time", system_values.delta_time.as_seconds_float());
+    pipeline.set_uniform_with_name("_aspect_ratio", data.system_values.aspect_ratio());
+    pipeline.set_uniform_with_name("_inverse_aspect_ratio", data.system_values.inverse_aspect_ratio());
+   // shader.set_uniform_texture("mixbox_lut", Cool::TextureLibrary_Image::instance().get(Cool::Path::root() / "res/mixbox/mixbox_lut.png")->id());
+    pipeline.set_uniform_with_name("_time", data.system_values.time.as_seconds_float());
+    pipeline.set_uniform_with_name("_delta_time", data.system_values.delta_time.as_seconds_float());
 
     if (depends_on.audio_volume)
-        pipeline.set_uniform_with_name("_audio_volume", system_values.audio_manager.get().volume());
+        shader.set_uniform("_audio_volume", data.system_values.audio_manager.get().volume());
+    if (depends_on.audio_waveform)
+        shader.set_uniform_texture1D("_audio_waveform", data.system_values.audio_manager.get().waveform_texture().id());
     if (depends_on.audio_spectrum)
-        pipeline.set_uniform_with_name("_display_audio_spectrum_as_bars", system_values.audio_manager.get().wants_to_display_audio_spectrum_as_bars());
+        shader.set_uniform_texture1D("_audio_spectrum", data.system_values.audio_manager.get().spectrum_texture().id());
+        
 
-    // TODO(WebGPU)
-    // pipeline.set_uniform_texture(
-    //     "_previous_frame_texture",
-    //     feedback_double_buffer.read_target().get().texture_id(),
-    //     Cool::TextureSamplerDescriptor{
-    //         .repeat_mode        = Cool::TextureRepeatMode::None,
-    //         .interpolation_mode = glpp::Interpolation::NearestNeighbour, // Very important. If set to linear, artifacts can appear over time (very visible with the Slit Scan effect).
-    //     }
-    // );
     Cool::CameraShaderU::set_uniform(pipeline, system_values.camera_3D, system_values.aspect_ratio());
 
-    nodes_graph.for_each_node<Node>([&](Node const& node) { // TODO(Modules) Only set it for nodes that are actually compiled in the graph. Otherwise causes problems, e.g. if a webcam node is here but unused, we still request webcam capture every frame, which forces us to rerender every frame for no reason + it does extra work. // TODO(Modules) Each module should store a list of its inputs, so that we can set them there
-        for (auto const& value_input : node.value_inputs())
-        {
-            std::visit([&](auto&& value_input) {
-                set_uniform(pipeline, value_input);
-            },
-                       value_input);
-        }
-    });
+
+    Cool::CameraShaderU::set_uniform(pipeline, data.system_values.camera_3D, data.system_values.aspect_ratio());
+
+    for (auto const& node_id : nodes_that_we_depend_on)
+    {
+        data.nodes_graph.nodes().with_ref(node_id, [&](Cool::Node const& abstract_node) {
+            auto const& node = abstract_node.downcast<Node>();
+            for (auto const& value_input : node.value_inputs())
+            {
+                std::visit([&](auto&& value_input) {
+                    set_uniform(pipeline, value_input, to_string(node));
+                },
+                           value_input);
+            }
+        });
+    }
+
+    for (auto const& module : modules_that_we_depend_on)
+    {
+    // TODO(WebGPU)
+     //   shader.set_uniform_texture(
+     //       module->texture_name_in_shader(),
+     //       module->texture().id,
+    //        Cool::TextureSamplerDescriptor{
+    //            .repeat_mode        = Cool::TextureRepeatMode::None,
+     //           .interpolation_mode = glpp::Interpolation::NearestNeighbour, // TODO(FeedbackLoop) The texture coming from feedback loop module must use nearest neighbour interpolation (cf  // Very important. If set to linear, artifacts can appear over time (very visible with the Slit Scan effect).), but the texture from other modules is probably better off using Linear ???
+    //        }
+    //    );
+    }
 }
 
 } // namespace Lab

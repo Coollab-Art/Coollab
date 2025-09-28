@@ -2,6 +2,7 @@
 #include <Commands/Command_AddLink.h>
 #include <Commands/Command_AddNode.h>
 #include <Commands/Command_ChangeNodeDefinition.h>
+#include <Commands/Command_Meshing.h>
 #include <Commands/Command_RemoveLink.h>
 #include <Commands/Command_RemoveNode.h>
 #include <Commands/Command_SetMainNodeId.h>
@@ -13,10 +14,11 @@
 #include <Cool/Nodes/ed.h>
 #include <Nodes/NodesClipboard.h>
 #include <algorithm>
-#include <reg/src/internal/generate_uuid.hpp>
 #include <string>
+#include "App.h"
 #include "Cool/Audio/AudioManager.h"
 #include "Cool/Dependencies/SharedVariable.h"
+#include "Cool/ImGui/Fonts.h"
 #include "Cool/ImGui/ImGuiExtras.h"
 #include "Cool/Nodes/Link.h"
 #include "Cool/Nodes/NodesLibrary.h"
@@ -113,13 +115,7 @@ static void apply_settings_to_inputs(
     catch (...)
     {
         // TODO(Settings) Remove this try-catch once we update presets properly
-        Cool::Log::ToUser::warning(
-            "Presets",
-            fmt::format(
-                "Current preset for node \"{}\" does not match the INPUTs of the shader anymore, it has not been applied fully.",
-                node_name
-            )
-        );
+        Cool::Log::warning("Presets", fmt::format("Current preset for node \"{}\" does not match the INPUTs of the shader anymore, it has not been applied fully.", node_name));
     }
 }
 
@@ -150,14 +146,17 @@ static void apply_settings_to_inputs_no_history(
     catch (...)
     {
         // TODO(Settings) Remove this try-catch once we update presets properly
-        Cool::Log::ToUser::warning(
-            "Presets",
-            fmt::format(
-                "Current preset for node \"{}\" does not match the INPUTs of the shader anymore, it has not been applied fully.",
-                node_name
-            )
-        );
+        Cool::Log::warning("Presets", fmt::format("Current preset for node \"{}\" does not match the INPUTs of the shader anymore, it has not been applied fully.", node_name));
     }
+}
+
+void NodesConfig::node_context_menu(Cool::Node& /*Node*/, Cool::NodeId const& /* node_id */)
+{
+    // if (ImGui::Button("Meshing"))
+    // {
+    //     _command_executor.execute(Command_Meshing{node_id});
+    //     ImGui::CloseCurrentPopup();
+    // }
 }
 
 auto NodesConfig::name(Cool::Node const& abstract_node) const -> std::string
@@ -174,15 +173,9 @@ auto NodesConfig::category_name(Cool::Node const& abstract_node) const -> std::s
 
 void NodesConfig::main_node_toggle(Cool::NodeId const& node_id)
 {
-    bool const was_main = node_id == _main_node_id;
-    bool       is_main  = was_main;
+    bool is_main = node_id == _main_node_id;
     if (Cool::ImGuiExtras::toggle("Main node", &is_main))
-    {
-        if (is_main)
-            set_main_node_id(node_id);
-        else
-            set_main_node_id({}); // Unselect main node
-    }
+        set_main_node_id(node_id);
 }
 
 void NodesConfig::imgui_above_node_pins(Cool::Node& /* abstract_node */, Cool::NodeId const& id)
@@ -202,18 +195,15 @@ static auto value_input_is_connected_to_a_node(size_t value_input_index, Node co
     return input_node != nullptr;
 }
 
-void NodesConfig::imgui_in_inspector_above_node_info(Cool::Node& /* abstract_node */, Cool::NodeId const& id)
+void NodesConfig::imgui_in_inspector_above_node_info(Cool::Node& /* abstract_node */, Cool::NodeId const& /* id */)
 {
     // auto& node = abstract_node.downcast<Node>();
-
-    main_node_toggle(id);
+    // main_node_toggle(id);
 }
 
 void NodesConfig::imgui_in_inspector_below_node_info(Cool::Node& abstract_node, Cool::NodeId const& /* id */)
 {
     auto& node = abstract_node.downcast<Node>();
-
-    ImGui::NewLine();
 
     if (node.is_audio_node())
     {
@@ -240,7 +230,7 @@ void NodesConfig::imgui_in_inspector_below_node_info(Cool::Node& abstract_node, 
     {
         ImGui::NewLine();
         ImGui::Separator();
-        Cool::ImGuiExtras::warning_text("Node definition file not found");
+        Cool::ImGuiExtras::warning_text("Node file not found");
     }
     else if (!node.value_inputs().empty())
     {
@@ -256,6 +246,20 @@ void NodesConfig::imgui_in_inspector_below_node_info(Cool::Node& abstract_node, 
             // Apply back the variables to the inputs' default variables
             apply_settings_to_inputs(settings, node.value_inputs(), to_string(node), _command_executor);
         }
+    }
+}
+
+void NodesConfig::imgui_inspector_content_when_no_node_is_selected()
+{
+    if (_nodes_editor.graph().nodes().is_empty())
+    {
+        ImGui::PushFont(Cool::Font::italic());
+        ImGui::TextUnformatted("Select a node to edit its parameters");
+        ImGui::PopFont();
+    }
+    else
+    {
+        _command_executor.get_ctx().app().imgui_window_cameras();
     }
 }
 
@@ -369,14 +373,14 @@ auto NodesConfig::add_node(Cool::NodeDefinitionAndCategoryName const& cat_id) ->
 
 auto NodesConfig::add_node(Node const& node) -> Cool::NodeId
 {
-    auto const id = Cool::NodeId{reg::internal::generate_uuid()};
+    auto const id = Cool::NodeId{reg::generate_uuid()};
     _command_executor.execute(Command_AddNode{id, node});
     return id;
 }
 
 auto NodesConfig::add_link(Cool::Link const& link) -> Cool::LinkId
 {
-    auto const id = Cool::LinkId{reg::internal::generate_uuid()};
+    auto const id = Cool::LinkId{reg::generate_uuid()};
     _command_executor.execute(Command_AddLink{id, link});
     return id;
 }
@@ -531,7 +535,7 @@ auto NodesConfig::paste_nodes(std::string_view clipboard_string) -> bool
             }
             for (auto& pin : node.input_pins())
             {
-                auto const new_pin_id = Cool::PinId{reg::internal::generate_uuid()};
+                auto const new_pin_id = Cool::PinId{reg::generate_uuid()};
                 for (auto& link : clipboard.links)
                 {
                     if (link.to_pin_id == pin.id())
@@ -541,7 +545,7 @@ auto NodesConfig::paste_nodes(std::string_view clipboard_string) -> bool
             }
             for (auto& pin : node.output_pins())
             {
-                auto const new_pin_id = Cool::PinId{reg::internal::generate_uuid()};
+                auto const new_pin_id = Cool::PinId{reg::generate_uuid()};
                 for (auto& link : clipboard.links)
                 {
                     if (link.from_pin_id == pin.id())
@@ -575,7 +579,7 @@ auto NodesConfig::paste_nodes(std::string_view clipboard_string) -> bool
     }
     catch (std::exception const& e)
     {
-        Cool::Log::Debug::warning("Copy-Paste", fmt::format("Failed to paste nodes.\n({})", e.what()));
+        Cool::Log::internal_warning("Copy-Paste", fmt::format("Failed to paste nodes:\n{}", e.what()));
         return false;
     }
 }
@@ -715,16 +719,6 @@ void make_sure_node_uses_the_most_up_to_date_version_of_its_definition(Node& nod
 void NodesConfig::make_sure_node_uses_the_most_up_to_date_version_of_its_definition(Node& node)
 {
     Lab::make_sure_node_uses_the_most_up_to_date_version_of_its_definition(node, _get_node_definition, graph(), _command_executor, _get_node_category_config, _dirty_flags);
-}
-
-void NodesConfig::widget_to_rename_node(Cool::Node& abstract_node)
-{
-    auto& node = abstract_node.downcast<Node>();
-    auto  name = node.name();
-    ImGui::PushID(21654);
-    ImGui::InputText("Title", &name);
-    ImGui::PopID();
-    node.set_name(name);
 }
 
 auto NodesConfig::maybe_disable_node_definition() const -> Cool::MaybeDisableNodeDefinition

@@ -8,6 +8,8 @@ on:
       - "User data Default/**"
       - "Nodes/**"
       - "**.md"
+      - ".github/workflows/create_release_executables.yml"
+      - ".github/workflows/deploy_website.yml"
   pull_request:
     branches: [main]
 
@@ -46,8 +48,8 @@ jobs:
             }
           - {
               name: MacOS Clang,
-              os: macos-12, # 13 and 14 run on M1 chips, and we get a linker error when using them
-              cmake_configure_args: -D CMAKE_C_COMPILER=$(brew --prefix llvm@15)/bin/clang -D CMAKE_CXX_COMPILER=$(brew --prefix llvm@15)/bin/clang++ -G Ninja -D OPENSSL_ROOT_DIR=/usr/local/opt/openssl -D OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include,
+              os: macos-latest,
+              cmake_configure_args: -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -G Ninja -D OPENSSL_ROOT_DIR=/usr/local/opt/openssl,
             }
         build_type:
           - Debug
@@ -58,13 +60,44 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: mjp41/workaround8649@c8550b715ccdc17f89c8d5c28d7a48eeff9c94a8 # Temporary workaround for Linux Clang not working atm. See https://github.com/actions/runner-images/issues/8659
-        with:
-          os: ${{ matrix.config.os }}
-
       - name: Set up MSVC # NOTE: required to find cl.exe when using the Ninja generator. And we need to use Ninja in order for ccache to be able to cache stuff with MSVC.
         if: matrix.config.name == 'Windows MSVC'
         uses: ilammy/msvc-dev-cmd@v1.13.0
+
+      - name: Cache vcpkg
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/vcpkg
+          key: vcpkg-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: vcpkg-${{ runner.os }}-
+
+      - name: Cache vcpkg installed packages
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/vcpkg/installed
+            ${{ runner.temp }}/vcpkg/buildtrees
+          key: vcpkg-packages-${{ runner.os }}-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: vcpkg-packages-${{ runner.os }}-
+
+      - name: Install vcpkg
+        if: runner.os == 'Windows'
+        run: |
+          if not exist "${{ runner.temp }}\vcpkg" (
+            git clone https://github.com/microsoft/vcpkg.git ${{ runner.temp }}\vcpkg
+            cd ${{ runner.temp }}\vcpkg
+            .\bootstrap-vcpkg.bat
+          )
+        shell: cmd
+
+      - name: Install Windows dependencies
+        if: runner.os == 'Windows'
+        run: |
+          ${{ runner.temp }}\vcpkg\vcpkg.exe install openssl:x64-windows
+        shell: cmd
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -74,6 +107,8 @@ jobs:
           sudo apt-get install -y libssl-dev
           sudo apt-get install -y libpulse-dev libasound2-dev
           sudo apt-get install -y libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswresample-dev libswscale-dev
+          sudo apt-get install -y libdbus-1-dev
+          sudo apt-get install -y libjpeg-dev
 
       - name: Install MacOS dependencies
         if: runner.os == 'MacOS'
@@ -84,15 +119,20 @@ jobs:
         with:
           key: ${{matrix.config.name}}-${{matrix.build_type}}
 
+      - name: Set CMake Toolchain Argument
+        if: runner.os == 'Windows'
+        run: echo "CMAKE_TOOLCHAIN_ARG=-D CMAKE_TOOLCHAIN_FILE=${{ runner.temp }}\vcpkg\scripts\buildsystems\vcpkg.cmake" >> $GITHUB_ENV
+        shell: bash
+
       - name: Build
         uses: lukka/run-cmake@v3
         with:
           cmakeListsOrSettingsJson: CMakeListsTxtAdvanced
           cmakeListsTxtPath: ${{github.workspace}}/${{env.cmakelists_folder}}/CMakeLists.txt
-          cmakeAppendedArgs: ${{env.cmake_configure_args}} -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ${{matrix.config.cmake_configure_args}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmakeAppendedArgs: ${{env.cmake_configure_args}} -D CMAKE_BUILD_TYPE=${{matrix.build_type}} ${{matrix.config.cmake_configure_args}} -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache ${{ env.CMAKE_TOOLCHAIN_ARG }}
           buildWithCMakeArgs: --config ${{matrix.build_type}} --target ${{env.cmake_target}}
           cmakeBuildType: ${{matrix.build_type}}
           buildDirectory: ${{github.workspace}}/build
 
       - name: Run
-        run: ${{github.workspace}}/bin/${{matrix.build_type}}/${{env.cmake_target}}
+        run: ${{github.workspace}}/bin/tests/${{matrix.build_type}}/${{matrix.config.name == 'Windows Clang' && matrix.build_type || ''}}/${{env.cmake_target}}

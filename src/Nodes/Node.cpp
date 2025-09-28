@@ -1,6 +1,6 @@
 #include "Node.h"
-#include "Cool/Log/ToUser.h"
 #include "Cool/String/String.h"
+#include "ImGuiNotify/ImGuiNotify.hpp"
 
 namespace Lab {
 
@@ -25,7 +25,7 @@ auto Node::as_pod() const -> NodeAsPOD
 void Node::clear_all_error_messages()
 {
     for (auto& input : _value_inputs)
-        std::visit([](auto&& input) { Cool::Log::ToUser::console().remove(input.message_id()); }, input);
+        std::visit([](auto&& input) { ImGuiNotify::close_immediately(input.notification_id()); }, input);
 }
 
 } // namespace Lab

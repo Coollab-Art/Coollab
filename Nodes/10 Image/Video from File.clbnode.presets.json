@@ -1,0 +1,42 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "05bb6cc4-1040-49a0-9a70-0fdb0af17c76",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 25,
+                            "data": {
+                                "Name": "Video",
+                                "Value": {
+                                    "Source": {
+                                        "index": 2,
+                                        "data": {
+                                            "Video": {
+                                                "File Path": "",
+                                                "Settings": {
+                                                    "Loop mode": 1,
+                                                    "Playback speed": 1.0,
+                                                    "Start time": {
+                                                        "Nanoseconds": 0
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "Sampler": {
+                                        "Repeat Mode": 1,
+                                        "Interpolation Mode": 9729
+                                    }
+                                },
+                                "Metadata": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

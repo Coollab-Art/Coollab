@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>CFBundleVersion</key>
+        <string>1.2.0</string>
+
+        <key>CFBundleShortVersionString</key>
+        <string>1.2.0</string>
+
+        <key>CFBundleName</key>
+        <string>Coollab</string>
+
+        <key>CFBundleDisplayName</key>
+        <string>Coollab</string>
+
+        <key>CFBundleIdentifier</key>
+        <string>com.coollab.coollab</string>
+
+        <key>LSApplicationCategoryType</key>
+        <string>public.app-category.graphics-design</string>
+
+        <key>NSHighResolutionCapable</key>
+        <true/>
+
+        <key>NSSupportsAutomaticGraphicsSwitching</key>
+        <false/>
+
+        <key>LSMultipleInstancesProhibited</key>
+        <false/>
+
+        <key>NSSupportsSuddenTermination</key>
+        <false/>
+
+        <key>NSCameraUsageDescription</key>
+        <string>Coollab requires camera access in order for the Webcam node to work.</string>
+
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Coollab requires microphone access in order for the Audio nodes to work.</string>
+
+        <key>NSRemovableVolumesUsageDescription</key>
+        <string>Coollab needs access to external drives to save and load projects.</string>
+
+        <key>CFBundleExecutable</key>
+        <string>Coollab</string>
+
+        <key>CFBundlePackageType</key>
+        <string>APPL</string>
+
+        <key>CFBundleDevelopmentRegion</key>
+        <string>en-US</string>
+
+        <key>CFBundleIconFile</key>
+        <string>icon.icns</string>
+    </dict>
+</plist>

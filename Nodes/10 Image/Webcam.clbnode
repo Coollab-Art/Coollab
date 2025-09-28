@@ -1,7 +1,9 @@
 INPUT Webcam 'Webcam';
+INPUT bool 'Mirror';
 
 sRGB_StraightA main(UV uv) // Return some alpha even if the webcam texture will be fully opaque, because when sampling outside of the bounds of the texture it might return transparent pixels, when using RepeatMode == None.
 {
-    uv.x *= -1.; // Mirror the texture because it makes the webcam work like a mirror, which is more intuitive
-    return sample_opencv_texture('Webcam', uv);
+    if ('Mirror')
+        uv.x *= -1.; // Mirror the texture because it makes the webcam work like a mirror, which is more intuitive
+    return sample_cool_texture('Webcam', uv);
 }

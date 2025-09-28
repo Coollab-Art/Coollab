@@ -16,13 +16,31 @@
                                 },
                                 "Metadata": {
                                     "Bounds": {
-                                        "Has min bound": false,
+                                        "Has min bound": true,
                                         "Min": 0.0,
                                         "Has max bound": false,
                                         "Max": 1.0,
                                         "Drag speed": 0.009999999776482582,
                                         "Use slider": false,
-                                        "Is logarithmic": false
+                                        "Is logarithmic": true
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Content Size",
+                                "Value": 1.0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": false,
+                                        "Is logarithmic": true
                                     }
                                 }
                             }

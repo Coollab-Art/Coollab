@@ -1,6 +1,8 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
-INPUT float 'Nb cells';
+INPUT float 'Cell Size';
+INPUT float 'Content Size';
+
 INPUT float 'Scroll X';
 INPUT float 'Scroll Y';
 
@@ -11,7 +13,8 @@ OUTPUT float 'Y Center';
 
 UV main(UV Image)
 {
-    vec2 uv2 = unnormalize_uv_with_aspect_ratio(Image, 1.) * 'Nb cells';
+    float cell_size = 'Cell Size' * 2.;
+    vec2  uv2       = Image / cell_size - 0.5;
 
     uv2.x += 'Scroll X' * (int(floor(uv2.y)) % 2 == 0 ? -1. : 1.);
     uv2.y += 'Scroll Y' * (int(floor(uv2.x)) % 2 == 0 ? -1. : 1.);
@@ -23,10 +26,10 @@ UV main(UV Image)
 
     vec2 ret = normalize_uv_with_aspect_ratio(fract(uv2), 1.);
 
-    vec2 center = Image - ret / 'Nb cells';
+    vec2 center = Image - ret * cell_size;
 
     'X Center' = center.x;
     'Y Center' = center.y;
 
-    return ret;
+    return ret / 'Content Size';
 }

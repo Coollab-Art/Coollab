@@ -1,0 +1,16 @@
+INPUT Oklab 'Image';
+INPUT sRGB 'Color';
+INPUT float 'Brightness';
+
+vec3 monochrome_impl(float luminance, vec3 color, float target_luminance)
+{
+    return pow(
+        vec3(luminance),
+        log(color) / log(vec3(target_luminance))
+    );
+}
+
+sRGB main(UV uv)
+{
+    return monochrome_impl('Image'.x, 'Color', 1. - 'Brightness');
+}

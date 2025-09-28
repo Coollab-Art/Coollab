@@ -101,7 +101,7 @@ auto gen_default_function(FunctionSignature signature, CodeGenContext& context)
     -> ExpectedFunctionName
 {
     using fmt::literals::operator""_a;
-    static constexpr std::string_view signed_to_float = "antialised_step(sd)";
+    static constexpr std::string_view signed_to_float = "antialiased_step(sd)";
     {
         auto const func = maybe_generate_default(
             FunctionSignature{PrimitiveType::SignedDistance, PrimitiveType::Float},
@@ -233,6 +233,21 @@ vec3 default_curve_3D(float t)
 {
     float angle = TAU * t;
     return vec3(cos(angle), sin(angle), 0.);
+}
+)STR",
+            signature, context
+        );
+        if (func)
+            return *func;
+    }
+
+    {
+        auto const func = maybe_generate_default(
+            FunctionSignature{PrimitiveType::UV, PrimitiveType::Vec2},
+            "default_displacement_map", R"STR(
+vec2 default_displacement_map(vec2 uv)
+{
+    return normalize(uv);
 }
 )STR",
             signature, context

@@ -1,0 +1,8 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT UV->sRGB_StraightA 'Image';
+
+sRGB_StraightA main(UV uv)
+{
+    return vec4(); // Doesn't matter, this node file is just a hack to have a node with the right input and output pins
+}

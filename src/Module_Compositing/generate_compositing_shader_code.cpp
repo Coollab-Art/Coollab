@@ -1,14 +1,13 @@
 #include "generate_compositing_shader_code.h"
-#include "Module/ShaderBased/generate_shader_code.h"
+#include "Module/ShaderBased/generate_shader_code.hpp"
 
 namespace Lab {
 
 auto generate_compositing_shader_code(
-    Cool::NodesGraph const&                          graph,
     Cool::NodeId const&                              root_node_id,
-    Cool::GetNodeDefinition_Ref<NodeDefinition>      get_node_definition,
     MaybeGenerateModule const&                       maybe_generate_module,
-    std::function<std::vector<std::string>()> const& get_module_textures_names
+    std::function<std::vector<std::string>()> const& get_module_textures_names,
+    DataToGenerateShaderCode const&                  data
 ) -> tl::expected<std::string, std::string>
 {
     using fmt::literals::operator""_a;
@@ -44,13 +43,12 @@ void main()
     };
 
     return generate_shader_code(
-        graph,
         root_node_id,
-        get_node_definition,
         maybe_generate_module,
         signature,
         content,
-        get_module_textures_names
+        get_module_textures_names,
+        data
     );
 }
 

@@ -57,7 +57,7 @@ def all_primitive_types():
         PrimitiveType(
             cpp="Float",
             user_facing_name="Float",
-            corresponding_input_types=["float"],
+            corresponding_input_types=["float", "Cool::TimeSpeed", "Cool::Time"],
             glsl="float",
             parsed_from="float",
         ),

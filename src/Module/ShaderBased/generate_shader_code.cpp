@@ -1,4 +1,4 @@
-#include "generate_shader_code.h"
+#include "generate_shader_code.hpp"
 #include "Cool/String/String.h"
 #include "Nodes/CodeGen.h"
 #include "Nodes/Node.h"
@@ -53,17 +53,15 @@ static void remove_extra_parentheses(std::string& code)
 }
 
 auto generate_shader_code(
-    Cool::NodesGraph const&                          graph,
     Cool::NodeId const&                              root_node_id,
-    Cool::GetNodeDefinition_Ref<NodeDefinition>      get_node_definition,
     MaybeGenerateModule const&                       maybe_generate_module,
     FunctionSignature const&                         signature,
     ShaderCodeBits const&                            content,
-    std::function<std::vector<std::string>()> const& get_module_textures_names
-)
-    -> tl::expected<std::string, std::string>
+    std::function<std::vector<std::string>()> const& get_module_textures_names,
+    DataToGenerateShaderCode const&                  data
+) -> tl::expected<std::string, std::string>
 {
-    auto       context            = CodeGenContext{graph, get_node_definition};
+    auto       context            = CodeGenContext{data.nodes_graph, data.get_node_definition};
     auto const main_function_name = gen_desired_function(
         signature,
         root_node_id,
@@ -130,7 +128,7 @@ vec2 to_view_space(vec2 uv)
         "in_version"_a                  = content.version,
         "modules_textures_uniforms"_a   = modules_textures_uniforms,
         "in_before_main"_a              = content.before_main,
-        "output_indices_declarations"_a = gen_all_output_indices_declarations(graph),
+        "output_indices_declarations"_a = gen_all_output_indices_declarations(data.nodes_graph),
         "helper_code"_a                 = context.code(),
         "main_function"_a               = content.make_main(*main_function_name)
     );

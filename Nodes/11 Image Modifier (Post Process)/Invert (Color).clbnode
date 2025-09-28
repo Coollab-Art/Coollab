@@ -1,6 +1,8 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
+INPUT float 'Mask';
+
 sRGB main(sRGB Color)
 {
-    return 1. - Color;
+    return mix(Color, 1. - Color, 'Mask');
 }

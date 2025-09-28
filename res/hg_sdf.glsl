@@ -168,7 +168,7 @@
 //
 ////////////////////////////////////////////////////////////////
 
-#define PI  3.14159265
+// #define PI  3.14159265
 #define TAU (2 * PI)
 #define PHI (sqrt(5) * 0.5 + 0.5)
 
@@ -181,12 +181,12 @@
 // Sign function that doesn't return 0
 float sgn(float x)
 {
-    return (x < 0) ? -1 : 1;
+    return (x < 0.) ? -1. : 1.;
 }
 
 vec2 sgn(vec2 v)
 {
-    return vec2((v.x < 0) ? -1 : 1, (v.y < 0) ? -1 : 1);
+    return vec2((v.x < 0.) ? -1. : 1., (v.y < 0.) ? -1. : 1.);
 }
 
 float square(float x)

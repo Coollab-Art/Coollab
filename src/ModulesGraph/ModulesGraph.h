@@ -3,41 +3,11 @@
 #include "Cool/OSC/OSCChannel.h"
 #include "Cool/View/GizmoManager.h"
 #include "DirtyFlags.h"
-#include "Module_Compositing/Module_Compositing.h"
-#include "Module_Particles/Module_Particles.h"
+#include "Module/Module.h"
+#include "Module/ShaderBased/DataToGenerateShaderCode.hpp"
 #include "Nodes/NodesConfig.h"
 
 namespace Lab {
-
-struct ModulesGraphNode {
-    ModulesGraphNode() = default;
-    // ~ModulesGraphNode() = default;
-
-    // ModulesGraphNode(const ModulesGraphNode&)                      = delete; // We disable copying
-    // ModulesGraphNode& operator=(const ModulesGraphNode&)           = delete; // We disable copying
-    // ModulesGraphNode(ModulesGraphNode&& other) noexcept            = default;
-    // ModulesGraphNode& operator=(ModulesGraphNode&& other) noexcept = default;
-
-    ModulesGraphNode(Module_Particles module, std::string texture_name_in_shader)
-        : module{std::move(module)}
-        , texture_name_in_shader{std::move(texture_name_in_shader)}
-    {
-    }
-
-    Module_Particles   module{};
-    std::string        texture_name_in_shader{};
-    Cool::RenderTarget render_target{};
-
-private:
-    friend class ser20::access;
-    template<class Archive>
-    void serialize(Archive& archive)
-    {
-        archive(
-            ser20::make_nvp("Module", module)
-        );
-    }
-};
 
 /// The main class containing all the nodes of the project.
 /// It is responsible for spawning the various modules as required by the nodes, and knowing the dependencies between them.
@@ -46,14 +16,14 @@ public:
     ModulesGraph() = default;
 
     void update();
-    void render(Cool::RenderTarget&, SystemValues const&, Cool::NodesLibrary const&);
+    void render(DataToPassToShader const&, DataToGenerateShaderCode const&);
 
     void request_rerender_all();
 
     [[nodiscard]] auto is_empty() const -> bool { return _nodes_editor.is_empty(); }
     [[nodiscard]] auto graph() const -> Cool::NodesGraph const& { return _nodes_editor.graph(); }
     [[nodiscard]] auto graph() -> Cool::NodesGraph& { return _nodes_editor.graph(); }
-    [[nodiscard]] auto regenerate_code_flag() const -> Cool::DirtyFlag const& { return _dirty_flags.regenerate_code; }
+    [[nodiscard]] auto rebuild_modules_graph_flag() const -> Cool::DirtyFlag const& { return _dirty_flags.rebuild; }
     [[nodiscard]] auto rerender_all_flag() const -> Cool::DirtyFlag const& { return _dirty_flags.rerender; }
     [[nodiscard]] auto dirty_flags() const -> DirtyFlags const& { return _dirty_flags; }
     [[nodiscard]] auto nodes_config(Ui_Ref, Cool::AudioManager&, Cool::NodesLibrary const&) const -> NodesConfig;
@@ -74,6 +44,8 @@ public:
     void imgui_windows(Ui_Ref, Cool::AudioManager&, Cool::NodesLibrary const&) const;
     void submit_gizmos(Cool::GizmoManager&, CommandExecutor const&, Cool::Camera2D const&);
 
+    auto final_texture() const -> Cool::TextureRef;
+
     //----
     // These functions are mostly here so that Commands can do their job easily
     //----
@@ -87,18 +59,25 @@ public:
     void set_node(Cool::NodeId const&, Node const&);
 
 private:
-    void create_and_compile_all_modules(Cool::NodesGraph const&, Cool::NodeId const& root_node_id, Cool::NodesLibrary const&);
-    void render_one_module(Module&, Cool::RenderTarget&, SystemValues const&);
-    void render_compositing_module(Cool::RenderTarget&, SystemValues const&);
-    void render_particle_module(Module_Particles&, Cool::RenderTarget&, SystemValues const&);
+    void recreate_all_modules(Cool::NodeId const& node_id, DataToGenerateShaderCode const&);
+    auto create_module(Cool::NodeId const& node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
+    auto create_module_impl(std::string const& texture_name_in_shader, std::function<std::shared_ptr<Module>()> const& make_module) -> std::shared_ptr<Module>;
+    auto create_compositing_module(Cool::NodeId const& node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
+    auto create_particles_module(Cool::NodeId const& node_id, NodeDefinition const&, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
+    auto create_feedback_loop_module(Cool::NodeId const& node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
+    auto create_default_module() -> std::shared_ptr<Module>;
+
+    void render_module_ifn(Module&, DataToPassToShader const&);
+    void check_for_rerender_and_rebuild(DataToPassToShader const&, DataToGenerateShaderCode const&);
+    void clear_error_messages();
 
 private:
     mutable Cool::NodesEditor _nodes_editor{};
     mutable Cool::NodeId      _main_node_id{}; // TODO(Modules) Rename as _root_node_id? Or _output_node_id?
     DirtyFlags                _dirty_flags{};
 
-    mutable Module_Compositing                     _compositing_module{};
-    std::vector<std::unique_ptr<ModulesGraphNode>> _particles_module_nodes{}; // TODO(Particles) No need for the unique_ptr (in theory)
+    std::vector<std::shared_ptr<Module>> _modules{};     // TODO(Particles) No need for the unique_ptr (in theory)
+    std::shared_ptr<Module>              _root_module{}; // Never null
 
 private:
     // Serialization
@@ -107,8 +86,7 @@ private:
     void serialize(Archive& archive)
     {
         archive(
-            ser20::make_nvp("Compositing module", _compositing_module),
-            ser20::make_nvp("Particles module", _particles_module_nodes),
+            ser20::make_nvp("Modules", _modules),
             ser20::make_nvp("Dirty flags", _dirty_flags),
             ser20::make_nvp("Node editor", _nodes_editor),
             ser20::make_nvp("Main node ID", _main_node_id)

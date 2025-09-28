@@ -1,0 +1,22 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "5dff6926-ee0f-4905-a78c-9d695c555f26",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 0,
+                            "data": {
+                                "Name": "Interior Distance",
+                                "Value": true,
+                                "MetaData": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

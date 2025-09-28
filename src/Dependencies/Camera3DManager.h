@@ -20,10 +20,8 @@ public:
     auto               camera() const -> Cool::Camera const& { return _camera.value(); }
     [[nodiscard]] auto is_editable_in_view() -> bool& { return _is_editable_in_view; }
 
-    void hook_events(
-        Cool::MouseEventDispatcher<Cool::ViewCoordinates>&,
-        CommandExecutor const&
-    );
+    void hook_events(Cool::MouseEventDispatcher<Cool::ViewCoordinates>&, CommandExecutor const&);
+    void unhook_events(Cool::MouseEventDispatcher<Cool::ViewCoordinates>&);
 
     void imgui(CommandExecutor const&);
 
@@ -42,6 +40,9 @@ private:
     Cool::SharedVariable<Cool::Camera> _camera;
     Cool::ViewController_Orbital       _view_controller;
     bool                               _is_editable_in_view{true};
+
+    reg::AnyId _scroll_callback_id{};
+    reg::AnyId _drag_callback_id{};
 
 private:
     // Serialization

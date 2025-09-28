@@ -2,7 +2,7 @@
 :::info
 Please consider sharing your new nodes with us, and with your permission we might add them to Coollab 💜.<br/>
 
-[Submission link](https://github.com/CoolLibs/Lab/issues/new?assignees=&labels=enhancement&projects=&template=add-node.yaml&title=%5BNew+node%5D+).
+[Submission link](https://github.com/Coollab-Art/Coollab/issues/new?assignees=&labels=enhancement&projects=&template=add-node.yaml&title=%5BNew+node%5D+).
 :::
 
 Coollab nodes are tiny fragments of shader code written in glsl. If you don't know what this is you can start by [watching tutorials from The Art of Code](https://youtu.be/u5HAYVHsasc).
@@ -37,7 +37,7 @@ float main(float x, float y)
 }
 ```
 
-[^1]: If you have a use case where this limitation is annoying to you, feel free to [contact us](https://github.com/CoolLibs/Lab/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature-suggestion.yaml&title=%5BFeature%5D+) and we will happily consider your use case and improve Coollab to make it fit your needs.
+[^1]: If you have a use case where this limitation is annoying to you, feel free to [contact us](https://github.com/Coollab-Art/Coollab/issues/new?assignees=&labels=enhancement%2Ctriage&template=feature-suggestion.yaml&title=%5BFeature%5D+) and we will happily consider your use case and improve Coollab to make it fit your needs.
 
 Also, it is possible that your `main` function doesn't take any input at all if it represents a constant:
 
@@ -51,5 +51,5 @@ float main()
 ```
 
 :::tip
-If you want to see more examples, you can check out [all of Coollab's nodes](https://github.com/CoolLibs/Lab/tree/main/Nodes).
+If you want to see more examples, you can check out [all of Coollab's nodes](https://github.com/Coollab-Art/Coollab/tree/main/Nodes).
 :::

@@ -7,25 +7,20 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
+      description: Also, how can we reproduce the bug? Does it happen all the time or is it random?
     validations:
       required: true
   - type: textarea
-    id: repro
+    id: project-file
     attributes:
-      label: Steps to reproduce
-      description: How can we reproduce the bug? Does it happen all the time or is it random?
+      label: Project file
+      description: Please share your project file which is causing the problem, so that we can easily reproduce it. [Here is a quick tutorial to find your project file](https://coollab-art.com/Tutorials/Miscellaneous/Finding%20your%20project%20file)
+    validations:
+      required: false
+  - type: textarea
+    id: log-file
+    attributes:
+      label: Log file
+      description: "[Use this quick tutorial](https://coollab-art.com/Tutorials/Miscellaneous/Log%20File) to find the \"LOG Coollab.txt\" file, and drop it here"
     validations:
       required: true
-  - type: textarea
-    id: version
-    attributes:
-      label: Coollab version or commit id
-      placeholder: You can find the Coollab version in the About menu in the top-right of Coollab. If you are a developer working on Coollab, give us the commit id (SHA) and branch instead.
-    validations:
-      required: true
-  - type: textarea
-    id: logs
-    attributes:
-      label: Relevant log output
-      description: Copy-paste any relevant log output if any.

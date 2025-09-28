@@ -16,6 +16,8 @@ public:
         _ctx.execute(std::forward<ConcreteCommandT>(command), store_in_history);
     }
 
+    auto get_ctx() -> CommandExecutionContext_Ref& { return _ctx; }
+
 private:
     CommandExecutionContext_Ref _ctx;
 };

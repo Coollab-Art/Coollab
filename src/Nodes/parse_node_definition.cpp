@@ -8,6 +8,7 @@
 #include "Cool/ColorSpaces/ColorAndAlphaSpace.h"
 #include "Cool/ColorSpaces/ColorSpace.h"
 #include "Cool/Dependencies/SharedVariableDefinition.h"
+#include "Cool/File/File.h"
 #include "Cool/type_from_string/type_from_string.h"
 #include "Debug/DebugOptions.h"
 #include "FunctionSignature.h"
@@ -666,7 +667,7 @@ static auto presets_paths(std::filesystem::path path) -> Cool::PresetsPaths
     };
 #else
     return Cool::PresetsPaths{
-        .user_defined_presets = Cool::Path::user_data() / std::filesystem::relative(path, Cool::Path::root()), // Convert a path relative to root() into a path relative to user_data()
+        .user_defined_presets = Cool::Path::user_data() / Cool::File::relative(path, Cool::Path::root()), // Convert a path relative to root() into a path relative to user_data()
         .default_presets = path,
     };
 #endif
@@ -677,7 +678,7 @@ auto parse_node_definition(std::filesystem::path const& filepath, std::string co
 {
     auto def = NodeDefinition_Data{};
     if (DebugOptions::log_when_parsing_node_definition())
-        Cool::Log::ToUser::info("Nodes", fmt::format("Parsing node definition from {}.", filepath));
+        Cool::Log::info("Nodes", fmt::format("Parsing node definition from \"{}\"", Cool::File::weakly_canonical(filepath)));
 
     auto text_without_comments = Cool::String::remove_comments(text);
     RETURN_IF_ERROR(parse_special_coollab_syntax_and_remove_it(text, text_without_comments, filepath, def)); // Leaves only regular glsl code

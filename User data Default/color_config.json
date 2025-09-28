@@ -1,1001 +1,555 @@
 {
-    "Config": {
-        "Categories": [
-            {
-                "Name": "Bright Color",
-                "Behaves differently in light mode": true,
-                "Groups": [
-                    {
-                        "Name": "Normal",
-                        "Brightness delta": 0.0,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Brighter",
-                        "Brightness delta": 0.10499999672174454,
-                        "Opacity": 1.0
-                    }
-                ]
-            },
-            {
-                "Name": "Medium Color",
-                "Behaves differently in light mode": true,
-                "Groups": [
-                    {
-                        "Name": "Normal",
-                        "Brightness delta": 0.0,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Darker",
-                        "Brightness delta": -0.25,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Brighter",
-                        "Brightness delta": 0.03500000014901161,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Transparent",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.5
-                    },
-                    {
-                        "Name": "Slightly Transparent",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.75
-                    }
-                ]
-            },
-            {
-                "Name": "Background",
-                "Behaves differently in light mode": true,
-                "Groups": [
-                    {
-                        "Name": "Normal",
-                        "Brightness delta": 0.0,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Modal",
-                        "Brightness delta": -0.6480000019073486,
-                        "Opacity": 0.75
-                    },
-                    {
-                        "Name": "Invisible",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.0
-                    }
-                ]
-            },
-            {
-                "Name": "Accent Color",
-                "Behaves differently in light mode": false,
-                "Groups": [
-                    {
-                        "Name": "Normal",
-                        "Brightness delta": 0.0,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Brighter",
-                        "Brightness delta": 0.2809999883174896,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Slightly Transparent",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.7459999918937683
-                    },
-                    {
-                        "Name": "Slightly Transparent & Brighter",
-                        "Brightness delta": 0.2809999883174896,
-                        "Opacity": 0.7459999918937683
-                    },
-                    {
-                        "Name": "Very Transparent",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.21699999272823335
-                    },
-                    {
-                        "Name": "Floating Buttons Enabled",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.3019999861717224
-                    }
-                ]
-            },
-            {
-                "Name": "Text",
-                "Behaves differently in light mode": true,
-                "Groups": [
-                    {
-                        "Name": "Normal",
-                        "Brightness delta": 0.0,
-                        "Opacity": 1.0
-                    },
-                    {
-                        "Name": "Darker",
-                        "Brightness delta": 0.0,
-                        "Opacity": 0.75
-                    }
-                ]
-            }
-        ],
-        "Elements": [
-            {
-                "first": {
-                    "Name": "Text"
-                },
-                "second": {
-                    "Category name": "Text",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TextDisabled"
-                },
-                "second": {
-                    "Category name": "Text",
-                    "Group name": "Darker"
-                }
-            },
-            {
-                "first": {
-                    "Name": "WindowBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ChildBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "PopupBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Border"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "BorderShadow"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FrameBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FrameBgHovered"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Darker"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FrameBgActive"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Darker"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TitleBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TitleBgActive"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TitleBgCollapsed"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "MenuBarBg"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ScrollbarBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ScrollbarGrab"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ScrollbarGrabHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ScrollbarGrabActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "CheckMark"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "SliderGrab"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "SliderGrabActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Button"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ButtonHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ButtonActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Header"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "HeaderHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "HeaderActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Separator"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "SeparatorHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "SeparatorActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ResizeGrip"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ResizeGripHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ResizeGripActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Tab"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TabHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TabActive"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TabUnfocused"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TabUnfocusedActive"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "DockingPreview"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "DockingEmptyBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "PlotLines"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "PlotLinesHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "PlotHistogram"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "PlotHistogramHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TableHeaderBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TableBorderStrong"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TableBorderLight"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TableRowBg"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TableRowBgAlt"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "TextSelectedBg"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "DragDropTarget"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "NavHighlight"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "NavWindowingHighlight"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "NavWindowingDimBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Modal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ModalWindowDimBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Modal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "SliderGrabHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Toggle"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ToggleHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ToggleBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ToggleBgHovered"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Darker"
-                }
-            },
-            {
-                "first": {
-                    "Name": "CheckboxButton"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "CheckboxButtonHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "CheckboxButtonActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButton"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Transparent"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButtonHovered"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Slightly Transparent"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButtonActive"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Slightly Transparent & Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButtonEnabled"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Floating Buttons Enabled"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButtonHoveredEnabled"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Slightly Transparent & Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "FloatingButtonActiveEnabled"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Slightly Transparent & Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "ButtonsSeparator"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "HighlightItems"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "GradientMark"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "GradientMarkHovered"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "GradientMarkSelected"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "GradientMarkSelectedHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Brighter"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Link"
-                },
-                "second": {
-                    "Category name": "Text",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "LinkHovered"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Frame node"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_Bg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_Grid"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_NodeBg"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_NodeBorder"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_HovNodeBorder"
-                },
-                "second": {
-                    "Category name": "Bright Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_SelNodeBorder"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_NodeSelRect"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Very Transparent"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_NodeSelRectBorder"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Slightly Transparent"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_HovLinkBorder"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_SelLinkBorder"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_HighlightLinkBorder"
-                },
-                "second": {
-                    "Category name": "Accent Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_LinkSelRect"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_LinkSelRectBorder"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_PinRect"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_PinRectBorder"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_Flow"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_FlowMarker"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_GroupBg"
-                },
-                "second": {
-                    "Category name": "Medium Color",
-                    "Group name": "Normal"
-                }
-            },
-            {
-                "first": {
-                    "Name": "Nodes_GroupBorder"
-                },
-                "second": {
-                    "Category name": "Background",
-                    "Group name": "Invisible"
-                }
-            }
-        ]
+ "Categories": [
+  {
+   "Behaves differently in light mode": true,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.10499999672174454,
+     "Name": "Brighter",
+     "Opacity": 1.0
     }
+   ],
+   "Name": "Bright"
+  },
+  {
+   "Behaves differently in light mode": true,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": -0.25,
+     "Name": "Darker",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.03500000014901161,
+     "Name": "Brighter",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Transparent",
+     "Opacity": 0.5
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Slightly Transparent",
+     "Opacity": 0.75
+    }
+   ],
+   "Name": "Medium"
+  },
+  {
+   "Behaves differently in light mode": true,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": -0.6480000019073486,
+     "Name": "Modal",
+     "Opacity": 0.75
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Invisible",
+     "Opacity": 0.0
+    }
+   ],
+   "Name": "Background"
+  },
+  {
+   "Behaves differently in light mode": true,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Darker",
+     "Opacity": 0.75
+    }
+   ],
+   "Name": "Text"
+  },
+  {
+   "Behaves differently in light mode": false,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.2809999883174896,
+     "Name": "Brighter",
+     "Opacity": 1.0
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Slightly Transparent",
+     "Opacity": 0.7459999918937683
+    },
+    {
+     "Brightness delta": 0.2809999883174896,
+     "Name": "Slightly Transparent & Brighter",
+     "Opacity": 0.7459999918937683
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Very Transparent",
+     "Opacity": 0.21699999272823334
+    },
+    {
+     "Brightness delta": 0.0,
+     "Name": "Floating Buttons Enabled",
+     "Opacity": 0.3019999861717224
+    }
+   ],
+   "Name": "Accent"
+  },
+  {
+   "Behaves differently in light mode": false,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    }
+   ],
+   "Name": "Success"
+  },
+  {
+   "Behaves differently in light mode": false,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    }
+   ],
+   "Name": "Warning"
+  },
+  {
+   "Behaves differently in light mode": false,
+   "Groups": [
+    {
+     "Brightness delta": 0.0,
+     "Name": "Normal",
+     "Opacity": 1.0
+    }
+   ],
+   "Name": "Error"
+  }
+ ],
+ "Element's Group ID": {
+  "Border": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "BorderShadow": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Button": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "ButtonActive": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "ButtonHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "ButtonsSeparator": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "CheckMark": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "CheckboxButton": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "CheckboxButtonActive": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "CheckboxButtonHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "ChildBg": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "DockingEmptyBg": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "DockingPreview": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "DragDropTarget": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "FloatingButton": {
+   "Category": "Medium",
+   "Group": "Transparent"
+  },
+  "FloatingButtonActive": {
+   "Category": "Accent",
+   "Group": "Slightly Transparent & Brighter"
+  },
+  "FloatingButtonActiveEnabled": {
+   "Category": "Accent",
+   "Group": "Slightly Transparent & Brighter"
+  },
+  "FloatingButtonEnabled": {
+   "Category": "Accent",
+   "Group": "Floating Buttons Enabled"
+  },
+  "FloatingButtonHovered": {
+   "Category": "Medium",
+   "Group": "Slightly Transparent"
+  },
+  "FloatingButtonHoveredEnabled": {
+   "Category": "Accent",
+   "Group": "Slightly Transparent & Brighter"
+  },
+  "Frame node": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "FrameBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "FrameBgActive": {
+   "Category": "Medium",
+   "Group": "Darker"
+  },
+  "FrameBgHovered": {
+   "Category": "Medium",
+   "Group": "Darker"
+  },
+  "GradientMark": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "GradientMarkHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "GradientMarkSelected": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "GradientMarkSelectedHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "Header": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "HeaderActive": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "HeaderHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "HighlightItems": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "MenuBarBg": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "ModalWindowDimBg": {
+   "Category": "Background",
+   "Group": "Modal"
+  },
+  "NavHighlight": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "NavWindowingDimBg": {
+   "Category": "Background",
+   "Group": "Modal"
+  },
+  "NavWindowingHighlight": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "NodeLink": {
+   "Category": "Text",
+   "Group": "Normal"
+  },
+  "NodeLinkHovered": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "Nodes_Bg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "Nodes_Flow": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_FlowMarker": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_Grid": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "Nodes_GroupBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "Nodes_GroupBorder": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_HighlightLinkBorder": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "Nodes_HovLinkBorder": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "Nodes_HovNodeBorder": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "Nodes_LinkSelRect": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_LinkSelRectBorder": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_NodeBg": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "Nodes_NodeBorder": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_NodeSelRect": {
+   "Category": "Accent",
+   "Group": "Very Transparent"
+  },
+  "Nodes_NodeSelRectBorder": {
+   "Category": "Accent",
+   "Group": "Slightly Transparent"
+  },
+  "Nodes_PinRect": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_PinRectBorder": {
+   "Category": "Background",
+   "Group": "Invisible"
+  },
+  "Nodes_SelLinkBorder": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "Nodes_SelNodeBorder": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "PlotHistogram": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "PlotHistogramHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "PlotLines": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "PlotLinesHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "PopupBg": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "ResizeGrip": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "ResizeGripActive": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "ResizeGripHovered": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "ScrollbarBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "ScrollbarGrab": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "ScrollbarGrabActive": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "ScrollbarGrabHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "Separator": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "SeparatorActive": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "SeparatorHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "SliderGrab": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "SliderGrabActive": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "SliderGrabHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "Tab": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TabActive": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "TabHovered": {
+   "Category": "Bright",
+   "Group": "Brighter"
+  },
+  "TabUnfocused": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TabUnfocusedActive": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "TableBorderLight": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "TableBorderStrong": {
+   "Category": "Background",
+   "Group": "Normal"
+  },
+  "TableHeaderBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TableRowBg": {
+   "Category": "Bright",
+   "Group": "Normal"
+  },
+  "TableRowBgAlt": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "Text": {
+   "Category": "Text",
+   "Group": "Normal"
+  },
+  "TextDisabled": {
+   "Category": "Text",
+   "Group": "Darker"
+  },
+  "TextSelectedBg": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "TitleBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TitleBgActive": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "TitleBgCollapsed": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "Toggle": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "ToggleBg": {
+   "Category": "Medium",
+   "Group": "Normal"
+  },
+  "ToggleBgHovered": {
+   "Category": "Medium",
+   "Group": "Darker"
+  },
+  "ToggleHovered": {
+   "Category": "Accent",
+   "Group": "Brighter"
+  },
+  "UrlLink": {
+   "Category": "Text",
+   "Group": "Normal"
+  },
+  "UrlLinkHovered": {
+   "Category": "Accent",
+   "Group": "Normal"
+  },
+  "WindowBg": {
+   "Category": "Background",
+   "Group": "Normal"
+  }
+ }
 }

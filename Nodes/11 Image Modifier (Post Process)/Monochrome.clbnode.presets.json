@@ -1,0 +1,64 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "f7516cc5-37f3-4644-be41-83bf6891c567",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Image",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.0,
+                                        "z": 0.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Color",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.3628680408000946,
+                                        "y": 0.050042327493429187,
+                                        "z": 0.5291482210159302
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": 0.6561224460601807,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": true,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

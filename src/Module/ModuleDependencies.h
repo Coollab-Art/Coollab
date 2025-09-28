@@ -9,6 +9,7 @@ namespace Lab {
 // We don't want to rerender when audio / time changes if we don't depend on them.
 /// Also, audio features are costly to compute, so we only set these uniforms in the shader if we actually need them.
 struct ModuleDependencies {
+    bool                        always_rerender{false};
     bool                        time{false};
     bool                        last_midi_button_pressed{false};
     bool                        time_since_last_midi_button_pressed{false};
@@ -23,7 +24,7 @@ struct ModuleDependencies {
     auto midi_channel(Cool::MidiChannel const& midi_channel) const -> bool { return midi_channels.find(midi_channel) != midi_channels.end(); }
 };
 
-void update_dependencies_from_shader_code(ModuleDependencies& dependencies, std::string shader_code);
-void update_dependencies_from_nodes_graph(ModuleDependencies& dependencies, Cool::NodesGraph const&);
+void update_dependencies_from_shader_code(ModuleDependencies&, std::string shader_code);
+void update_dependencies_from_nodes_graph(ModuleDependencies&, Cool::NodesGraph const&, std::vector<Cool::NodeId> const& nodes_that_we_depend_on);
 
 } // namespace Lab
