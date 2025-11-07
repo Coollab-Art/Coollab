@@ -12,6 +12,7 @@
 #include "Cool/ImGui/IcoMoonCodepoints.h"
 #include "Cool/ImGui/ImGuiExtras.h"
 #include "Cool/ImGui/ImGuiExtrasStyle.h"
+#include "Cool/ImGui/clay.hpp"
 #include "Cool/ImGui/icon_fmt.h"
 #include "Cool/ImGui/markdown.h"
 #include "Cool/Image/SaveImage.h"
@@ -492,6 +493,7 @@ void App::imgui_window_license()
 
 void App::imgui_windows()
 {
+    Cool::imgui_window_test_clay();
     imgui_window_view();
     imgui_window_exporter();
     imgui_window_console();
