@@ -1,0 +1,17 @@
+// layout(std430, binding = 0) buffer _positions_buffer
+// {
+//     vec2 _positions[];
+// };
+uniform uvec2 _grid_size;
+uniform float _delta_time;
+
+layout(std430, binding = 1) buffer _densities_buffer
+{
+    float _densities[];
+};
+
+void cool_main()
+{
+    uint gid = gl_GlobalInvocationID.x;
+    _densities[gid] -= _delta_time * 0.1;
+}

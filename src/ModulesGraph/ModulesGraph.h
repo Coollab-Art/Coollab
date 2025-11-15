@@ -67,6 +67,7 @@ private:
     auto create_feedback_loop_module(Cool::NodeId const& node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
     auto create_caching_module(Cool::NodeId const& node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
     auto create_jfa_module(Cool::NodeId const& root_node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
+    auto create_fluid_sim_module(Cool::NodeId const& root_node_id, DataToGenerateShaderCode const&) -> std::shared_ptr<Module>;
     auto create_default_module() -> std::shared_ptr<Module>;
 
     void render_module_ifn(Module&, DataToPassToShader const&);

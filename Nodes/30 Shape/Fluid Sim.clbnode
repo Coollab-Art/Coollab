@@ -1,0 +1,9 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Glitch';
+INPUT int 'Custom resolution'; /// This should be a power of 2 if you want to avoid small artifacts. Leave it at -1 for automatic resolution.
+
+sRGB main(UV uv)
+{
+    return 0.; // Doesn't matter, this node file is just a hack to have a node with the right input and output pins
+}

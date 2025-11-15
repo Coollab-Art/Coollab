@@ -12,6 +12,7 @@
 #include "Module_Compositing/generate_compositing_shader_code.h"
 #include "Module_Default/Module_Default.hpp"
 #include "Module_FeedbackLoop/Module_FeedbackLoop.hpp"
+#include "Module_FluidSim/Module_FluidSim.hpp"
 #include "Module_JFA/Module_JFA.hpp"
 #include "Module_Particles/Module_Particles.h"
 #include "Module_Particles/generate_simulation_shader_code.h"
@@ -174,6 +175,7 @@ void ModulesGraph::recreate_all_modules(Cool::NodeId const& root_node_id, DataTo
 
 auto ModulesGraph::create_module(Cool::NodeId const& root_node_id, DataToGenerateShaderCode const& data) -> std::shared_ptr<Module>
 {
+    return create_fluid_sim_module(root_node_id, data);
     auto const* node = data.nodes_graph.try_get_node<Node>(root_node_id);
     if (!node)
         return create_default_module(); // TODO(Module) Return an error message? Probably not because this is legit, eg when a feedback loop has nothing in its input pin
@@ -399,6 +401,25 @@ auto ModulesGraph::create_jfa_module(Cool::NodeId const& root_node_id, DataToGen
         auto       dependency          = create_module(predecessor_node_id, data);
 
         return std::make_shared<Module_JFA>(
+            texture_name_in_shader, // Don't move it because it might still be used by create_module_impl()
+            std::move(dependency),
+            std::get<Cool::SharedVariable<int>>(node->value_inputs()[0]),
+            std::get<Cool::SharedVariable<int>>(node->value_inputs()[1])
+        );
+    });
+}
+auto ModulesGraph::create_fluid_sim_module(Cool::NodeId const& root_node_id, DataToGenerateShaderCode const& data) -> std::shared_ptr<Module>
+{
+    auto const texture_name_in_shader = texture_name_for_module(root_node_id);
+    return create_module_impl(texture_name_in_shader, [&]() -> std::shared_ptr<Module> {
+        auto const* node = data.nodes_graph.try_get_node<Node>(root_node_id);
+        if (!node)
+            return create_default_module(); // TODO(Module) Return an error message? This should never happen
+
+        auto const predecessor_node_id = data.nodes_graph.find_node_connected_to_input_pin(node->input_pins()[0].id());
+        auto       dependency          = create_module(predecessor_node_id, data);
+
+        return std::make_shared<Module_FluidSim>(
             texture_name_in_shader, // Don't move it because it might still be used by create_module_impl()
             std::move(dependency),
             std::get<Cool::SharedVariable<int>>(node->value_inputs()[0]),
