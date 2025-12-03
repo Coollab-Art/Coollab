@@ -8,9 +8,8 @@ auto all_tips() -> Cool::Tips
 {
     static constexpr auto tips = std::array{
         "Our [Youtube tutorials](https://youtu.be/FK1sMPgcE4Q?list=PLuMMMaL5kN3mG6fSeSYTqC-sc_OTX3unQ) can help you get started with Coollab.",
-        "In the \" " ICOMOON_TREE "Nodes\" window, right-click (or press A) to create your first node!", // NOLINT(bugprone-suspicious-missing-comma)
-        "You can press ESCAPE to close these popups.",
-        "You can change the color theme in the \" " ICOMOON_COG "Settings\" menu.",
+        "You can copy your nodes (" CTRL_OR_CMD "+C) and send them as text to a friend, who can then paste them in their instance of Coollab (" CTRL_OR_CMD "+V). You can also paste them in another project of yours.",
+        "You can change the color theme in the \" " ICOMOON_COG "Settings\" menu, and even create your own!",
         "Right-click on a node to replace it with a new node of the same category.",
         "Use " CTRL_OR_CMD "+E to quickly export an image with the current export settings",
         "Use F in the \" " ICOMOON_TREE "Nodes\" window to focus the view on the nodes.",
@@ -20,10 +19,9 @@ auto all_tips() -> Cool::Tips
         "You can rotate the 2D camera by holding SHIFT and scrolling the mouse wheel over the \" " ICOMOON_IMAGE "View\".",
         "Right-click on a widget to edit its metadata (range of a slider, etc.).",
         "You can save your own presets for a node if you like the parameters (and metadata) you found. You will find this option at the bottom of the the \" " ICOMOON_EQUALIZER "Inspector\" when a node is selected.",
-        "You can copy your nodes (" CTRL_OR_CMD "+C) and send them as text to a friend, who can then paste them in their instance of Coollab (" CTRL_OR_CMD "+V). You can also paste them in another project of yours.",
         "When copying nodes, you can press SHIFT to copy links going into the copied nodes, even if the link is starting from a node that is not copied.", // This one would really need a gif to explain it more clearly.
         "The undo-history (" CTRL_OR_CMD "+Z / " CTRL_OR_CMD "+Y) is preserved even when you close and re-open Coollab! You can control its size in the \" " ICOMOON_COG "Settings\" menu.",
-        R"(You can create your own color themes by going in the "Debug" menu (on the right of the menu bar) and selecting "Color Themes: Editor".)",
+        "You can press ESCAPE to close these popups.",
 
         // Bonus ImGui tips
         "Drag from the window menu button (the arrow button in the upper-right corner) to move all tabs at once.",

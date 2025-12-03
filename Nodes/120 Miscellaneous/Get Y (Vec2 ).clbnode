@@ -1,0 +1,8 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT vec2 'Vec2';
+
+float main()
+{
+    return 'Vec2'.y;
+}

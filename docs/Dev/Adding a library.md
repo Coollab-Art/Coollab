@@ -1,0 +1,3 @@
+- Include as a submodule
+- Copy their license (and check that they allow us to use the lib)
+- If we need to edit the lib, make a fork

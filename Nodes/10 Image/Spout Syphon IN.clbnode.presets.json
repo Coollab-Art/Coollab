@@ -1,0 +1,33 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "9bc59d76-a0bb-41aa-9a0e-2eb73808f0d3",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 27,
+                            "data": {
+                                "Name": "Spout/Syphon",
+                                "Value": {
+                                    "Source": {
+                                        "index": 3,
+                                        "data": {
+                                            "Sender Name": ""
+                                        }
+                                    },
+                                    "Sampler": {
+                                        "Repeat Mode": 1,
+                                        "Interpolation Mode": 9729
+                                    }
+                                },
+                                "Metadata": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

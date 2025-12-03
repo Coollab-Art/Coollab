@@ -1,0 +1,281 @@
+.gallery {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: clamp(2rem, 4vw, 7rem) clamp(1rem, 4vw, 4rem) clamp(2rem, 4vw, 4rem);
+  background-color: var(--coollab-primary-color);
+  text-align: center;
+  color: white;
+}
+
+.gallery h2 {
+  margin-top: 1.5em;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.gallery h3 {
+  font-size: 1.2rem;
+  margin: 1.5em 0 3em 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: "Roboto", sans-serif;
+}
+
+.galleryImpl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.galleryFrame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-max);
+  cursor: pointer;
+  transition: transform 0.2s ease-out, filter 0.2s ease-out;
+}
+
+.galleryFrame:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+.galleryImg {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-max);
+  transition: transform 0.3s ease, filter 0.3s ease;
+  animation: fadeInZoom 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.galleryInfos {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: 1rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: left;
+  pointer-events: none;
+}
+
+.galleryFrame:hover .galleryInfos {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.galleryInfos h2 {
+  font-size: 1rem;
+  margin: 0;
+  text-transform: uppercase;
+  color: var(--coollab-light-color);
+}
+
+.galleryInfos h3 {
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.galleryInfos a {
+  color: var(--coollab-light-color);
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+
+.galleryInfos p {
+  margin: 0.3rem 0 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.imgOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 15, 15, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.fullImage {
+  max-width: min(90vw, 1400px);
+  max-height: 90vh;
+  border-radius: var(--radius-max);
+  border: 2px solid var(--coollab-light-color);
+}
+
+.animateScaleUp {
+  animation: scaleIn 0.4s ease forwards;
+}
+
+.animateScaleDown {
+  animation: scaleOut 0.4s ease forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.closeButton,
+.prevButton,
+.nextButton {
+  position: fixed;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.closeButton {
+  top: 2rem;
+  right: 2rem;
+}
+.prevButton {
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+}
+.nextButton {
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+}
+
+.slide-left-enter {
+  animation: slideInFromLeft 0.4s ease forwards;
+}
+.slide-right-enter {
+  animation: slideInFromRight 0.4s ease forwards;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .gallery h2 {
+    font-size: 1.6rem;
+    margin-top: 4rem;
+  }
+
+  .gallery h3 {
+    font-size: 0.95rem;
+    margin: 1rem 0 1.75rem;
+  }
+
+  .galleryImpl {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .galleryFrame {
+    border-radius: var(--radius-mid);
+  }
+  .galleryImg {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-mid);
+  }
+
+  .galleryInfos {
+    padding: 0.6rem 0.7rem;
+  }
+  .galleryInfos h2 {
+    font-size: 0.9rem;
+  }
+  .galleryInfos h3,
+  .galleryInfos a,
+  .galleryInfos p {
+    font-size: 0.75rem;
+  }
+
+  .imgOverlay {
+    padding: 0 1rem;
+  }
+  .fullImage {
+    max-width: 96vw;
+    max-height: 78vh;
+  }
+
+  .closeButton,
+  .prevButton,
+  .nextButton {
+    font-size: 1.5rem;
+  }
+
+  .closeButton {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+  .prevButton {
+    left: 0.75rem;
+  }
+  .nextButton {
+    right: 0.75rem;
+  }
+}

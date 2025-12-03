@@ -6,6 +6,7 @@
 ///
 #include "Cool/Dump/app_version.hpp"
 #include "Cool/Serialization/Serialization.h"
+#include "Module_Caching/Module_Caching.hpp"
 #include "Module_Compositing/Module_Compositing.h"
 #include "Module_Default/Module_Default.hpp"
 #include "Module_FeedbackLoop/Module_FeedbackLoop.hpp"
@@ -63,4 +64,5 @@ auto string_to_nodes_clipboard(std::string const& string) -> NodesClipboard
 SER20_REGISTER_TYPE(Lab::Module_Compositing);  // NOLINT
 SER20_REGISTER_TYPE(Lab::Module_Particles);    // NOLINT
 SER20_REGISTER_TYPE(Lab::Module_FeedbackLoop); // NOLINT
+SER20_REGISTER_TYPE(Lab::Module_Caching);      // NOLINT
 SER20_REGISTER_TYPE(Lab::Module_Default);      // NOLINT

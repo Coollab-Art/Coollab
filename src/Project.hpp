@@ -7,6 +7,7 @@
 #include "Cool/Midi/MidiManager.h"
 #include "Cool/OSC/OSCManager.h"
 #include "Cool/Server/ServerManager.hpp"
+#include "Cool/Spout/SpoutOutManager.hpp"
 #include "Cool/Time/Clock_Realtime.h"
 #include "Cool/Webcam/WebcamsConfigs.hpp"
 #include "Dependencies/Camera2DManager.h"
@@ -31,6 +32,7 @@ struct Project {
     Cool::SharedAspectRatio       shared_aspect_ratio{};
     Cool::MeshExportSettings      mesh_export_settings{};
     MeshingGui                    meshing_gui{};
+    Cool::SpoutOutManager         spout_out_manager{};
 
     [[nodiscard]] auto current_clock() const -> Cool::Clock const& { return exporter.is_exporting() ? exporter.clock() : clock; }
 
@@ -61,7 +63,8 @@ private:
             ser20::make_nvp("Shared Aspect Ratio", shared_aspect_ratio),
             ser20::make_nvp("3D Model export settings", mesh_export_settings),
             ser20::make_nvp("3D Model generation", meshing_gui),
-            ser20::make_nvp("Output view", *output_view_ptr())
+            ser20::make_nvp("Output view", *output_view_ptr()),
+            ser20::make_nvp("Spout/Syphon OUT", spout_out_manager)
         );
     }
 };

@@ -3,12 +3,13 @@
 
 INPUT UV->Oklab 'Image';
 INPUT float 'Intensity';
+INPUT float 'Seed';
 
 Oklab main(UV uv)
 {
     vec2 noise_uv = to_view_space(uv);
 
-    float rand  = hash_0_to_1_2D_to_1D(noise_uv);
+    float rand  = hash_0_to_1_3D_to_1D(vec3(noise_uv, 'Seed'));
     vec3  color = 'Image'(uv);
     color.x *= 1. + 'Intensity' * (rand * 2. - 1.);
     return color;

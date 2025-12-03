@@ -1,11 +1,11 @@
 import React from "react"
 import styles from "./YoutubeVideo.module.css"
 
-export default function YoutubeVideo({ id }) {
+export default function ({ id }) {
   return (
     <div className={styles.video}>
       <iframe
-        src={`https://www.youtube.com/embed/${id}`}
+        src={`https://www.youtube.com/embed/${id}?autoplay=0&mute=0`}
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

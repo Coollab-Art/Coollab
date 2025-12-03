@@ -1,14 +1,14 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 // Effect inspired by https://medium.com/the-bkpt/dithered-shading-tutorial-29f57d06ac39
 
-INPUT UV->float 'Image';
+INPUT UV->sRGB 'Image';
 INPUT float 'Scale';
 INPUT int 'Pattern X';
 INPUT int 'Pattern Y';
 INPUT float 'Threshold';
 INPUT float 'Spread';
 
-float main(UV uv)
+sRGB main(UV uv)
 {
     const mat4 bayer_matrix = mat4(
         -0.5000, +0.0000, -0.3750, +0.1250,
@@ -17,10 +17,15 @@ float main(UV uv)
         +0.4375, -0.0625, +0.3125, -0.1875
     ); // for 128x128 tiles
 
-    vec2  gv         = uv * 'Scale';
-    vec2  id         = floor(gv);
-    int   mod_x      = int(mod(id.x, 'Pattern X'));
-    int   mod_y      = int(mod(id.y, 'Pattern Y'));
-    float alpha_test = 'Image'(uv) + 'Spread' * bayer_matrix[mod_x][mod_y];
-    return alpha_test < 'Threshold' ? 0. : 1.;
+    vec2 gv         = uv * 'Scale';
+    vec2 id         = floor(gv);
+    int  mod_x      = int(mod(id.x, 'Pattern X'));
+    int  mod_y      = int(mod(id.y, 'Pattern Y'));
+    vec3 alpha_test = 'Image'(id / 'Scale') + 'Spread' * bayer_matrix[mod_x][mod_y];
+    return vec3(
+        alpha_test.r < 'Threshold' ? 0. : 1.,
+        alpha_test.g < 'Threshold' ? 0. : 1.,
+        alpha_test.b < 'Threshold' ? 0. : 1.
+
+    );
 }

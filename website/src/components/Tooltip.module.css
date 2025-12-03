@@ -1,0 +1,58 @@
+.tooltip {
+  position: relative;
+}
+
+.tooltipText {
+  min-width: 240px;
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  text-align: left;
+  padding: 1.2em 1em;
+  border-radius: var(--radius-mid);
+  position: absolute;
+  z-index: 1000;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.tooltipTextVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tooltipText a {
+  color: var(--coollab-light-color);
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+.tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 45%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+/* Invisible rect to capture mouse hovering and make sure the tooltip doesn't disappear when we move over the gap between the item and the tooltip */
+.tooltipText::before {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: transparent;
+}

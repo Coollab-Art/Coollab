@@ -13,6 +13,32 @@
                                 "Value": false,
                                 "Metadata": {}
                             }
+                        },
+                        {
+                            "index": 0,
+                            "data": {
+                                "Name": "Absolute Value",
+                                "Value": false,
+                                "Metadata": {}
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Precision",
+                                "Value": 20.0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 9.999999717180686e-10,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": false,
+                                        "Is logarithmic": true
+                                    }
+                                }
+                            }
                         }
                     ]
                 }

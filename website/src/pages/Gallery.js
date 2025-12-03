@@ -7,11 +7,10 @@ const Impl = loadable(() => import("../components/GalleryImpl"))
 
 export default function () {
   return (
-    <Layout
-      title="Gallery"
-      description="Coollab's Gallery full of user-made artworks."
-    >
-      <BrowserOnly>{() => <Impl />}</BrowserOnly>
+    <Layout title="Gallery" description="Artworks made by the community">
+      <main>
+        <BrowserOnly>{() => <Impl />}</BrowserOnly>
+      </main>
     </Layout>
   )
 }

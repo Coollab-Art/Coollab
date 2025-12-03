@@ -1,0 +1,24 @@
+.contributorsList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.contributorsList a {
+  color: var(--coollab-light-color);
+  text-decoration: none;
+}
+
+@media (max-width: 992px) {
+  .contributorsList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .contributorsList {
+    grid-template-columns: 1fr;
+  }
+}

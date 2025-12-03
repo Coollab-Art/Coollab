@@ -6,6 +6,7 @@
 #include "Cool/StrongTypes/Camera2D.h"
 #include "Cool/TextureSource/default_textures.h"
 #include "ImGuiNotify/ImGuiNotify.hpp"
+#include "Module_Caching/Module_Caching.hpp"
 #include "Module_Compositing/Module_Compositing.h"
 #include "Module_Compositing/generate_compositing_shader_code.h"
 #include "Module_Default/Module_Default.hpp"
@@ -109,11 +110,17 @@ enum class NodeModuleness {
     Generic,
     Particle,
     FeedbackLoop,
+    Caching,
 };
 
 static auto is_feedback_loop(NodeDefinition const& node_definition)
 {
     return node_definition.name() == "Feedback (One frame delay)";
+}
+
+static auto is_caching(NodeDefinition const& node_definition)
+{
+    return node_definition.name() == "Caching";
 }
 
 static auto node_moduleness(NodeDefinition const& node_definition)
@@ -122,6 +129,8 @@ static auto node_moduleness(NodeDefinition const& node_definition)
         return NodeModuleness::Particle;
     if (is_feedback_loop(node_definition))
         return NodeModuleness::FeedbackLoop;
+    if (is_caching(node_definition))
+        return NodeModuleness::Caching;
     return NodeModuleness::Generic;
 }
 
@@ -164,6 +173,8 @@ auto ModulesGraph::create_module(Cool::NodeId const& root_node_id, DataToGenerat
         return create_particles_module(root_node_id, *node_def, data);
     case NodeModuleness::FeedbackLoop:
         return create_feedback_loop_module(root_node_id, data);
+    case NodeModuleness::Caching:
+        return create_caching_module(root_node_id, data);
     }
     assert(false);
     return create_default_module();
@@ -209,6 +220,11 @@ auto ModulesGraph::create_compositing_module(Cool::NodeId const& root_node_id, D
                 case NodeModuleness::FeedbackLoop:
                 {
                     modules_that_we_depend_on.push_back(create_feedback_loop_module(node_id, data));
+                    return modules_that_we_depend_on.back()->texture_name_in_shader();
+                }
+                case NodeModuleness::Caching:
+                {
+                    modules_that_we_depend_on.push_back(create_caching_module(node_id, data));
                     return modules_that_we_depend_on.back()->texture_name_in_shader();
                 }
                 }
@@ -266,6 +282,11 @@ auto ModulesGraph::create_particles_module(Cool::NodeId const& root_node_id, Nod
                     modules_that_we_depend_on.push_back(create_feedback_loop_module(node_id, data));
                     return modules_that_we_depend_on.back()->texture_name_in_shader();
                 }
+                case NodeModuleness::Caching:
+                {
+                    modules_that_we_depend_on.push_back(create_caching_module(node_id, data));
+                    return modules_that_we_depend_on.back()->texture_name_in_shader();
+                }
                 }
                 assert(false);
                 return std::nullopt;
@@ -296,6 +317,25 @@ auto ModulesGraph::create_feedback_loop_module(Cool::NodeId const& root_node_id,
         auto       dependency          = create_module(predecessor_node_id, data);
 
         return std::make_shared<Module_FeedbackLoop>(
+            texture_name_in_shader, // Don't move it because it might still be used by create_module_impl()
+            std::move(dependency)
+        );
+    });
+}
+
+auto ModulesGraph::create_caching_module(Cool::NodeId const& root_node_id, DataToGenerateShaderCode const& data) -> std::shared_ptr<Module>
+{
+    auto const texture_name_in_shader = texture_name_for_module(root_node_id);
+    return create_module_impl(texture_name_in_shader, [&]() -> std::shared_ptr<Module> {
+        auto const* node = data.nodes_graph.try_get_node<Node>(root_node_id);
+        if (!node)
+            return create_default_module(); // TODO(Module) Return an error message? This should never happen
+
+        assert(node->input_pins().size() == 1);
+        auto const predecessor_node_id = data.nodes_graph.find_node_connected_to_input_pin(node->input_pins()[0].id());
+        auto       dependency          = create_module(predecessor_node_id, data);
+
+        return std::make_shared<Module_Caching>(
             texture_name_in_shader, // Don't move it because it might still be used by create_module_impl()
             std::move(dependency)
         );

@@ -1,0 +1,40 @@
+.button {
+  display: inline-block;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  padding: 0.4em 1.5em;
+  background: white;
+  color: var(--coollab-primary-color);
+  border: 2px solid white;
+  border-radius: var(--radius-mid);
+  text-transform: uppercase;
+  letter-spacing: 11%;
+  transition: all 0.3s ease;
+
+  /* To space icon and text nicely */
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.button:hover {
+  color: var(--coollab-primary-color);
+  text-decoration: none;
+  border-radius: var(--radius-max);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .button {
+    justify-content: center;
+    width: auto;
+    min-width: 190px;
+  }
+}

@@ -1,0 +1,6 @@
+INPUT SpoutSyphon 'Spout/Syphon';
+
+sRGB_StraightA main(UV uv)
+{
+    return sample_cool_texture('Spout/Syphon', uv);
+}

@@ -12,7 +12,7 @@ Contributing can be very easy and **doesn't necessarily require any technical sk
 
 👷‍♀️ Help us beta-test the new features before we release them. You can select a role with the buttons in the [Discord](https://discord.com/channels/846087110758891540/1238610098582982736/1359920791143321793) and we will ping you when we need a hand
 
-👍 Give us your opinion on some design / user experience questions when we are unsure on them. Select the "**🐱‍🏍 Poll Participant**" role with the buttons in the [Discord](https://discord.com/channels/846087110758891540/1238610098582982736/1359920791143321793) and we will ping you when we need your input
+👍 Give us your opinion on some design / user experience questions when we are unsure on them. Select the "**🐱‍🏍 Give your opinion**" role with the buttons in the [Discord](https://discord.com/channels/846087110758891540/1238610098582982736/1359920791143321793) and we will ping you when we need your input
 
 🖼 Share the artworks you make with Coollab, and ideally also the project files. In the [Discord](https://discord.gg/qNrux4382P), or on your social media. To tag us: [@coollab_art](https://www.instagram.com/coollab_art/) on Instagram, [@Coollab](https://mastodon.social/@Coollab) on Mastodon.
 

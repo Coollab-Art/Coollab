@@ -41,6 +41,7 @@
   "HoverFlagsForTooltipMouse": 16384,
   "HoverFlagsForTooltipNav": 16384,
   "HoverStationaryDelay": 0.15000000596046448,
+  "ImageBorderSize": 0.0,
   "IndentSpacing": 16.0,
   "ItemInnerSpacing": {
    "x": 6.0,
@@ -71,16 +72,26 @@
    "y": 2.0
   },
   "TabBarBorderSize": 1.0,
+  "TabBarOverlineSize": 0.0,
   "TabBorderSize": 0.0,
-  "TabMinWidthForCloseButton": 0.0,
+  "TabCloseButtonMinWidthSelected": -1.0,
+  "TabCloseButtonMinWidthUnselected": 0.0,
   "TabRounding": 3.0,
   "TableAngledHeadersAngle": 0.6108652949333191,
+  "TableAngledHeadersTextAlign": {
+   "x": 0.5,
+   "y": 0.0
+  },
   "TouchExtraPadding": {
    "x": 0.0,
    "y": 0.0
   },
+  "TreeLinesFlags": 262144,
+  "TreeLinesRounding": 0.0,
+  "TreeLinesSize": 1.0,
+  "WindowBorderHoverPadding": 4.0,
   "WindowBorderSize": 1.0,
-  "WindowMenuButtonPosition": 1,
+  "WindowMenuButtonPosition": -1,
   "WindowMinSize": {
    "x": 25.0,
    "y": 25.0

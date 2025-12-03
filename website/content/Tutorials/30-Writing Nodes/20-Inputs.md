@@ -31,7 +31,7 @@ Here are all the types you can have as a value input:
 
 ## Input functions
 
-Nodes can also take functions (a.k.a. other nodes) as inputs. You also declare them with the `INPUT` keyword and put their name inside single quotes ('). Then to use them you just call them as regular functions.
+Nodes can also take functions (a.k.a. other nodes) as inputs. You also declare them with the `INPUT` keyword and put their name inside single quotes (`'`). Then to use them you just call them as regular functions.
 
 ```glsl title="RGB Split"
 INPUT UV->sRGB_StraightA 'Image'; // This INPUT is a function.

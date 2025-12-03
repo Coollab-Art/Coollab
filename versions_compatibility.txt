@@ -1,5 +1,21 @@
+1.6.2 Caching
+1.6.1 Caching
+1.6.0 Caching
+1.5.0 Spout IN
+1.4.2 Spout OUT
+--- Renamed node "Video from File" as "Video"
+1.4.1 Spout OUT
+1.4.0 Spout OUT
+---
+1.3.3 Color Themes
+1.3.2 Color Themes
+--- The Dithering nodes now render as a perfect grid of squares instead of letting the contours of the image show through
+1.3.1 Color Themes
+1.3.0 Color Themes
+--- Renamed node "Voronoise" as "Noise Voronoi"
+--- Removed node "Noise Cellular". Use "Noise Voronoi" instead, they were doing the exact same thing
+--- Renamed "Random1D" as "Random 1D" and moved it to the "Greyscale" category. Same for "Random2D"
 1.2.0 MacOS
-1.1.1 UI Scale Experimental(MacOS)
 1.1.1 UI Scale
 1.1.0 UI Scale
 1.0.1 Launcher
