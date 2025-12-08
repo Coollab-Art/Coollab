@@ -1,0 +1,8 @@
+INPUT float 'Image';
+INPUT Oklab 'Color 1';
+INPUT Oklab 'Color 2';
+
+Oklab main(UV uv)
+{
+    return mix('Color 1', 'Color 2', 'Image');
+}

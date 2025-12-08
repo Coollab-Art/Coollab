@@ -1,9 +1,0 @@
-// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
-
-INPUT float 'Greyscale 1';
-INPUT float 'Greyscale 2';
-
-float main()
-{
-    return pow('Greyscale 1', 'Greyscale 2');
-}
