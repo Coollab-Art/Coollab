@@ -15,50 +15,52 @@ float vmin(vec3 v)
 sRGB main(sRGB Color)
 {
 
-    float r = Color.x;
-    float g = Color.y;
-    float b = Color.z;
+    float red = Color.x;
+    float green = Color.y;
+    float blue = Color.z;
 
-    float x = vmax(Color);
-    float y = vmin(Color);
+    float maximum_color = vmax(Color);
+    float minimum_color = vmin(Color);
 
-    float gray = Cool_Oklab_from_sRGB(Color).x;
+    float original_gray = Cool_Oklab_from_sRGB(Color).x;
     
     float scale = 'Level of vibrance' * 0.6;
 
-    float a = x - y;
+    float range = maximum_color - minimum_color;
 
+    // Lessen the effect when red is dominant to protect skin tones
     scale = 
-        (x == r ?
-        scale * (1 + min(1, abs((g - b) / a))) * 0.5
+        (maximum_color == red ?
+        scale * (1 + min(1, abs((green - blue) / range))) * 0.5
         :
         scale
         )
     ;
 
-    float scale1 = scale * (2 - a);
-    float scale2 = 1 + scale1 * (1 - a);
+    float scale1 = scale * (2 - range);
+    float scale2 = 1 + scale1 * (1 - range);
 
-    vec3 ColorLinear = Cool_LinearRGB_from_sRGB(vec3(r, g, b) * scale2 - vec3(y * scale1));
+    // Change vibrance
+    vec3 ColorLinear = Cool_LinearRGB_from_sRGB(vec3(red, green, blue) * scale2 - vec3(minimum_color * scale1));
 
-    float gray2 = Cool_Oklab_from_LinearRGB(ColorLinear).x;
+    float modified_gray = Cool_Oklab_from_LinearRGB(ColorLinear).x;
 
-    //ColorLinear *= gray / gray2;
+    // Change the luminosity back to the orginal one
     vec3 ColorOklab = Cool_Oklab_from_LinearRGB(ColorLinear);
-    ColorOklab.x = gray2 == 1 ? 0 : gray;
+    ColorOklab.x = original_gray;
     ColorLinear = Cool_LinearRGB_from_Oklab(ColorOklab);
 
-    float m = vmax(ColorLinear);
+    float new_maximum_color = vmax(ColorLinear);
+    scale = (1 - modified_gray) / (new_maximum_color - modified_gray);
 
-    scale = (1 - gray2) / (m - gray2);
+    // In case a color channel is too high
     ColorLinear = 
-        (m > 1 ?
-            (ColorLinear - vec3(gray2)) * scale + vec3(gray2)
+        (new_maximum_color > 1 ?
+            (ColorLinear - vec3(modified_gray)) * scale + vec3(modified_gray)
             :
             ColorLinear
         )
     ;
 
-    //return Cool_sRGB_from_Okhsl(vec3(0, 0, Cool_Oklab_from_LinearRGB(ColorLinear).x));
     return Cool_sRGB_from_LinearRGB(ColorLinear);
 }
