@@ -1,25 +1,6 @@
+// https://stackoverflow.com/questions/33966121/what-is-the-algorithm-for-vibrance-filters
+
 INPUT float 'Level of vibrance';
-
-/*
-Okhsl main(Okhsl Color)
-{
-    float v = 'Level of vibrance' * 0.5;
-
-    float saturation =
-        (v >= 0 ? 
-            pow(Color.y, 1 / (1 - v)) * (1 - v) + v
-            :
-            (- v / 2 < Color.y ? 
-                pow(Color.y, 1 / (1 + v / 2))
-                //pow((Color.y + v) / (1 + v), 1 / (1 + v))
-                :
-                0
-            )
-        );
-
-    return vec3(Color.x, saturation, Color.z);
-}
-*/
 
 float vmax(vec3 v)
 {
@@ -43,7 +24,7 @@ sRGB main(sRGB Color)
 
     float gray = Cool_Oklab_from_sRGB(Color).x;
     
-    float scale = 'Level of vibrance';
+    float scale = 'Level of vibrance' * 0.6;
 
     float a = x - y;
 
@@ -60,9 +41,12 @@ sRGB main(sRGB Color)
 
     vec3 ColorLinear = Cool_LinearRGB_from_sRGB(vec3(r, g, b) * scale2 - vec3(y * scale1));
 
-    float gray2 = Cool_Oklab_from_LinearRGB(Color).x;
+    float gray2 = Cool_Oklab_from_LinearRGB(ColorLinear).x;
 
-    ColorLinear *= gray / gray2;
+    //ColorLinear *= gray / gray2;
+    vec3 ColorOklab = Cool_Oklab_from_LinearRGB(ColorLinear);
+    ColorOklab.x = gray2 == 1 ? 0 : gray;
+    ColorLinear = Cool_LinearRGB_from_Oklab(ColorOklab);
 
     float m = vmax(ColorLinear);
 
@@ -75,5 +59,6 @@ sRGB main(sRGB Color)
         )
     ;
 
+    //return Cool_sRGB_from_Okhsl(vec3(0, 0, Cool_Oklab_from_LinearRGB(ColorLinear).x));
     return Cool_sRGB_from_LinearRGB(ColorLinear);
 }
