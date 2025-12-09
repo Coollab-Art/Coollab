@@ -1,0 +1,9 @@
+INPUT float 'Level of contrast';
+
+Okhsl main(Okhsl Color)
+{
+    return vec3(
+    Color.x, 
+    pow(Color.y, 1 / pow(1.5, 'Level of contrast')),
+    (sign(2 * Color.z - 1) * pow(abs(2 * Color.z - 1), 1 / pow(10, 'Level of contrast')) + 1) / 2);
+}

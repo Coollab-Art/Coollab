@@ -1,0 +1,79 @@
+INPUT float 'Level of vibrance';
+
+/*
+Okhsl main(Okhsl Color)
+{
+    float v = 'Level of vibrance' * 0.5;
+
+    float saturation =
+        (v >= 0 ? 
+            pow(Color.y, 1 / (1 - v)) * (1 - v) + v
+            :
+            (- v / 2 < Color.y ? 
+                pow(Color.y, 1 / (1 + v / 2))
+                //pow((Color.y + v) / (1 + v), 1 / (1 + v))
+                :
+                0
+            )
+        );
+
+    return vec3(Color.x, saturation, Color.z);
+}
+*/
+
+float vmax(vec3 v)
+{
+    return max(max(v.x, v.y), v.z);
+}
+
+float vmin(vec3 v)
+{
+    return min(min(v.x, v.y), v.z);
+}
+
+sRGB main(sRGB Color)
+{
+
+    float r = Color.x;
+    float g = Color.y;
+    float b = Color.z;
+
+    float x = vmax(Color);
+    float y = vmin(Color);
+
+    float gray = Cool_Oklab_from_sRGB(Color).x;
+    
+    float scale = 'Level of vibrance';
+
+    float a = x - y;
+
+    scale = 
+        (x == r ?
+        scale * (1 + min(1, abs((g - b) / a))) * 0.5
+        :
+        scale
+        )
+    ;
+
+    float scale1 = scale * (2 - a);
+    float scale2 = 1 + scale1 * (1 - a);
+
+    vec3 ColorLinear = Cool_LinearRGB_from_sRGB(vec3(r, g, b) * scale2 - vec3(y * scale1));
+
+    float gray2 = Cool_Oklab_from_LinearRGB(Color).x;
+
+    ColorLinear *= gray / gray2;
+
+    float m = vmax(ColorLinear);
+
+    scale = (1 - gray2) / (m - gray2);
+    ColorLinear = 
+        (m > 1 ?
+            (ColorLinear - vec3(gray2)) * scale + vec3(gray2)
+            :
+            ColorLinear
+        )
+    ;
+
+    return Cool_sRGB_from_LinearRGB(ColorLinear);
+}
