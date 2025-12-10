@@ -1,0 +1,60 @@
+INPUT int 'Crop Mode';
+INPUT (Oklab, Oklab) -> Oklab 'Blend Mode';
+
+
+Oklab_StraightA main(Oklab_StraightA Over, Oklab_StraightA Under){
+    float overAlpha = Over.w*(1-Under.w);
+    float underAlpha = Under.w*(1-Over.w);
+    float bothAlpha = Over.w*Under.w;
+    vec3 overColor = Over.xyz;
+    vec3 underColor = Under.xyz;
+    vec3 bothColor = 'Blend Mode'(overColor, underColor);
+    vec4 Result;
+
+    if ('Crop Mode' == 0)   // crop mode 0 = Normal
+    {
+        Result = vec4( overColor * overAlpha + underColor * underAlpha + bothColor * bothAlpha,
+            overAlpha + underAlpha + bothAlpha );
+    }
+    
+    else if ('Crop Mode' == 1)   // crop mode 1 = Intersection (In)
+    {
+        Result = vec4(bothColor, bothAlpha );
+    }
+    
+    else if ('Crop Mode' == 2)   // crop mode 2 = Difference (Dest Out)
+    {
+        Result = vec4(overColor, overAlpha);
+    }
+
+    else if ('Crop Mode' == 3)   // crop mode 3 = Xor
+    {
+        Result = vec4( overColor+ underColor * underAlpha,
+            overAlpha + underAlpha );
+    }
+
+    else if ('Crop Mode' == 4)   // crop mode 4 = Impression (Atop)
+    {
+        Result = vec4( underColor * underAlpha + bothColor * bothAlpha,
+            underAlpha + bothAlpha );
+    }    
+
+    else if ('Crop Mode' == 5)   // crop mode 5 = Difference (Dest Out) with light rainbow transition:
+    {
+        Result = vec4( (overColor + underColor - bothColor*bothAlpha),
+            overAlpha);
+    }
+
+    else if ('Crop Mode' == 6){    // crop mode 6 = Rainbow Transition
+        Result = vec4( overColor + underColor - 2*overColor*underColor, 
+        overAlpha );
+    }
+    
+    else if ('Crop Mode' == 7)   // crop mode 7 = Dark rainbow transition
+    {
+        Result = vec4( overColor - underColor,
+            overAlpha);
+    }
+
+    return Result;
+}
