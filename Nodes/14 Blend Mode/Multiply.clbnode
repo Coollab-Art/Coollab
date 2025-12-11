@@ -1,6 +1,6 @@
 
 
-sRGB_PremultipliedA main(sRGB_PremultipliedA Over, sRGB_PremultipliedA Under)
+sRGB main(sRGB Over, sRGB Under)
 {
     return Over * Under;
 }
