@@ -49,6 +49,7 @@ auto compute_primitive_type_color(PrimitiveType type) -> Cool::Color
 
     switch (type)
     {
+        // TODO
     case PrimitiveType::SignedDistance:
         return NodeColor::shape_2D();
     case PrimitiveType::Int:

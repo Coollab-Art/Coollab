@@ -1,17 +1,17 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
-INPUT float 'Exposant';
+INPUT float 'Exponent';
 
 float main(float Input)
 {
-    if (floor('Exposant') == 'Exposant')
+    if (floor('Exponent') == 'Exponent')
     {
         float res = 1;
-        for (int i = 0; i < int(abs('Exposant')); i++)
+        for (int i = 0; i < int(abs('Exponent')); i++)
         {
             res *= Input;
         }
-        return ('Exposant' < 0)?1/res:res;
+        return ('Exponent' < 0)?1/res:res;
     }
-    return pow(Input, 'Exposant');
+    return pow(Input, 'Exponent');
 }

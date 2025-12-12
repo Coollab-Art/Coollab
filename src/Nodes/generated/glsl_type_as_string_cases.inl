@@ -23,6 +23,7 @@ case PrimitiveType::Direction2D: return "/*Direction2D*/ vec2";
 case PrimitiveType::Particle2D: return "/*Particle2D*/ Particle2D";
 case PrimitiveType::Particle3D: return "/*Particle3D*/ Particle3D";
 case PrimitiveType::Void: return "/*Void*/ void";
+case PrimitiveType::Tiling: return "/*Tiling*/ Tiling";
 case PrimitiveType::Oklab: return "/*Oklab*/ vec3";
 case PrimitiveType::Oklab_PremultipliedA: return "/*Oklab_PremultipliedA*/ vec4";
 case PrimitiveType::Oklab_StraightA: return "/*Oklab_StraightA*/ vec4";
