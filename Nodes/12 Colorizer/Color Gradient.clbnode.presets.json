@@ -2,9 +2,88 @@
     "Presets": {
         "Underlying container": [
             {
-                "first": "9a475354-dc5f-4338-ae75-3367f6ade0ad",
+                "first": "57c375ac-85c6-4256-b2da-1f6e5aafa382",
                 "second": {
                     "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.25251802802085879,
+                                                "y": 0.6993758678436279,
+                                                "z": 0.9476458430290222,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.1940000057220459
+                                            },
+                                            "Mark color": {
+                                                "x": 0.40295374393463137,
+                                                "y": 0.5274527668952942,
+                                                "z": 0.9493465423583984,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.47999998927116396
+                                            },
+                                            "Mark color": {
+                                                "x": 0.4307282567024231,
+                                                "y": 0.27135175466537478,
+                                                "z": 0.8301976919174194,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.7179999947547913
+                                            },
+                                            "Mark color": {
+                                                "x": 0.6950201988220215,
+                                                "y": 0.37542468309402468,
+                                                "z": 0.7660224437713623,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.6815381050109863,
+                                                "z": 0.4247627258300781,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 0
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "9a475354-dc5f-4338-ae75-3367f6ade0ad",
+                "second": {
+                    "Name": "Funky",
                     "Values": [
                         {
                             "index": 15,
@@ -268,6 +347,614 @@
                                                 "x": 0.44265806674957278,
                                                 "y": 0.9106523394584656,
                                                 "z": 1.0,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 0
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "580bd292-6d5b-4ead-8000-934edd1a1aa8",
+                "second": {
+                    "Name": "Heat Map (Vlag)",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.125490203499794,
+                                                "y": 0.4000000059604645,
+                                                "z": 0.658823549747467,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.1666666716337204
+                                            },
+                                            "Mark color": {
+                                                "x": 0.5568627715110779,
+                                                "y": 0.7568627595901489,
+                                                "z": 0.8549019694328308,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.3333333432674408
+                                            },
+                                            "Mark color": {
+                                                "x": 0.8039215803146362,
+                                                "y": 0.8823529481887817,
+                                                "z": 0.9254902005195618,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.5
+                                            },
+                                            "Mark color": {
+                                                "x": 0.929411768913269,
+                                                "y": 0.929411768913269,
+                                                "z": 0.929411768913269,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.6666666865348816
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9647058844566345,
+                                                "y": 0.8392156958580017,
+                                                "z": 0.7607843279838562,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.8333333730697632
+                                            },
+                                            "Mark color": {
+                                                "x": 0.8313725590705872,
+                                                "y": 0.4470588266849518,
+                                                "z": 0.3921568691730499,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.6823529601097107,
+                                                "y": 0.1568627506494522,
+                                                "z": 0.1725490242242813,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 1
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "74c5f228-6cdd-4bbb-a3fb-2616795ebbcd",
+                "second": {
+                    "Name": "Jet",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 2.485409211772094e-8,
+                                                "y": 0.00003233517418266274,
+                                                "z": 0.4169824719429016,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.10000000149011612
+                                            },
+                                            "Mark color": {
+                                                "x": 0.0,
+                                                "y": 0.0,
+                                                "z": 1.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.3499999940395355
+                                            },
+                                            "Mark color": {
+                                                "x": 0.0,
+                                                "y": 1.0,
+                                                "z": 1.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.6499999761581421
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 1.0,
+                                                "z": 0.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.8999999761581421
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.0,
+                                                "z": 0.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.5607843399047852,
+                                                "y": 0.0,
+                                                "z": 0.0,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 1
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "46c1c848-32ae-4d6e-ac54-dfbdec0c1dea",
+                "second": {
+                    "Name": "Plasma",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.13573989272117616,
+                                                "y": 0.0,
+                                                "z": 0.8235134482383728,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.1720000058412552
+                                            },
+                                            "Mark color": {
+                                                "x": 0.5930893421173096,
+                                                "y": 0.1337108463048935,
+                                                "z": 0.9576265811920166,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.3619999885559082
+                                            },
+                                            "Mark color": {
+                                                "x": 0.8053381443023682,
+                                                "y": 0.18427515029907227,
+                                                "z": 0.6500723958015442,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.7279999852180481
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9376267194747925,
+                                                "y": 0.5820603370666504,
+                                                "z": 0.18273292481899262,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9534681439399719,
+                                                "y": 0.8791630268096924,
+                                                "z": 0.003912823274731636,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 1
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "3bec6ef1-7d8c-41a4-9e62-4d9bc3dd7344",
+                "second": {
+                    "Name": "Inferno",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.125490203499794,
+                                                "y": 0.0,
+                                                "z": 0.35686275362968447,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.21799999475479127
+                                            },
+                                            "Mark color": {
+                                                "x": 0.40392157435417178,
+                                                "y": 0.10196078568696976,
+                                                "z": 0.5686274766921997,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.48399999737739565
+                                            },
+                                            "Mark color": {
+                                                "x": 0.7509303092956543,
+                                                "y": 0.16044269502162934,
+                                                "z": 0.24509339034557343,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.7039999961853027
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.598495364189148,
+                                                "z": 0.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.8519999980926514
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9899705052375794,
+                                                "y": 0.8760811686515808,
+                                                "z": 0.20088985562324525,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.950990617275238,
+                                                "y": 1.0,
+                                                "z": 0.7176881432533264,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 0
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "13c81ddd-b48e-483c-885c-dc9183cea050",
+                "second": {
+                    "Name": "Hot",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.00009999999747378752,
+                                                "y": 0.00009998999303206801,
+                                                "z": 0.00009999136091209948,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.1860000044107437
+                                            },
+                                            "Mark color": {
+                                                "x": 0.5273372530937195,
+                                                "y": 0.027405688539147378,
+                                                "z": 0.010975495912134648,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.4020000100135803
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.0,
+                                                "z": 0.04185628890991211,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.6320000290870667
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.598495364189148,
+                                                "z": 0.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.8040000200271606
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9999999403953552,
+                                                "y": 0.9236475229263306,
+                                                "z": 0.06732463091611862,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 1.0,
+                                                "y": 0.9907979965209961,
+                                                "z": 0.924204409122467,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 1
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "db43b9f4-620a-452d-bbd4-7ca9f22fa778",
+                "second": {
+                    "Name": "Cool",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.10609226673841477,
+                                                "y": 0.892068088054657,
+                                                "z": 0.9999999403953552,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 1.0
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9972942471504211,
+                                                "y": 0.1685870885848999,
+                                                "z": 1.0,
+                                                "w": 1.0
+                                            }
+                                        }
+                                    ],
+                                    "Wrap Mode": 1,
+                                    "Interpolation Mode": 1
+                                },
+                                "Metadata": {
+                                    "Is HDR": false,
+                                    "Randomize new marks' colors": true
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "629c4c51-d86b-478c-9449-50f7bc597dd0",
+                "second": {
+                    "Name": "Twilight",
+                    "Values": [
+                        {
+                            "index": 15,
+                            "data": {
+                                "Name": "Color Gradient",
+                                "Value": {
+                                    "Gradient": [
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.009999999776482582
+                                            },
+                                            "Mark color": {
+                                                "x": 0.1764705926179886,
+                                                "y": 0.0,
+                                                "z": 0.2235294133424759,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.2460000067949295
+                                            },
+                                            "Mark color": {
+                                                "x": 0.4452997148036957,
+                                                "y": 0.5668836832046509,
+                                                "z": 0.8469276428222656,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.4300000071525574
+                                            },
+                                            "Mark color": {
+                                                "x": 0.7152448892593384,
+                                                "y": 0.9312596321105957,
+                                                "z": 1.0,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.5
+                                            },
+                                            "Mark color": {
+                                                "x": 0.9411764740943909,
+                                                "y": 0.9411764740943909,
+                                                "z": 0.9411764740943909,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.593999981880188
+                                            },
+                                            "Mark color": {
+                                                "x": 0.8885399103164673,
+                                                "y": 0.7761519551277161,
+                                                "z": 0.7085124850273132,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.6940000057220459
+                                            },
+                                            "Mark color": {
+                                                "x": 0.8928951025009155,
+                                                "y": 0.5625337362289429,
+                                                "z": 0.39812013506889346,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.8299999833106995
+                                            },
+                                            "Mark color": {
+                                                "x": 0.6647135019302368,
+                                                "y": 0.25256112217903139,
+                                                "z": 0.3679530620574951,
+                                                "w": 1.0
+                                            }
+                                        },
+                                        {
+                                            "Mark position": {
+                                                "Relative position": 0.9900000095367432
+                                            },
+                                            "Mark color": {
+                                                "x": 0.17742007970809937,
+                                                "y": 0.0,
+                                                "z": 0.2242606282234192,
                                                 "w": 1.0
                                             }
                                         }
