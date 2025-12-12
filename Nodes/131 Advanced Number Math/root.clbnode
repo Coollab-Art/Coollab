@@ -1,0 +1,8 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float'Exposant';
+
+float main(float value)
+{
+    return pow(value, 1 / 'Exposant');
+}
