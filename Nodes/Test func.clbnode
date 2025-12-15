@@ -1,0 +1,5 @@
+INPUT UV->float  'Gradient Image';
+
+float main(float x){
+return 'Gradient Image'(vec2(x * (1920./1080.) * 2, 0.));
+}

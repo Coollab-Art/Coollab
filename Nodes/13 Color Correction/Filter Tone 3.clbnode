@@ -1,0 +1,87 @@
+INPUT float 'Shadows';
+INPUT float 'Highlights';
+INPUT float 'Midtones';
+
+
+float gauss(float x, float abcisse_sommet, float hauteur_sommet, float ecart_type)
+{
+    return hauteur_sommet * exp(-0.5 * pow(x - abcisse_sommet, 2) / (ecart_type * ecart_type));
+}
+
+float ponderation(float x, float ampleur)
+{
+    float coeff = ampleur < 0. ? x : 1. - x;
+    return coeff * (1. - pow(2. * x - 1., 20));
+}
+
+float deformation(float x, float abcisse_sommet, float ampleur, float ecart_type)
+{
+    return gauss(x, abcisse_sommet, ampleur, ecart_type) * ponderation(x, ampleur);
+}
+
+vec3 triple_mix(vec3 a, vec3 b, vec3 c, float t)
+{
+    return t > 0 ? mix(b, c, t) : mix(b, a, -t);
+}
+
+vec3 g0 = vec3(0.33, 0., 0.15);
+vec3 g1 = vec3(0.17, 0.46, 0.19);
+vec3 g2 = vec3(0.33, 0.13, 0.13);
+vec3 g3 = vec3(0.04, 0.46, 0.33);
+vec3 g4 = vec3(0.33, -0.58, 0.15);
+vec3 g5 = vec3(0.2, 0.57, 0.15);
+
+vec3 d0 = vec3(0.83, 0., 0.19);
+vec3 d1 = vec3(1 - g1.x, -g1.y, g1.z);
+vec3 d2 = vec3(0.67, -0.13, 0.13);
+vec3 d3 = vec3(0.96, -0.46, 0.33);
+vec3 d4 = vec3(0.8, -0.57, 0.15);
+
+
+float filter_tone(float x, float shadows, float highlights, float midtones)
+{
+    
+    vec3 gauche = triple_mix(
+        mix(g2, g3, shadows), 
+        mix(g0, g1, shadows), 
+        mix(mix(g0, g4, highlights), mix(g1, g5, highlights), shadows),
+        midtones
+    );
+
+    vec3 droite = triple_mix(
+        mix(d2, d3, highlights),
+        mix(d0, d1, highlights), 
+        mix(d1, d4, highlights),
+        midtones
+    );
+
+    return x + deformation(x, gauche.x, gauche.y, gauche.z) + deformation(x, droite.x, droite.y, droite.z);
+}
+
+Okhsl main(Okhsl Image)
+{
+    float shadows    = 'Shadows';
+    float highlights = 'Highlights';
+    float midtones   = 'Midtones';
+
+    return vec3(
+        Image.x,
+        Image.y,
+        filter_tone(Image.z, shadows, highlights, midtones)
+    );
+}
+/*
+sRGB main(sRGB Image)
+{
+    float shadows    = 'Shadows';
+    float highlights = 'Highlights';
+    float midtones   = 'Midtones';
+
+    return vec3(
+        filter_tone(Image.x, shadows, highlights, midtones),
+        filter_tone(Image.y, shadows, highlights, midtones),
+        filter_tone(Image.z, shadows, highlights, midtones)
+    );
+}
+*/
+
