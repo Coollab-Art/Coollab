@@ -1,0 +1,17 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+// Source : https://iquilezles.org/articles/palettes/
+
+INPUT sRGB 'Brightness'; /// Amounts of Red, Green and Blue in the entry decides the resulting brightness of each of these colors respectively.
+INPUT sRGB 'Contrast'; /// Amounts of Red, Green and Blue in the entry decides the resulting intensity of each of these colors respectively.
+INPUT sRGB 'Frequency'; /// To have a periodic gradient, keep the frequencies as 0, 127 or 255. A pure white (255,255,255) will create a continuous gradient.
+INPUT sRGB 'Position'; /// Greys, black and white will result in a black and white gradient.
+
+sRGB main(float Greyscale)
+{
+    float pi = 3.1415926535897932384626433832795;
+
+    vec3 Result = 'Brightness' + 'Contrast'*(cos( 2*pi*('Frequency'* Greyscale + 'Position') ));
+
+    return Result;
+}

@@ -1,0 +1,654 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "a091d825-3374-4263-b4ae-52254ca2efa0",
+                "second": {
+                    "Name": "Rainbow",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.3607843220233917,
+                                        "z": 0.5921568870544434
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "9fcfc763-5bf5-4ff0-9604-88f227ed9fac",
+                "second": {
+                    "Name": "Club",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.38823530077934267,
+                                        "y": 0.054901961237192157,
+                                        "z": 0.4156862795352936
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.2862745225429535,
+                                        "y": 0.0,
+                                        "z": 0.5529412031173706
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.9882352948188782,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.6039215922355652,
+                                        "z": 0.2235294133424759
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "4b94958b-a70c-4b71-a411-418a7a5d8ed4",
+                "second": {
+                    "Name": "Mango",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.686274528503418,
+                                        "y": 0.47058823704719546,
+                                        "z": 0.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.48627451062202456,
+                                        "y": 0.24705882370471955,
+                                        "z": 0.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.30980393290519717,
+                                        "y": 0.48627451062202456,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.21960784494876862,
+                                        "y": 0.6039215922355652,
+                                        "z": 0.2235294133424759
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "315b838b-f777-4579-a13c-5c72233b81f7",
+                "second": {
+                    "Name": "Sandy Beach",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.09803921729326248,
+                                        "z": 0.19607843458652497
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "4f353c9e-25ec-4111-b159-caa1ba3ea577",
+                "second": {
+                    "Name": "Sepia & Turquoise",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.29411765933036806,
+                                        "y": 0.19607843458652497,
+                                        "z": 0.19607843458652497
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "66af1c44-5dad-47a2-b7e4-6e3589f3852a",
+                "second": {
+                    "Name": "Poncho",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.7960784435272217,
+                                        "y": 0.8980392217636108,
+                                        "z": 0.29411765933036806
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "1c80d26b-b3d2-458a-a9ad-2983496eabc3",
+                "second": {
+                    "Name": "Morning",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 0.6980392336845398,
+                                        "z": 0.4000000059604645
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.14901961386203767,
+                                        "z": 0.20000000298023225
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "ba06231d-09dd-4a84-8ebd-e73152411535",
+                "second": {
+                    "Name": "Spring",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.49803921580314639
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 0.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.49803921580314639,
+                                        "y": 0.20000000298023225,
+                                        "z": 0.24705882370471955
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "first": "35314a68-688b-4496-8386-e24b3d898da1",
+                "second": {
+                    "Name": "Raspberries & Cream",
+                    "Values": [
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Brightness",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.7960784435272217,
+                                        "y": 0.49803921580314639,
+                                        "z": 0.47843137383461
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Contrast",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.20000000298023225,
+                                        "y": 0.40392157435417178,
+                                        "z": 0.20000000298023225
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Frequency",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 1.0,
+                                        "y": 1.0,
+                                        "z": 1.0
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        },
+                        {
+                            "index": 7,
+                            "data": {
+                                "Name": "Position",
+                                "Value": {
+                                    "sRGB": {
+                                        "x": 0.0,
+                                        "y": 0.24705882370471955,
+                                        "z": 0.24705882370471955
+                                    }
+                                },
+                                "Metadata": {
+                                    "Is HDR": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
