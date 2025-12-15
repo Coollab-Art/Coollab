@@ -114,6 +114,12 @@ vec2 to_view_space(vec2 uv)
     return p.xy / p.z;
 }}
 
+struct Tiling{{
+   vec2 uv;
+   ivec2 id;
+   vec2 center;
+}};
+
 {in_before_main}
 {output_indices_declarations}
 {helper_code}

@@ -1,0 +1,8 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float 'Exponent';
+
+float main(float x)
+{
+    return (exp('Exponent' * x) - 1) / exp('Exponent');
+}

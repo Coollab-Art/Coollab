@@ -1,0 +1,18 @@
+#include "_COOL_RES_/shaders/triangle_grid.glsl"
+
+INPUT float 'Cell Size';
+INPUT float 'Content Size';
+
+UV main(UV uv)
+{
+    float grid_size = 0.5 / 'Cell Size';
+    float content_size = 'Content Size' / 2.;
+
+    vec2  gv = Cool_tri_uv(uv, grid_size) / content_size;
+    //ivec2 id = Cool_tri_id(uv, grid_size);
+
+    //'Index X' = id.x;
+    //'Index Y' = id.y;
+
+    return gv;
+}

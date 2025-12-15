@@ -23,6 +23,7 @@ case PrimitiveType::Direction2D: return "Direction2D";
 case PrimitiveType::Particle2D: return "Particle2D";
 case PrimitiveType::Particle3D: return "Particle3D";
 case PrimitiveType::Void: return "Void";
+case PrimitiveType::Tiling: return "Tiling";
 case PrimitiveType::Oklab: return "Oklab";
 case PrimitiveType::Oklab_PremultipliedA: return "Oklab_PremultipliedA";
 case PrimitiveType::Oklab_StraightA: return "Oklab_StraightA";

@@ -22,6 +22,7 @@ R"STR(  - bool
   - Direction2D
   - Particle2D
   - Particle3D
+  - Tiling
   - Oklab
   - Oklab_PremultipliedA
   - Oklab_StraightA

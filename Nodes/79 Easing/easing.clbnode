@@ -1,0 +1,25 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float->float 'Function';
+
+INPUT bool 'IN';
+INPUT bool 'OUT';
+
+float main(float x)
+{
+    if('IN')
+    {
+        if('OUT')
+        {
+            return (x < .5)
+                ?'Function'(2.*x)/2.
+                :1-'Function'(2.-2.*x)/2.;
+        }
+        return 'Function'(x);
+    }
+    if('OUT')
+    {
+        return 1 - 'Function'(1-x);
+    }
+    return x;
+}

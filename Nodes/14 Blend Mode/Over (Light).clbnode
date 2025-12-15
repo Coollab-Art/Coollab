@@ -1,8 +1,6 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
 
-INPUT Oklab_PremultipliedA 'Background';
-
-Oklab_PremultipliedA main(Oklab_PremultipliedA Foreground)
+Oklab main(Oklab Foreground, Oklab background)
 {
-    return Foreground + (1. - Foreground.a) * 'Background';
+    return Foreground;
 }

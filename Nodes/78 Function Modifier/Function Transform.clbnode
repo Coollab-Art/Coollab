@@ -1,0 +1,13 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float->float 'Function';
+
+INPUT float 'Offset x';
+INPUT float 'Offset y';
+INPUT float 'Scale x';
+INPUT float 'Scale y';
+
+float main(float x)
+{
+    return 'Function'((x - 'Offset x') / 'Scale x') * 'Scale y' + 'Offset y';
+}

@@ -1,0 +1,9 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float 'Bouncyness';
+
+float main(float x)
+{
+    float bounce = 'Bouncyness';
+    return (bounce + 1) * pow(x, 3.) - bounce * pow(x, 2.);
+}

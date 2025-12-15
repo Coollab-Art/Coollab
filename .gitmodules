@@ -1,15 +1,15 @@
 [submodule "Cool"]
 	path = Cool
-	url = https://github.com/CoolLibs/Cool
+	url = https://github.com/Coollab-Art/Cool
 [submodule "lib/cmd"]
 	path = lib/cmd
-	url = https://github.com/CoolLibs/cmd
+	url = https://github.com/Coollab-Art/cmd
 [submodule "lib/range-v3"]
 	path = lib/range-v3
 	url = https://github.com/ericniebler/range-v3
 [submodule "tooling"]
 	path = tooling
-	url = https://github.com/CoolLibs/tooling/
+	url = https://github.com/Coollab-Art/tooling/
 [submodule "lib/cpp-httplib"]
 	path = lib/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib

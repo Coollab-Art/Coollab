@@ -1,0 +1,30 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "79fb3b15-6c70-41c8-a83d-c30e714de31e",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 0,
+                            "data": {
+                                "Name": "IN",
+                                "Value": true,
+                                "Metadata": {}
+                            }
+                        },
+                        {
+                            "index": 0,
+                            "data": {
+                                "Name": "OUT",
+                                "Value": false,
+                                "Metadata": {}
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+float main(vec2 vec)
+{
+    return length(vec);
+}

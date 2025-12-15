@@ -76,6 +76,10 @@ if (str == "Particle3D")
 {
     return PrimitiveType::Particle3D;
 }
+if (str == "Tiling")
+{
+    return PrimitiveType::Tiling;
+}
 if (str == "Oklab")
 {
     return PrimitiveType::Oklab;

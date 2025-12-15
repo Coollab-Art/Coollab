@@ -1,5 +1,4 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
-
 INPUT sRGB_PremultipliedA 'Background';
 
 sRGB_PremultipliedA main(sRGB_PremultipliedA Foreground)

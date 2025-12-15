@@ -173,6 +173,13 @@ def all_primitive_types():
             glsl="void",
             parsed_from=None,
         ),
+        PrimitiveType(
+            cpp="Tiling",
+            user_facing_name="Tiling",
+            corresponding_input_types=[],
+            glsl="Tiling",
+            parsed_from="Tiling",
+        ),
     ]
 
     res.extend(primitive_types_for_color_spaces())
