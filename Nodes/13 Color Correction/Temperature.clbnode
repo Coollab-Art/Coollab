@@ -1,0 +1,17 @@
+INPUT float 'Temperature coefficient';
+
+float curve(float x, float a)
+{
+    return pow(x, 2. / (a + 1.) - 1.);
+}
+
+LinearRGB main(LinearRGB Image)
+{
+    float temperature_coefficient = 'Temperature coefficient';
+    
+    return vec3(
+        curve(Image.x, + temperature_coefficient),
+        Image.y,
+        curve(Image.z, - temperature_coefficient)
+    );
+}
