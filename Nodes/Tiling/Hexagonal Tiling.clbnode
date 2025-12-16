@@ -1,9 +1,11 @@
 #include "_COOL_RES_/shaders/triangle_grid.glsl"
 
+INPUT float 'Grid Size';
+
 Tiling main(UV uv){
     return Tiling(
-        Cool_hex_uv(uv, 10),
-        Cool_hex_id(uv, 10),
-        Cool_hex_center_from_hex_id(id, 10)
+        Cool_hex_uv(uv, 'Grid Size'),
+        Cool_hex_id(uv, 'Grid Size'),
+        Cool_hex_center_from_hex_id(id, 'Grid Size')
     );
 }
