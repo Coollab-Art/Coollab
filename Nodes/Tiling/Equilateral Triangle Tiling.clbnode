@@ -1,0 +1,9 @@
+#include "_COOL_RES_/shaders/triangle_grid.glsl"
+
+Tiling main(UV uv){
+    return Tiling(
+        Cool_tri_uv(uv, 10),
+        Cool_tri_id(uv, 10),
+        Cool_tri_center_from_tri_id(id, 10)
+    );
+}

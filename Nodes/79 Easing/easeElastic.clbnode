@@ -1,0 +1,12 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Rebound';
+
+float main(float x)
+{
+    float rebound = 'Rebound' / 3.;
+    float c4 = (rebound * 2 * PI) / 3;
+
+    return (x == 0)? 0: (x == 1)? 1: -pow(2, 10 * x - 10) * sin((x * 10 - 10 - 0.75 / rebound) * c4);
+
+}

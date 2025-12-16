@@ -1,0 +1,12 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Number of steps';
+INPUT bool 'Jump start';
+//INPUT bool 'Jump end';
+
+float main(float x)
+{
+    if ('Jump start')
+        return ceil(x * 'Number of steps')/'Number of steps';
+    return floor(x * 'Number of steps')/'Number of steps';
+}

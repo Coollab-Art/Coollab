@@ -5,7 +5,12 @@ INPUT float->float 'Function';
 INPUT bool 'IN';
 INPUT bool 'OUT';
 
-float main(float x)
+INPUT float 'Offset x';
+INPUT float 'Offset y';
+INPUT float 'Scale x';
+INPUT float 'Scale y';
+
+float zero_to_one(float x)
 {
     if('IN')
     {
@@ -22,4 +27,9 @@ float main(float x)
         return 1 - 'Function'(1-x);
     }
     return x;
+}
+
+float main(float x)
+{
+    return zero_to_one((x - 'Offset x') / 'Scale x') * 'Scale y' + 'Offset y';
 }
