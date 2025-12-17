@@ -1,0 +1,7 @@
+INPUT Texture 'Color Gradient'; /// It is advised to use a regular left-to-right gradient.
+
+
+sRGB main(float image)
+{
+    return texture('Color Gradient'.tex, vec2(image, 0.)).rgb;
+}
