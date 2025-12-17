@@ -7,21 +7,6 @@
                     "Name": "Default",
                     "Values": [
                         {
-                            "index": 3,
-                            "data": {
-                                "Name": "Center",
-                                "Value": {
-                                    "Point2D": {
-                                        "x": 0.0,
-                                        "y": 0.0
-                                    }
-                                },
-                                "Metadata": {
-                                    "Drag speed": 0.00009999999747378752
-                                }
-                            }
-                        },
-                        {
                             "index": 1,
                             "data": {
                                 "Name": "Sample Count",
