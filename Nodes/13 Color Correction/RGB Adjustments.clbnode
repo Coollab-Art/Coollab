@@ -1,0 +1,13 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float 'Red shift';
+INPUT float 'Green shift';
+INPUT float 'Blue shift';
+
+Okhsl main(Okhsl Image)
+{
+    Image.x = fract(Image.x + 'Shift');
+    Image.y = saturate(Image.y * (-4. * 'S') * ('S' - 1.) + 2. * 'S' * ('S' - 0.5));
+    Image.z = saturate(Image.z * (-4. * 'L') * ('L' - 1.) + 2. * 'L' * ('L' - 0.5));
+    return Image;
+}

@@ -2,12 +2,10 @@ INPUT float 'Temperature coefficient';
 
 float curve(float x, float a)
 {
-    //return pow(x, 2. / (a + 1.) - 1.);
-
     return (-1. < a && a < 1.) ? 
         pow(x, 2. / (a + 1.) - 1.)
         :
-        (a <= -1. ?
+        (a == -1. ?
             0.
             :
             1.
@@ -22,9 +20,9 @@ LinearRGB main(LinearRGB Color)
     float original_gray = Cool_Okhsl_from_LinearRGB(Color).z;
 
     vec3 ColorLinear = vec3(
-        curve(Color.x, + temperature_coefficient),
-        Color.y,
-        curve(Color.z, - temperature_coefficient)
+        Color.x,
+        curve(Color.y, - temperature_coefficient),
+        Color.z
     );
     
     vec3 ColorOkhsl = Cool_Okhsl_from_LinearRGB(ColorLinear);
