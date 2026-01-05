@@ -1,0 +1,8 @@
+#include "_COOL_RES_/shaders/triangle_grid.glsl"
+
+INPUT UV->sRGB_StraightA 'Image';
+
+sRGB_StraightA main(Tiling tile)
+{
+    return 'Image'(vec2(tile.center));
+}

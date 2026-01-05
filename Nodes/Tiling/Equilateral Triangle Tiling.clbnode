@@ -1,11 +1,71 @@
-#include "_COOL_RES_/shaders/triangle_grid.glsl"
+INPUT float 'Cell Size';
 
-INPUT float 'Grid Size';
+vec2 get_id_center(ivec2 id, float cell_size)
+{
+    return vec2(float(id.x)/2., (float(id.y) + .5) * sqrt(3.)/ 2.) * cell_size;
+}
 
 Tiling main(UV uv){
-    return Tiling(
-        Cool_tri_uv(uv, 'Grid Size'),
-        Cool_tri_id(uv, 'Grid Size'),
-        Cool_tri_center_from_tri_id(id, 'Grid Size')
-    );
+    Tiling tile;
+
+    float cell_size = 2 * 'Cell Size';
+    ivec2 id1, id2;
+    id1.x = int(floor(uv.x * 2. / cell_size));
+    id2.x = int(ceil(uv.x * 2. / cell_size));
+    id1.y = int(floor(uv.y * 2. /(sqrt(3.) * cell_size)));
+    id2.y = id1.y;
+    
+    vec2 center1 = get_id_center(id1 , cell_size);
+    vec2 mod_center1 = center1;
+    vec2 center2 = get_id_center(id2, cell_size);
+    vec2 mod_center2 = center2;
+
+    if(((id1.x+id1.y) / 2) * 2 != id1.x+id1.y)
+    {
+        mod_center1.y += cell_size * sqrt(3.)/4.;
+        mod_center2.y -= cell_size * sqrt(3.)/4.;
+    }
+    else
+    {
+        mod_center1.y -= cell_size * sqrt(3.)/4.;
+        mod_center2.y += cell_size * sqrt(3.)/4.;
+    }
+    mod_center1.y /= sqrt(3.);
+    mod_center2.y /= sqrt(3.);
+    uv.y /= sqrt(3.);
+    
+    if(length(uv - mod_center1) < length(uv - mod_center2))
+    {
+        tile.id = id1;
+        tile.center = center1;
+    }
+    else
+    {
+        tile.id = id2;
+        tile.center = center2;
+    }
+
+    float grid_size = 0.5 / 'Cell Size';
+    uv *= grid_size;
+    uv.y *= sqrt(3.);
+    vec2 TriRatio = vec2(1, sqrt(3.)/2.);
+    vec2 h = TriRatio*.5;  
+    vec2 a = mod(uv, TriRatio);
+    a.x -= h.x;
+    vec2 b = mod(uv - vec2(h.x, 0.), TriRatio);
+    b.x -= h.x;
+    (mod(floor(uv.y / TriRatio.y), 2.) == 0.0)?a.y = abs(a.y - TriRatio.y):b.y = abs(b.y - TriRatio.y);
+
+    vec2 gv;
+    if (length(vec2(a.x * TriRatio.y * 2., a.y))<length(vec2(b.x * TriRatio.y * 2., b.y)))
+    {
+        gv=mod(uv, TriRatio)-h;
+    }
+    else
+    {
+        gv=mod(uv - vec2(h.x, 0.), TriRatio) - h;
+    }
+    tile.uv = 2 * gv;
+
+    return tile;
 }
