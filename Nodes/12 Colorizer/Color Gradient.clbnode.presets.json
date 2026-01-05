@@ -542,7 +542,7 @@
                                             }
                                         }
                                     ],
-                                    "Wrap Mode": 1,
+                                    "Wrap Mode": 0,
                                     "Interpolation Mode": 1
                                 },
                                 "Metadata": {

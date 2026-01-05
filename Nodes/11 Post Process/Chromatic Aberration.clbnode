@@ -1,19 +1,23 @@
 INPUT UV->sRGB_PremultipliedA 'Image';
-INPUT Point2D 'Center';
 
 INPUT int 'Sample Count';
 INPUT float 'Blur';
 INPUT float 'Falloff';
 
+INPUT UV->SignedDistance 'Shape';
+
 sRGB_PremultipliedA main(UV uv)
 {
     float inverse_sample_count = 1.0 / 'Sample Count';
 
-    vec2 view_space_uv = to_view_space(uv) - 'Center';
+    float eps = 0.01;
 
-    vec2 direction = normalize(view_space_uv);
+    vec2 direction = (vec2(
+        'Shape'(uv + vec2(eps, 0)) - 'Shape'(uv),
+        'Shape'(uv + vec2(0, eps)) - 'Shape'(uv)
+    ))/eps;
 
-    vec2 velocity = direction * 'Blur' * pow(length(view_space_uv), 'Falloff');
+    vec2 velocity = direction * 'Blur' * pow(abs('Shape'(uv)), 'Falloff');
 
     mat3x2 increments = mat3x2(
         velocity * 1.0 * inverse_sample_count,
