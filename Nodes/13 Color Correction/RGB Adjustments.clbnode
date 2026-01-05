@@ -4,10 +4,32 @@ INPUT float 'Red shift';
 INPUT float 'Green shift';
 INPUT float 'Blue shift';
 
-Okhsl main(Okhsl Image)
+float curve(float x, float a)
 {
-    Image.x = fract(Image.x + 'Shift');
-    Image.y = saturate(Image.y * (-4. * 'S') * ('S' - 1.) + 2. * 'S' * ('S' - 0.5));
-    Image.z = saturate(Image.z * (-4. * 'L') * ('L' - 1.) + 2. * 'L' * ('L' - 0.5));
-    return Image;
+    return (-1. < a && a < 1.) ? 
+        pow(x, 2. / (a + 1.) - 1.)
+        :
+        (a <= -1. ?
+            0.
+            :
+            1.
+        )
+    ;
+}
+
+LinearRGB main(LinearRGB Color)
+{   
+    float original_gray = Cool_Okhsl_from_LinearRGB(Color).z;
+
+    vec3 ColorLinear = vec3(
+        curve(Color.x, 'Red shift'),
+        curve(Color.y, 'Green shift'),
+        curve(Color.z, 'Blue shift')
+    );
+    
+    vec3 ColorOkhsl = Cool_Okhsl_from_LinearRGB(ColorLinear);
+    ColorOkhsl.z = original_gray;
+    ColorLinear = Cool_LinearRGB_from_Okhsl(ColorOkhsl);
+
+    return ColorLinear;
 }
