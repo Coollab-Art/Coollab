@@ -1,0 +1,67 @@
+#define M_PI 3.1415926535897932384626433832795
+
+INPUT Hue 'Shadows hue';
+INPUT float 'Shadows intensity';
+INPUT Hue 'Midtones hue';
+INPUT float 'Midtones intensity';
+INPUT Hue 'Highlights hue';
+INPUT float 'Highlights intensity';
+
+
+vec3 InvLerp(vec3 A, vec3 B, vec3 t)
+{
+    return (t - A) / (B - A);
+}
+
+float InvLerp(float A, float B, float t)
+{
+    return (t - A) / (B - A);
+}
+
+float curve(float x, float a)
+{
+    return (-1. < a && a < 1.) ? 
+        pow(x, 2. / (a + 1.) - 1.)
+        :
+        (a <= -1. ?
+            0.
+            :
+            1.
+        )
+    ;
+}
+
+vec3 curve(vec3 x, vec3 a)
+{
+    return vec3(curve(x.x, a.x), curve(x.y, a.y), curve(x.z, a.z));
+}
+
+float f(float x)
+{
+    float t = pow(1. - abs(2. * x - 1.), 2);
+    return t * (t - 2.) + 1.;
+    return pow(2. * x - 1., 2.);
+}
+
+float special_mix(float x1, float x2, float x3, float a)
+{
+    return x1 * (a < 0.5 ? f(a) : 0.) + x2 * 0.5 * (1. - f(a)) + x3 * (a > 0.5 ? f(a) : 0.);
+}
+
+Oklab main(Oklab color)
+{
+    vec3 shadows_color    = mix(color, Cool_Oklab_from_Okhsl(vec3('Shadows hue',    1., color.x)), 'Shadows intensity'   );
+    vec3 midtones_color   = mix(color, Cool_Oklab_from_Okhsl(vec3('Midtones hue',   1., color.x)), 'Midtones intensity'  );
+    vec3 highlights_color = mix(color, Cool_Oklab_from_Okhsl(vec3('Highlights hue', 1., color.x)), 'Highlights intensity');
+
+    return vec3(color.x, special_mix(shadows_color.y, midtones_color.y, highlights_color.y, color.x), special_mix(shadows_color.z, midtones_color.z, highlights_color.z, color.x));
+
+    return mix(
+        mix(shadows_color, midtones_color, InvLerp(0.0, 0.5, color.x)),    // <  0.5
+        mix(midtones_color, highlights_color, InvLerp(0.5, 1.0, color.x)), // >= 0.5
+        color.x >= 0.5
+    );
+    
+
+    return color;
+}

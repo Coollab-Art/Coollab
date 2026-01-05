@@ -1,9 +1,11 @@
-INPUT float 'Temperature coefficient';
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT float 'Red shift';
+INPUT float 'Green shift';
+INPUT float 'Blue shift';
 
 float curve(float x, float a)
 {
-    //return pow(x, 2. / (a + 1.) - 1.);
-
     return (-1. < a && a < 1.) ? 
         pow(x, 2. / (a + 1.) - 1.)
         :
@@ -16,15 +18,13 @@ float curve(float x, float a)
 }
 
 LinearRGB main(LinearRGB Color)
-{
-    float temperature_coefficient = 'Temperature coefficient';
-    
+{   
     float original_gray = Cool_Okhsl_from_LinearRGB(Color).z;
 
     vec3 ColorLinear = vec3(
-        curve(Color.x, + temperature_coefficient),
-        Color.y,
-        curve(Color.z, - temperature_coefficient)
+        curve(Color.x, 'Red shift'),
+        curve(Color.y, 'Green shift'),
+        curve(Color.z, 'Blue shift')
     );
     
     vec3 ColorOkhsl = Cool_Okhsl_from_LinearRGB(ColorLinear);

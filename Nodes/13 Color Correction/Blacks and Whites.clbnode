@@ -1,0 +1,52 @@
+INPUT float 'Shadows';
+INPUT float 'Highlights';
+
+float curve(float x, float a)
+{
+    return pow(x, 2. / (1. + a) - 1.);
+}
+
+float s(float x)
+{
+    return 2 * x * x;
+}
+
+float ponderation(float x)
+{
+    return x < 0.5 ? s(x) : 1. - s(1. - x);
+}
+
+float filter_tone(float x, float shadows, float highlights)
+{
+    return (0. < x && x < 1.) ? 
+        ponderation(1 - x) * curve(x, shadows) + ponderation(x) * curve(x, highlights)
+        :
+        (x == 0. ?
+            (shadows == 1. ?
+                1.
+                :
+                0.
+            )
+            :
+            (highlights == 0. ?
+                0.
+                :
+                1.
+            )
+        )
+    ;
+}
+
+Oklab main(Oklab Image)
+{
+    float shadows    = 'Shadows';
+    float highlights = 'Highlights';
+
+    return vec3(filter_tone(Image.x, shadows, highlights), Image.y, Image.z);
+    
+    return vec3(
+        filter_tone(Image.x, shadows, highlights),
+        filter_tone(Image.y, shadows, highlights),
+        filter_tone(Image.z, shadows, highlights)
+    );
+}
