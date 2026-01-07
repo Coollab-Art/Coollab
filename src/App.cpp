@@ -1,5 +1,6 @@
 #include "App.h"
 #include <filesystem>
+#include <reg/src/generate_uuid.hpp>
 #include "CommandCore/command_to_string.h"
 #include "CommandCore/get_app.hpp"
 #include "Commands/Command_OpenImageExporter.h"
@@ -17,6 +18,7 @@
 #include "Cool/Image/SaveImage.h"
 #include "Cool/Input/CTRL_OR_CMD.hpp"
 #include "Cool/Log/message_console.hpp"
+#include "Cool/Nodes/NodesLibrary.h"
 #include "Cool/OSC/OSCChannel.h"
 #include "Cool/OSC/OSCManager.h"
 #include "Cool/Path/Path.h"
@@ -31,6 +33,7 @@
 #include "Debug/DebugOptions.h"
 #include "Dependencies/Camera2DManager.h"
 #include "ModulesGraph/ModulesGraph.h"
+#include "Nodes/NodeDefinition.h"
 #include "ProjectManager/COOLLAB_FILE_EXTENSION.hpp"
 #include "ProjectManager/Command_OpenProjectOnNextFrame.hpp"
 #include "ProjectManager/Command_SaveProject.h"
@@ -492,8 +495,39 @@ void App::imgui_window_license()
     }
 }
 
+void App::test_all_nodes()
+{
+    for (auto const& category : _nodes_library_manager.library()._categories)
+    {
+        for (auto const& def : category.definitions())
+        {
+            Cool::Log::info("Node", def.name());
+            project().modules_graph->graph().remove_all_nodes();
+            auto const node_id = project()
+                                     .modules_graph->nodes_config(ui(), project().audio, _nodes_library_manager.library())
+                                     .add_node(Cool::NodeDefinitionAndCategoryName{.def = def, .category_name = category.name()});
+            project().modules_graph->set_main_node_id(node_id);
+
+            auto const polar = polaroid();
+            polar.render({75, 75}, project().clock.time(), project().clock.delta_time());
+            Cool::ImageU::save("C:/Dev/Coollab-2.0/static/NodesImg/"s + category.name() + "/" + def.name() + ".png", polar.texture().download_pixels())
+                .or_else([&](std::string const& err) {
+                    Cool::Log::internal_warning("Save Thumbnail", err);
+                });
+            // break;
+        }
+        // break;
+    }
+}
+
 void App::imgui_windows()
 {
+    ImGui::Begin("Test all nodes");
+    if (ImGui::Button("Render all thumbnails"))
+    {
+        test_all_nodes();
+    }
+    ImGui::End();
     imgui_window_view();
     imgui_window_exporter();
     imgui_window_console();

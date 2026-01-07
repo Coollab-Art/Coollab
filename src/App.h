@@ -49,6 +49,7 @@ public:
     auto nodes_library() const -> Cool::NodesLibrary const& { return _nodes_library_manager.library(); }
 
 private:
+    void test_all_nodes();
     void render(img::Size size, Cool::Time time, Cool::Time delta_time);
     void on_time_changed();
     void on_time_reset();
