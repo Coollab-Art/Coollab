@@ -355,6 +355,16 @@ def all_conversions():
                 }
             """,
             ),
+            Conversion(
+                from_="Tiling",
+                to="UV",
+                implementation="""
+                UV FUNCTION_NAME/*needs_coollab_context*/()
+                {
+                    return coollab_context.uv;
+                }
+            """,
+            ),
         ]
     )
 

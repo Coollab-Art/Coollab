@@ -1,0 +1,50 @@
+INPUT float 'Cell Size';
+
+INPUT int 'Number of Tiles';
+INPUT int 'Mode';
+
+vec2 center_id(vec2 uv)
+{
+    vec2 gv = floor(uv * 'Number of Tiles') + .5;
+    ivec2 id = ivec2(floor(uv * 'Number of Tiles'));
+    id.x *= 2;
+
+    // Up Left -> Down Right
+    if ('Mode' == 0)
+    {
+        if (gv.y + gv.x > 1)
+        {
+            gv += .5;
+            id.x++;
+        }
+        else
+        {
+            gv -= .5;
+        }
+    }
+    // Up Right -> Down Left
+    else //if ('Mode' == 1)
+    {
+        if (1 - gv.y + gv.x > 1)
+        if (gv.y + gv.x > 1)
+        {
+            gv.x += .5;
+            gv.y -= .5;
+            id.x++;
+        }
+        else
+        {
+            gv.x -= .5;
+            gv.y += .5;
+        }
+    }
+    return gv;
+}
+
+Tiling main(UV uv){
+    Tiling tile;
+    tile.uv = center_id(uv);
+    tile.id = ivec2(center_id(uv));
+    tile.center = center_id(uv);
+    return tile;
+}

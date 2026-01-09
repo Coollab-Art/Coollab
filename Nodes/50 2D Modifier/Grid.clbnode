@@ -1,0 +1,8 @@
+INPUT float 'Content Size';
+INPUT UV->sRGB_StraightA 'Image';
+
+sRGB_StraightA main(Tiling tile)
+{
+
+    return 'Image'(tile.uv / 'Content Size');
+}
