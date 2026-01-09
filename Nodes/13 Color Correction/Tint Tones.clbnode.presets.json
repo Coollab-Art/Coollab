@@ -1,0 +1,92 @@
+{
+    "Presets": {
+        "Underlying container": [
+            {
+                "first": "9feab31e-2759-4790-98e6-4af53e293bfd",
+                "second": {
+                    "Name": "Default",
+                    "Values": [
+                        {
+                            "index": 13,
+                            "data": {
+                                "Name": "Shadows hue",
+                                "Value": 0.6564164757728577,
+                                "Metadata": {}
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Shadows intensity",
+                                "Value": 0.2711864411830902,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": true,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": true,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "index": 13,
+                            "data": {
+                                "Name": "Midtones hue",
+                                "Value": 0.3583082854747772,
+                                "Metadata": {}
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Midtones intensity",
+                                "Value": 0.11402156949043274,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": false,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": true,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "index": 13,
+                            "data": {
+                                "Name": "Highlights hue",
+                                "Value": 0.15939098596572877,
+                                "Metadata": {}
+                            }
+                        },
+                        {
+                            "index": 2,
+                            "data": {
+                                "Name": "Highlights intensity",
+                                "Value": 1.0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": true,
+                                        "Min": 0.0,
+                                        "Has max bound": true,
+                                        "Max": 1.0,
+                                        "Drag speed": 0.009999999776482582,
+                                        "Use slider": true,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

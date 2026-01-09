@@ -2,7 +2,7 @@
     "Presets": {
         "Underlying container": [
             {
-                "first": "7c1ab193-7b05-4d43-a9fd-f3b35f77912f",
+                "first": "e3a30cbd-963b-4082-ba05-840579f45292",
                 "second": {
                     "Name": "Default",
                     "Values": [
@@ -10,10 +10,10 @@
                             "index": 2,
                             "data": {
                                 "Name": "Cell Size",
-                                "Value": 0.050000205636024478,
+                                "Value": 0.25,
                                 "Metadata": {
                                     "Bounds": {
-                                        "Has min bound": false,
+                                        "Has min bound": true,
                                         "Min": 0.0,
                                         "Has max bound": false,
                                         "Max": 1.0,

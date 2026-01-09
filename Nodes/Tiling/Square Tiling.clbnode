@@ -1,7 +1,23 @@
+INPUT float 'Cell Size';
+
+vec2 Cool_sqa_uv(vec2 uv, float cell_size)
+{
+    cell_size *= 2.;
+    vec2  uv2 = uv / cell_size - 0.5;
+
+    vec2 gid = floor(uv2);
+
+    vec2 ret = normalize_uv_with_aspect_ratio(fract(uv2), 1.);
+
+    vec2 center = uv - ret * cell_size;
+
+    return ret;
+}
+
 Tiling main(UV uv){
     return Tiling(
-        fract(uv*10.),
-        ivec2(0, 0),
-        vec2(0)
+        Cool_sqa_uv(uv, 'Cell Size'),
+        ivec2(floor(uv.x/'Cell Size'), floor(uv.y/'Cell Size')),
+        floor(uv / 'Cell Size') * 'Cell Size' + 1. / (2. / 'Cell Size')
     );
 }

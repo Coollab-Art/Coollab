@@ -4,6 +4,5 @@ INPUT float 'Bouncyness';
 
 float main(float x)
 {
-    float bounce = 'Bouncyness';
-    return (bounce + 1) * pow(x, 3.) - bounce * pow(x, 2.);
+    return ('Bouncyness' + 1) * pow(x, 3.) - 'Bouncyness' * pow(x, 2.);
 }

@@ -1,0 +1,30 @@
+// To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+
+INPUT int 'Rebound';
+
+float __outversion(float x){
+    if ('Rebound' == 0)
+        return x*x;
+    float d1 = float((1 << 'Rebound') + ((1 << 'Rebound' - 1) - 1));
+    
+    float n1 = d1/(1 << 'Rebound' - 1);
+    n1 *= n1;
+
+    float sup = -(1 << 'Rebound' - 1)/d1;
+    float min;
+    for (int born = 0; born < 'Rebound' + 1; born++)
+    {
+        min = sup;
+        sup += (1 << 'Rebound' - born)/d1;
+        if (x >= min && x < sup)
+        {
+            return n1 * (x -= (min + sup)/2.) * x + (1 - n1 * (min - sup)*(min - sup)/ 4);
+        }
+    }
+    return x;
+}
+
+float main(float x)
+{
+    return 1 - __outversion(1-x);
+}

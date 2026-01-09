@@ -272,6 +272,25 @@ vec4 default_blend_mode(vec4 over, vec4 under)
             return *func;
     }
 
+    {
+        auto const func = maybe_generate_default(
+            FunctionSignature{PrimitiveType::Tiling, PrimitiveType::sRGB},
+            "default_tile", R"STR(
+    vec3 default_tile(Tiling tile)
+    {{
+        vec3 srgb;
+        srgb.r = tile.uv.x;
+        srgb.g = tile.uv.y;
+        srgb.b = 0;
+        return srgb;
+    }}
+    )STR",
+            signature, context
+        );
+        if (func)
+            return *func;
+    }
+
     // No need to use maybe_generate_default here because we don't need to rely on default conversions (there is no default conversion with Void anyways)
     if (signature.from == PrimitiveType::Void)
     {
