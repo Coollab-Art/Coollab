@@ -1,0 +1,75 @@
+INPUT float 'Blacks';
+INPUT float 'Whites';
+
+
+float ponderation(float x, float t)
+{
+    return pow(x / t, 1. / (1. - t));
+}
+
+float G(float x, float t)
+{
+    return 1. - pow((t - x) / t, t);
+}
+
+float D(float x, float t)
+{
+    float a = (t - 2.) / pow(t, 3);
+    float b = (3. - 2 * t) / pow(t, 2);
+    return a * pow(x, 3) + b * pow(x, 2) + x;
+}
+
+
+float increase_whites(float x, float white)
+{
+    float p = ponderation(x, white);
+    return x < white ? 
+        (1. - p) * G(x, white) + p * D(x, white)
+        :
+        1.
+    ;
+}
+
+float decrease_whites(float x, float white)
+{
+    return white - white * pow(1. - x, 1. / white);
+}
+
+float adjust_whites(float x, float whites)
+{
+    return 0 < whites ?
+        increase_whites(x, 1. - whites)
+        :
+        decrease_whites(x, 1. + whites)
+    ;
+}
+
+float adjust_blacks(float x, float blacks)
+{
+    return 1. - adjust_whites(1. - x, blacks);
+}
+
+float ab_factor(float whites, float blacks)
+{
+    return (1. - pow(whites, 4)) * (1. - pow(blacks, 4));
+}
+
+Oklab main(Oklab Image)
+{
+    float blacks = 'Blacks';
+    float whites = 'Whites';
+
+    Image.x = adjust_whites(adjust_blacks(Image.x, blacks), whites);
+    Image.y = Image.y * ab_factor(blacks, whites);
+    Image.z = Image.z * ab_factor(blacks, whites);
+
+    return Image;
+}
+/*
+sRGB main(sRGB Image)
+{
+    float black = 'Level of black';
+
+    return vec3(blacks(Image.x, black), blacks(Image.y, black), blacks(Image.z, black));
+}
+*/
