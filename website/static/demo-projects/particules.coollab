@@ -1,0 +1,1910 @@
+1.2.0 MacOS
+{
+    "Project": {
+        "Time": {
+            "Time": {
+                "Nanoseconds": 232517131600
+            },
+            "Speed": {
+                "Ref": {
+                    "Variable": {
+                        "ptr_wrapper": {
+                            "id": 2147483649,
+                            "data": {
+                                "Name": "##TimeSpeed",
+                                "Value": 1.0,
+                                "Metadata": {
+                                    "Min": 0.0,
+                                    "Max": 1.0,
+                                    "Has min bound": true,
+                                    "Has max bound": false,
+                                    "Drag speed": 0.0010000000474974514
+                                },
+                                "Default Value": 1.0,
+                                "Default Metadata": {
+                                    "Min": 0.0,
+                                    "Max": 1.0,
+                                    "Has min bound": true,
+                                    "Has max bound": false,
+                                    "Drag speed": 0.0010000000474974514
+                                }
+                            }
+                        }
+                    },
+                    "Dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 2147483650,
+                                "data": true
+                            }
+                        }
+                    },
+                    "Secondary dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 2147483651,
+                                "data": true
+                            }
+                        }
+                    },
+                    "Desired color space": 0
+                }
+            },
+            "Is playing": true
+        },
+        "View Constraint": {
+            "Is controlling the number of pixels": false,
+            "Number of pixels": 250000
+        },
+        "Exporter (Image and Video)": {
+            "Exporter (Image and Video)": {
+                "Video Settings": {
+                    "FPS": 30.0,
+                    "Beginning": {
+                        "Nanoseconds": 0
+                    },
+                    "End": {
+                        "Nanoseconds": 10000000000
+                    }
+                },
+                "Image Size": {
+                    "Size": {
+                        "w": 1920,
+                        "h": 1080
+                    },
+                    "Aspect Ratio is Locked": true
+                },
+                "Image Output File": {
+                    "nullopt": true
+                },
+                "Video Output Folder": {
+                    "nullopt": true
+                }
+            }
+        },
+        "Camera 3D Manager": {
+            "Camera": {
+                "Ref": {
+                    "Variable": {
+                        "ptr_wrapper": {
+                            "id": 2147483652,
+                            "data": {
+                                "Name": "3D Camera",
+                                "Value": {
+                                    "Transform": {
+                                        "value0": 0.9440922737121582,
+                                        "value1": 0.32967835664749148,
+                                        "value2": 2.0275709999850734e-8,
+                                        "value3": 0.0,
+                                        "value4": 0.2761542499065399,
+                                        "value5": -0.7908191680908203,
+                                        "value6": 0.5462157130241394,
+                                        "value7": 0.0,
+                                        "value8": 0.18007439374923707,
+                                        "value9": -0.5156786441802979,
+                                        "value10": -0.8376494646072388,
+                                        "value11": 0.0,
+                                        "value12": 0.16629183292388917,
+                                        "value13": -0.4762216806411743,
+                                        "value14": -0.7735544443130493,
+                                        "value15": 1.0
+                                    },
+                                    "Projection": {
+                                        "Field of View (in radians)": 1.5707963705062867,
+                                        "Near Plane": 0.10000000149011612,
+                                        "Far Plane": 200.0
+                                    }
+                                },
+                                "Metadata": {},
+                                "Default Value": {
+                                    "Transform": {
+                                        "value0": 0.5494011640548706,
+                                        "value1": 0.8355584740638733,
+                                        "value2": 0.0,
+                                        "value3": -0.0,
+                                        "value4": -0.4202671945095062,
+                                        "value5": 0.2763364911079407,
+                                        "value6": 0.8642993569374085,
+                                        "value7": 0.0,
+                                        "value8": 0.7221728563308716,
+                                        "value9": -0.4748471975326538,
+                                        "value10": 0.5029775500297546,
+                                        "value11": -0.0,
+                                        "value12": 2.6478638648986818,
+                                        "value13": -1.7410386800765992,
+                                        "value14": 1.8441791534423829,
+                                        "value15": 1.0
+                                    },
+                                    "Projection": {
+                                        "Field of View (in radians)": 1.5707963705062867,
+                                        "Near Plane": 0.10000000149011612,
+                                        "Far Plane": 200.0
+                                    }
+                                },
+                                "Default Metadata": {}
+                            }
+                        }
+                    },
+                    "Dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 2147483653,
+                                "data": false
+                            }
+                        }
+                    },
+                    "Secondary dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 2147483654,
+                                "data": true
+                            }
+                        }
+                    },
+                    "Desired color space": 0
+                }
+            },
+            "View controller": {
+                "Mode": 1,
+                "Translation Speed": 0.009999999776482582,
+                "Rotation Speed": 0.009999999776482582,
+                "Distance to Orbit Center": 0.9234880805015564
+            },
+            "Is editable in view": true
+        },
+        "Camera 2D Manager": {
+            "Camera": {
+                "Ref": {
+                    "Variable": {
+                        "ptr_wrapper": {
+                            "id": 2147483655,
+                            "data": {
+                                "Name": "2D Camera",
+                                "Value": {
+                                    "Translation": {
+                                        "x": 0.0,
+                                        "y": 0.0
+                                    },
+                                    "Zoom": 1.0,
+                                    "Rotation": {
+                                        "Radians": {
+                                            "Radians": 0.0
+                                        }
+                                    }
+                                },
+                                "Metadata": {
+                                    "Number of snaps": 24,
+                                    "Snaps offset (in radians)": 0.0,
+                                    "Always snap": false
+                                },
+                                "Default Value": {
+                                    "Translation": {
+                                        "x": 0.0,
+                                        "y": 0.0
+                                    },
+                                    "Zoom": 1.0,
+                                    "Rotation": {
+                                        "Radians": {
+                                            "Radians": 0.0
+                                        }
+                                    }
+                                },
+                                "Default Metadata": {
+                                    "Number of snaps": 24,
+                                    "Snaps offset (in radians)": 0.0,
+                                    "Always snap": false
+                                }
+                            }
+                        }
+                    },
+                    "Dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 5
+                            }
+                        }
+                    },
+                    "Secondary dirty flag": {
+                        "Is dirty": {
+                            "ptr_wrapper": {
+                                "id": 2147483656,
+                                "data": true
+                            }
+                        }
+                    },
+                    "Desired color space": 0
+                }
+            },
+            "Is editable in view": false
+        },
+        "Modules Graph": {
+            "ptr_wrapper": {
+                "valid": 1,
+                "data": {
+                    "Modules": [
+                        {
+                            "polymorphic_id": 2147483649,
+                            "polymorphic_name": "Lab::Module_Particles",
+                            "ptr_wrapper": {
+                                "id": 2147483657,
+                                "data": {
+                                    "Base Module": {
+                                        "Name": "Particles 0",
+                                        "Dirty Flag: needs to rerender": {
+                                            "Is dirty": {
+                                                "ptr_wrapper": {
+                                                    "id": 2147483658,
+                                                    "data": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "polymorphic_id": 2147483650,
+                            "polymorphic_name": "Lab::Module_Compositing",
+                            "ptr_wrapper": {
+                                "id": 2147483659,
+                                "data": {
+                                    "Base Module": {
+                                        "Name": "Compositing 0",
+                                        "Dirty Flag: needs to rerender": {
+                                            "Is dirty": {
+                                                "ptr_wrapper": {
+                                                    "id": 2147483660,
+                                                    "data": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "Dirty flags": {
+                        "Rerender": {
+                            "Is dirty": {
+                                "ptr_wrapper": {
+                                    "id": 5
+                                }
+                            }
+                        },
+                        "Rebuild": {
+                            "Is dirty": {
+                                "ptr_wrapper": {
+                                    "id": 2147483661,
+                                    "data": false
+                                }
+                            }
+                        }
+                    },
+                    "Node editor": {
+                        "Pimpl": {
+                            "polymorphic_id": 2147483651,
+                            "polymorphic_name": "Cool::NodesEditorImpl",
+                            "ptr_wrapper": {
+                                "valid": 1,
+                                "data": {
+                                    "Graph": {
+                                        "Nodes": {
+                                            "Underlying container": [
+                                                {
+                                                    "key": "cccfbbc0-92d0-4271-9ca6-2df2f731c5f7",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 2147483652,
+                                                            "polymorphic_name": "Cool::Node::Model<Lab::Node>",
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Init Velocity Away from Curve",
+                                                                                "Category name": "Particle 3D Initializer"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "7ad9b38e-3e04-4dc1-87bd-fb474580474b"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Curve",
+                                                                                        "Description": "",
+                                                                                        "ID": "c45ac4a0-a23b-4a8a-b2c9-813b21c61d37"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Speed",
+                                                                                        "Description": "",
+                                                                                        "ID": "35521c47-f253-4104-ab39-ca8451c10774"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Orientation",
+                                                                                        "Description": "",
+                                                                                        "ID": "13dd809b-8c86-41ea-b720-e05f6b902d67"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "ecb5ebd8-40af-4874-adb4-991eee7d70b1"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 1,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483662,
+                                                                                                "data": {
+                                                                                                    "Name": "Speed",
+                                                                                                    "Value": 0.041999995708465579,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.0010000000474974514,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 0.5,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.0010000000474974514,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 11,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483663,
+                                                                                                "data": {
+                                                                                                    "Name": "Orientation",
+                                                                                                    "Value": {
+                                                                                                        "Radians": {
+                                                                                                            "Radians": 0.0
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Number of snaps": 24,
+                                                                                                        "Snaps offset (in radians)": 0.0,
+                                                                                                        "Always snap": false
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "Radians": {
+                                                                                                            "Radians": 0.0
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Number of snaps": 24,
+                                                                                                        "Snaps offset (in radians)": 0.0,
+                                                                                                        "Always snap": false
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "3e198721-f3ca-4b30-8195-edb276611786",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Init Position in Rectangle",
+                                                                                "Category name": "Particle 3D Initializer"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "385ab6d7-8219-4791-9c9a-074a67b70d80"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Radii",
+                                                                                        "Description": "",
+                                                                                        "ID": "c6324e1b-a027-4de8-bff4-8e1daf36aca9"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Center",
+                                                                                        "Description": "",
+                                                                                        "ID": "5bdcb217-73b5-479c-a4f1-0a79e43ad456"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Seed",
+                                                                                        "Description": "",
+                                                                                        "ID": "3f771d71-f6df-4c55-b5b7-be06460324f1"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "3a653a14-51fb-4a46-8f5d-0e47b723c4c5"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 5,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483664,
+                                                                                                "data": {
+                                                                                                    "Name": "Radii",
+                                                                                                    "Value": {
+                                                                                                        "x": 3.240000009536743,
+                                                                                                        "y": 6.279999732971191,
+                                                                                                        "z": 0.4099999964237213
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "x": 1.0,
+                                                                                                        "y": 1.0,
+                                                                                                        "z": 1.0
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 5,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483665,
+                                                                                                "data": {
+                                                                                                    "Name": "Center",
+                                                                                                    "Value": {
+                                                                                                        "x": 0.0,
+                                                                                                        "y": 0.0,
+                                                                                                        "z": 0.0
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "x": 0.0,
+                                                                                                        "y": 0.0,
+                                                                                                        "z": 0.0
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 1,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483666,
+                                                                                                "data": {
+                                                                                                    "Name": "Seed",
+                                                                                                    "Value": 3,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.019999999552965165,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 3,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.019999999552965165,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "25b43fd7-cd1f-4e41-abb8-d5753c18d5df",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Init Lifetime in Range",
+                                                                                "Category name": "Particle 3D Initializer"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "bb0d4b98-ddbd-4e06-95fd-bab19c825444"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Lifetime Min",
+                                                                                        "Description": "",
+                                                                                        "ID": "86269656-ed2b-4f84-b012-c0a4dc31985f"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Lifetime Max",
+                                                                                        "Description": "",
+                                                                                        "ID": "f5eecf65-e5cb-4341-9db6-eeb4159371f7"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Seed",
+                                                                                        "Description": "",
+                                                                                        "ID": "e813886f-512d-4fec-889a-6f8fded39079"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "f65d28c1-d51a-49c0-9190-405915fd9ead"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483667,
+                                                                                                "data": {
+                                                                                                    "Name": "Lifetime Min",
+                                                                                                    "Value": 4.980000019073486,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 1.0,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483668,
+                                                                                                "data": {
+                                                                                                    "Name": "Lifetime Max",
+                                                                                                    "Value": 7.099999904632568,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 2.0,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 1,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483669,
+                                                                                                "data": {
+                                                                                                    "Name": "Seed",
+                                                                                                    "Value": 1,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.019999999552965165,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 1,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.019999999552965165,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "8f792710-3ad2-452e-b3b3-0d7f62d25616",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Vortex",
+                                                                                "Category name": "Particle 3D Force"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "92945bff-7c80-43db-ac9a-5a522c33176e"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Strength",
+                                                                                        "Description": "",
+                                                                                        "ID": "e7cb0059-3669-4741-aff9-53876f0dc736"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Center",
+                                                                                        "Description": "",
+                                                                                        "ID": "8af47318-7594-4421-aac0-3e6f2d38df5c"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "e1a9781a-a7a3-49e4-b31d-cd373d9a77dd"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483670,
+                                                                                                "data": {
+                                                                                                    "Name": "Strength",
+                                                                                                    "Value": 2.380000114440918,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 4.0,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 5,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483671,
+                                                                                                "data": {
+                                                                                                    "Name": "Center",
+                                                                                                    "Value": {
+                                                                                                        "x": 0.0,
+                                                                                                        "y": 0.0,
+                                                                                                        "z": 0.0
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "x": 0.0,
+                                                                                                        "y": 0.0,
+                                                                                                        "z": 0.0
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "9359fe61-46a1-4fd1-ab77-c2c0aaf540c9",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Init Particles Count",
+                                                                                "Category name": "Particle 3D Initializer"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "a3206640-8592-4d65-91dd-87fec23f7c2d"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "cad57ed2-1364-4779-8ed9-afc60a860fa3"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": false,
+                                                                                "data": 10000
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": []
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "0a5db773-a213-4b94-8838-b0e12b3e1727",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Over (Light)",
+                                                                                "Category name": "Image Blend"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Foreground",
+                                                                                        "Description": "",
+                                                                                        "ID": "3048d9eb-9616-46e0-a3a9-061875be93c3"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Background",
+                                                                                        "Description": "",
+                                                                                        "ID": "c728558a-ec59-4a48-b2b5-f9060a772e39"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "391ba2c5-e73b-49e2-a617-4f588292a762"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 8,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483672,
+                                                                                                "data": {
+                                                                                                    "Name": "Background",
+                                                                                                    "Value": {
+                                                                                                        "sRGB, Straight alpha": {
+                                                                                                            "x": 0.0,
+                                                                                                            "y": 0.0,
+                                                                                                            "z": 0.0,
+                                                                                                            "w": 1.0
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Is HDR": false
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "sRGB, Straight alpha": {
+                                                                                                            "x": 0.0,
+                                                                                                            "y": 0.0,
+                                                                                                            "z": 0.0,
+                                                                                                            "w": 1.0
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Is HDR": false
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "61973652-0412-4b51-bc27-af5e5d4b9a24",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Drag",
+                                                                                "Category name": "Particle 3D Force"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Particle",
+                                                                                        "Description": "",
+                                                                                        "ID": "47d7c015-1267-4a1b-9076-ab4fc29102a8"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Strength",
+                                                                                        "Description": "",
+                                                                                        "ID": "0c53acf4-2c08-40fc-9636-4a09af87a906"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "aae3c669-a66e-4b38-afe3-4a65a4321fa1"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 1,
+                                                                            "Number of function inputs": 0,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483673,
+                                                                                                "data": {
+                                                                                                    "Name": "Strength",
+                                                                                                    "Value": 5.0,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 5.0,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": true,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "76c3fd52-64c6-41d0-bf5b-df640b544b5c",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Feedback (One frame delay)",
+                                                                                "Category name": "Image"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Image",
+                                                                                        "Description": "",
+                                                                                        "ID": "771106f6-230d-474f-bb23-79f9979a3cbe"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "53d5e90a-a72e-4f95-99b5-3eda002ced01"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 0,
+                                                                            "Number of function inputs": 1,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": []
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "key": "68023b30-ef10-40d4-9af5-61bf80866a5e",
+                                                    "value": {
+                                                        "pimpl": {
+                                                            "polymorphic_id": 4,
+                                                            "ptr_wrapper": {
+                                                                "valid": 1,
+                                                                "data": {
+                                                                    "Node": {
+                                                                        "POD part": {
+                                                                            "Name": "",
+                                                                            "Definition": {
+                                                                                "Definition name": "Chromatic Aberration",
+                                                                                "Category name": "Image Modifier (Post Process)"
+                                                                            },
+                                                                            "Input Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Image",
+                                                                                        "Description": "",
+                                                                                        "ID": "7b80223b-9b20-4fc3-8965-9ee5092991a4"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Center",
+                                                                                        "Description": "",
+                                                                                        "ID": "5efa2c76-2ebd-43c1-8ef1-596410464e7e"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Sample Count",
+                                                                                        "Description": "",
+                                                                                        "ID": "334ac0db-4bc1-40df-bb97-88885328236e"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Blur",
+                                                                                        "Description": "",
+                                                                                        "ID": "d677063a-a10a-4e86-b986-ab49ec7d89d6"
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "Falloff",
+                                                                                        "Description": "",
+                                                                                        "ID": "8d3e9169-f971-4172-85ab-3a18bbc5156b"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Output Pins": [
+                                                                                {
+                                                                                    "Base Pin": {
+                                                                                        "Name": "OUT",
+                                                                                        "Description": "",
+                                                                                        "ID": "b70fdbb1-6077-4574-88da-2a4e1eb03131"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "Number of main input pins": 0,
+                                                                            "Number of function inputs": 1,
+                                                                            "Particle count": {
+                                                                                "nullopt": true
+                                                                            }
+                                                                        },
+                                                                        "Value inputs": [
+                                                                            {
+                                                                                "index": 3,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483674,
+                                                                                                "data": {
+                                                                                                    "Name": "Center",
+                                                                                                    "Value": {
+                                                                                                        "Point2D": {
+                                                                                                            "x": -0.7587548494338989,
+                                                                                                            "y": 0.5953307151794434
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Metadata": {
+                                                                                                        "Drag speed": 0.00009999999747378752
+                                                                                                    },
+                                                                                                    "Default Value": {
+                                                                                                        "Point2D": {
+                                                                                                            "x": 0.0,
+                                                                                                            "y": 0.0
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Metadata": {
+                                                                                                        "Drag speed": 0.00009999999747378752
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 1,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483675,
+                                                                                                "data": {
+                                                                                                    "Name": "Sample Count",
+                                                                                                    "Value": 7,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.03999999910593033,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 10,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 12,
+                                                                                                            "Drag speed": 0.03999999910593033,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483676,
+                                                                                                "data": {
+                                                                                                    "Name": "Blur",
+                                                                                                    "Value": 0.030000029131770135,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 0.20000000298023225,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "index": 2,
+                                                                                "data": {
+                                                                                    "Ref": {
+                                                                                        "Variable": {
+                                                                                            "ptr_wrapper": {
+                                                                                                "id": 2147483677,
+                                                                                                "data": {
+                                                                                                    "Name": "Falloff",
+                                                                                                    "Value": -0.35999995470046999,
+                                                                                                    "Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "Default Value": 2.0,
+                                                                                                    "Default Metadata": {
+                                                                                                        "Bounds": {
+                                                                                                            "Has min bound": false,
+                                                                                                            "Min": 0.0,
+                                                                                                            "Has max bound": false,
+                                                                                                            "Max": 1.0,
+                                                                                                            "Drag speed": 0.009999999776482582,
+                                                                                                            "Use slider": false,
+                                                                                                            "Is logarithmic": false
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 5
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Secondary dirty flag": {
+                                                                                            "Is dirty": {
+                                                                                                "ptr_wrapper": {
+                                                                                                    "id": 13
+                                                                                                }
+                                                                                            }
+                                                                                        },
+                                                                                        "Desired color space": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "Links": {
+                                            "Underlying container": [
+                                                {
+                                                    "key": "b3162af4-c0e6-4d04-83c7-3de65c9f94c0",
+                                                    "value": {
+                                                        "From pin": "aae3c669-a66e-4b38-afe3-4a65a4321fa1",
+                                                        "To pin": "3048d9eb-9616-46e0-a3a9-061875be93c3"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "7524ce4d-62a9-42ed-8209-3154e8c8b869",
+                                                    "value": {
+                                                        "From pin": "3a653a14-51fb-4a46-8f5d-0e47b723c4c5",
+                                                        "To pin": "bb0d4b98-ddbd-4e06-95fd-bab19c825444"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "4a0affc4-8969-4880-8874-831055d0b700",
+                                                    "value": {
+                                                        "From pin": "e1a9781a-a7a3-49e4-b31d-cd373d9a77dd",
+                                                        "To pin": "47d7c015-1267-4a1b-9076-ab4fc29102a8"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "f8a848cf-4d48-4142-be0d-309429d55622",
+                                                    "value": {
+                                                        "From pin": "ecb5ebd8-40af-4874-adb4-991eee7d70b1",
+                                                        "To pin": "385ab6d7-8219-4791-9c9a-074a67b70d80"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "215dfe17-82b5-4956-a305-dc5b9538d576",
+                                                    "value": {
+                                                        "From pin": "391ba2c5-e73b-49e2-a617-4f588292a762",
+                                                        "To pin": "7b80223b-9b20-4fc3-8965-9ee5092991a4"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "0a97a311-a808-4152-a487-163e601d5633",
+                                                    "value": {
+                                                        "From pin": "cad57ed2-1364-4779-8ed9-afc60a860fa3",
+                                                        "To pin": "92945bff-7c80-43db-ac9a-5a522c33176e"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "42ab4d3a-42e2-472d-8d66-35b7ab784e77",
+                                                    "value": {
+                                                        "From pin": "f65d28c1-d51a-49c0-9190-405915fd9ead",
+                                                        "To pin": "a3206640-8592-4d65-91dd-87fec23f7c2d"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "87a24079-16f0-487d-a718-6c0792478066",
+                                                    "value": {
+                                                        "From pin": "391ba2c5-e73b-49e2-a617-4f588292a762",
+                                                        "To pin": "771106f6-230d-474f-bb23-79f9979a3cbe"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "Frame nodes": [],
+                                    "Context": {
+                                        "UI State": "{\"nodes\":{\"node:10685656129313660170\":{\"location\":{\"x\":1299,\"y\":590}},\"node:15006493567566594934\":{\"location\":{\"x\":1589,\"y\":485}},\"node:15082451000750922131\":{\"location\":{\"x\":721,\"y\":318}},\"node:15294242954042606184\":{\"location\":{\"x\":1592,\"y\":737}},\"node:3334302245958678927\":{\"location\":{\"x\":941,\"y\":320}},\"node:3480098282662205758\":{\"location\":{\"x\":262,\"y\":318}},\"node:4705733629588780069\":{\"location\":{\"x\":520,\"y\":538}},\"node:5857795550093940577\":{\"location\":{\"x\":887,\"y\":501}},\"node:8161314803466096588\":{\"location\":{\"x\":-56,\"y\":318}}},\"selection\":null,\"view\":{\"scroll\":{\"x\":277.141693115234375,\"y\":34.1861457824707031},\"visible_rect\":{\"max\":{\"x\":2079.727294921875,\"y\":1273.0736083984375},\"min\":{\"x\":382.1783447265625,\"y\":47.1426887512207031}},\"zoom\":0.725163280963897705}}"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Main node ID": "68023b30-ef10-40d4-9af5-61bf80866a5e"
+                }
+            }
+        },
+        "History": {
+            "History": {
+                "Commits": [],
+                "Position in history": {
+                    "nullopt": true
+                },
+                "Max size": 1000
+            },
+            "Max saved size": 0
+        },
+        "Audio": {
+            "Window": {
+                "Is open": false
+            },
+            "File input": {
+                "Path": "",
+                "Properties": {
+                    "Volume": 1.0,
+                    "Is muted": false,
+                    "Does loop": true
+                }
+            },
+            "Device input": {
+                "Input Device": {
+                    "index": 0,
+                    "data": {}
+                },
+                "Volume": 30.0
+            },
+            "Current input mode": 0,
+            "Window size for waveform": 0.05000000074505806,
+            "Window size for spectrum": 0.014999999664723874,
+            "Window size for volume": 0.20000000298023225,
+            "Spectrum max frequency in Hz": 2500.0,
+            "Spectrum height scale": 1.0,
+            "Spectrum display as bars": true
+        },
+        "Webcams": {
+            "Window": {
+                "Is open": false
+            },
+            "Resolutions": []
+        },
+        "MIDI": {
+            "Window": {
+                "Is open": false
+            },
+            "All Values": {
+                "Values": {
+                    "value0": [],
+                    "value1": [],
+                    "value2": [],
+                    "value3": []
+                },
+                "Last button pressed": -1,
+                "Last last button pressed": -1,
+                "Time of last button pressed": {
+                    "time_since_epoch": {
+                        "count": 116530165512500
+                    }
+                }
+            }
+        },
+        "OSC": {
+            "Window": {
+                "Is open": false
+            },
+            "Endpoint": {
+                "Port": -1,
+                "IP Address": "Auto-detect"
+            },
+            "Values": []
+        },
+        "Server": {
+            "Port": -1,
+            "Window": {
+                "Is open": false
+            }
+        },
+        "Shared Aspect Ratio": {
+            "Aspect Ratio": 1.0992000102996827,
+            "Fill the View": true
+        },
+        "3D Model export settings": {
+            "Path": "mesh(0).ply"
+        },
+        "3D Model generation": {
+            "Settings": {
+                "Box size": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                },
+                "Samples count": {
+                    "x": 75,
+                    "y": 75,
+                    "z": 75
+                }
+            }
+        },
+        "Output view": {
+            "Is open": false
+        }
+    }
+}
