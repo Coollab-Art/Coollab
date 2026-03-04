@@ -6,7 +6,7 @@ import LinkDownload from "./LinkDownload"
 export default function ({ link }) {
   return (
     <LinkDownload to={link} noDecoration>
-      <BigButton icon={<FaFileDownload />} noCapsLock>
+      <BigButton icon={<FaFileDownload />} noCapsLock fitContent>
         Download project file
       </BigButton>
     </LinkDownload>

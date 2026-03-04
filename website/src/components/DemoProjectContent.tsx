@@ -75,40 +75,6 @@ export default function DemoProjectContent({ title }: Props) {
     <>
       <MiniPaginator />
 
-      <div
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.5rem",
-          background: "#f0f0f0",
-          borderRadius: "999px",
-          padding: "0.3rem 0.9rem",
-          marginBottom: "1.5rem",
-          fontSize: "0.9rem",
-          color: "#555",
-        }}
-      >
-        Shared by{" "}
-        {authorLink ? (
-          <a
-            href={authorLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#333",
-              fontWeight: "bold",
-              marginLeft: "0.3rem",
-            }}
-          >
-            {authorName}
-          </a>
-        ) : (
-          <strong style={{ color: "#333", marginLeft: "0.3rem" }}>
-            {authorName}
-          </strong>
-        )}
-      </div>
-
       <div style={{ marginBottom: "1.5rem" }}>
         <img
           src={project.image}
@@ -120,7 +86,60 @@ export default function DemoProjectContent({ title }: Props) {
         />
       </div>
 
-      <DownloadProjectButton link={project.download} />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <DownloadProjectButton link={project.download} />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.8rem",
+          marginTop: "1.5rem",
+        }}
+      >
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            background: "var(--coollab-secondary-color)",
+            borderRadius: "999px",
+            padding: "0.3rem 0.9rem",
+            fontSize: "0.9rem",
+            color: "white",
+          }}
+        >
+          Shared by{" "}
+          {authorLink ? (
+            <a
+              href={authorLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              {authorName}
+            </a>
+          ) : (
+            <strong style={{ color: "white" }}>
+              {authorName}
+            </strong>
+          )}
+        </div>
+        <Link
+          to="/Contribute/Outreach#share-what-you-do-with-coollab"
+          style={{
+            fontSize: "0.85rem",
+            color: "#30a7f5",
+          }}
+        >
+          Share your own projects!
+        </Link>
+      </div>
     </>
   );
 }
