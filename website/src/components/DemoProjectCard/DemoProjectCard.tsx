@@ -5,6 +5,7 @@ type Props = {
   title: string;
   slug: string;
   author: string;
+  authorLink?: string;
   image: string;
 };
 
@@ -12,6 +13,7 @@ export default function DemoProjectCard({
   title,
   slug,
   author,
+  authorLink,
   image,
 }: Props) {
   return (
@@ -24,6 +26,7 @@ export default function DemoProjectCard({
         borderRadius: "12px",
         overflow: "hidden",
         display: "block",
+        backgroundColor: "var(--coollab-secondary-color)",
       }}
     >
       <img
@@ -40,7 +43,20 @@ export default function DemoProjectCard({
       <div style={{ padding: "1rem" }}>
         <h3 style={{ margin: "0 0 0.3rem" }}>{title}</h3>
         <p style={{ margin: 0, fontSize: "0.85rem", color: "#888" }}>
-          by {author}
+          by{" "}
+          {authorLink ? (
+            <a
+              href={authorLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              style={{ color: "var(--coollab-accent-color)" }}
+            >
+              {author}
+            </a>
+          ) : (
+            author
+          )}
         </p>
       </div>
     </Link>

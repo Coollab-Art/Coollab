@@ -55,6 +55,9 @@ const config = {
       }),
     ],
   ],
+  plugins: [
+    require.resolve("./src/plugins/demo-projects-plugin.js"),
+  ],
   stylesheets: [
     {
       href: "https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
