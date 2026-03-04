@@ -49,12 +49,6 @@ const projects = [
     download: "/demo-projects/soleils.coollab",
   },
   {
-    title: "Soleils2",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/soleils.png",
-    download: "/demo-projects/soleils.coollab",
-  },
-  {
     title: "Space Noise",
     authorId: "jules",
     image: "/img/demo-project-thumbnails/space_noise.png",
@@ -62,12 +56,6 @@ const projects = [
   },
   {
     title: "Spiral Pattern",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/spiral_pattern.png",
-    download: "/demo-projects/spiral_pattern.coollab",
-  },
-  {
-    title: "Spiral Pattern2",
     authorId: "jules",
     image: "/img/demo-project-thumbnails/spiral_pattern.png",
     download: "/demo-projects/spiral_pattern.coollab",
