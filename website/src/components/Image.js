@@ -7,17 +7,17 @@ function appendSmall(path) {
   return path.slice(0, dotIndex) + " small" + path.slice(dotIndex)
 }
 
-function disableScrolling() {
-  const x = window.scrollX
-  const y = window.scrollY
-  window.onscroll = () => {
-    window.scrollTo(x, y)
-  }
-}
+// function disableScrolling() {
+//   const x = window.scrollX
+//   const y = window.scrollY
+//   window.onscroll = () => {
+//     window.scrollTo(x, y)
+//   }
+// }
 
-function enableScrolling() {
-  window.onscroll = () => {}
-}
+// function enableScrolling() {
+//   window.onscroll = () => {}
+// }
 
 export default function ({ src, alt, style, noSmall, onClick, ...props }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,11 +56,11 @@ export default function ({ src, alt, style, noSmall, onClick, ...props }) {
     }
 
     document.addEventListener("keydown", handleKeyDown)
-    disableScrolling()
+    // disableScrolling()
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
-      enableScrolling()
+      //   enableScrolling()
     }
   }, [isOpen])
 
@@ -112,7 +112,7 @@ export default function ({ src, alt, style, noSmall, onClick, ...props }) {
               }}
             />
           </div>,
-          document.body
+          document.body,
         )}
     </>
   )

@@ -1,3 +1,6 @@
+1.7.4 Mask to Shape
+1.7.3 Mask to Shape
+1.7.2 Mask to Shape
 1.7.1 Mask to Shape
 1.7.0 Mask to Shape
 --- Shapes are now on a transparent background, instead of black

@@ -11,7 +11,7 @@ export default function ContributorsList({ category }) {
     return contributors.filter(
       (contributor) =>
         contributor.props.categories &&
-        contributor.props.categories.includes(category)
+        contributor.props.categories.includes(category),
     )
   }
 
@@ -302,6 +302,27 @@ export default function ContributorsList({ category }) {
               link="https://www.peckhamdigital.org/"
               roles={["Invited me for a workshop"]}
               categories={["Outreach"]}
+            />,
+            <Contributor
+              name="WilDev"
+              pictureSrc="/img/logo_wildev.svg"
+              link="https://github.com/WilfriedEugster"
+              roles={["Programmer (Nodes)"]}
+              categories={["Code"]}
+            />,
+            <Contributor
+              name="Emilie Desombre"
+              pictureSrc="/img/emilie_des.png"
+              link="https://linkedin.com/in/emilie-desombre-6b86702a9"
+              roles={["Programmer (Nodes)"]}
+              categories={["Code"]}
+            />,
+            <Contributor
+              name="Goubeline"
+              github_name="Goubeline"
+              link="https://github.com/Goubeline"
+              roles={["Programmer (Nodes)"]}
+              categories={["Code"]}
             />,
           ])}
         />

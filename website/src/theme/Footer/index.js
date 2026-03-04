@@ -3,6 +3,7 @@ import styles from "./styles.module.css"
 import {
   FaDiscord,
   FaInstagram,
+  FaLinkedin,
   FaMastodon,
   FaGithub,
   FaEnvelope,
@@ -44,6 +45,12 @@ export default function Footer() {
                 className={styles.iconBtn}
               >
                 <FaMastodon />
+              </LinkExternal>
+              <LinkExternal
+                to="https://www.linkedin.com/company/coollab-art"
+                className={styles.iconBtn}
+              >
+                <FaLinkedin />
               </LinkExternal>
               <LinkExternal
                 to="https://github.com/Coollab-Art/Coollab"

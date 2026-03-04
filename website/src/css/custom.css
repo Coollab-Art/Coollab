@@ -177,6 +177,7 @@ To get its classes, inspect or check Docusaurus Documentation.*/
 /* Navbar Social Buttons */
 .navbar-socials {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.6rem;
   align-items: center;
   margin-right: 0.25rem;

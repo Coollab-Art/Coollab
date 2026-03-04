@@ -9,7 +9,7 @@ import ContributorsList from "@site/src/components/ContributorsList"
 
 ## Make a donation
 
-Even 1€ goes a long way and is very heartwarming 💖 In an ideal world down the line I would receive enough donations to make a living out of Coollab and be able to work full time on it!<Spacer height="8px"/>
+Even 1€ goes a long way and is very heartwarming 💖 In an ideal world down the line I would receive enough donations to make a living out of Coollab and be able to work on it full time!<Spacer height="8px"/>
 In the meantime this money helps pay the interns that I take on each summer!<Spacer height="8px"/>
 We are on [Patreon](https://patreon.com/Coollab) and [GitHub Sponsor](https://github.com/sponsors/Coollab-Art).
 </TextBlock>

@@ -40,13 +40,8 @@ private:
     // Serialization
     friend class ser20::access;
     template<class Archive>
-    void serialize(Archive& archive)
+    void save(Archive& archive) const
     {
-#if defined(__linux__) || defined(__APPLE__)
-        history.set_max_saved_size(0); // TODO HACK to avoid a crash when deserializing the history: https://github.com/orgs/Coollab-Art/projects/1/views/1?pane=issue&itemId=46983814
-                                       // This crash is coming from the deserialization of our commands, this is not specific to the history
-                                       // We would need to simplify / rewrite our Commands because there is a bug in all our templates and virtual classes
-#endif
         archive(
             ser20::make_nvp("Time", clock),
             ser20::make_nvp("View Constraint", view_constraint),
@@ -66,6 +61,34 @@ private:
             ser20::make_nvp("Output view", *output_view_ptr()),
             ser20::make_nvp("Spout/Syphon OUT", spout_out_manager)
         );
+    }
+    template<class Archive>
+    void load(Archive& archive)
+    {
+        archive(
+            ser20::make_nvp("Time", clock),
+            ser20::make_nvp("View Constraint", view_constraint),
+            ser20::make_nvp("Exporter (Image and Video)", exporter),
+            ser20::make_nvp("Camera 3D Manager", camera_3D_manager),
+            ser20::make_nvp("Camera 2D Manager", camera_2D_manager),
+            ser20::make_nvp("Modules Graph", modules_graph),
+            ser20::make_nvp("History", history),
+            ser20::make_nvp("Audio", audio),
+            ser20::make_nvp("Webcams", Cool::WebcamsConfigs::instance()),
+            ser20::make_nvp("MIDI", Cool::midi_manager()),
+            ser20::make_nvp("OSC", Cool::osc_manager()),
+            ser20::make_nvp("Server", Cool::server_manager()),
+            ser20::make_nvp("Shared Aspect Ratio", shared_aspect_ratio),
+            ser20::make_nvp("3D Model export settings", mesh_export_settings),
+            ser20::make_nvp("3D Model generation", meshing_gui),
+            ser20::make_nvp("Output view", *output_view_ptr()),
+            ser20::make_nvp("Spout/Syphon OUT", spout_out_manager)
+        );
+#if defined(__linux__) || defined(__APPLE__)
+        history.clear(); // TODO HACK to avoid a crash when deserializing the history: https://github.com/orgs/Coollab-Art/projects/1/views/1?pane=issue&itemId=46983814
+                         // This crash is coming from the deserialization of our commands, this is not specific to the history
+                         // We would need to simplify / rewrite our Commands because there is a bug somewhere in all our templates and virtual classes
+#endif
     }
 };
 

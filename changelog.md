@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.7.4 Mask to Shape
+
+- 🐛 Update our File Picker library, which might fix some crashes on Linux
+
+## 1.7.3 Mask to Shape
+
+- 🐛 Fix: double-clicking on a color gradient's mark to open its color picker was not working
+
+## 1.7.2 Mask to Shape
+
+- 🐛 Fix crash when opening on Linux or Mac a project that was created on Windows
+
 ## 1.7.1 Mask to Shape
 
 - 🐛 Fix "Math Expression" node not working on MacOS
