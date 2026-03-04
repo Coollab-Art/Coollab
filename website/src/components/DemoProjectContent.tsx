@@ -2,7 +2,7 @@ import React from "react";
 import Link from "@docusaurus/Link";
 import {useDoc} from '@docusaurus/theme-common/internal';
 import DownloadProjectButton from "@site/src/components/DownloadProjectButton";
-const { authors, projects } = require("@site/src/data/demo-projects");
+const { authors, projects, image, download } = require("@site/src/data/demo-projects");
 
 type Props = {
   title: string;
@@ -77,7 +77,7 @@ export default function DemoProjectContent({ title }: Props) {
 
       <div style={{ marginBottom: "1.5rem" }}>
         <img
-          src={project.image}
+          src={image(project)}
           alt={project.title}
           style={{
             width: "100%",
@@ -87,7 +87,7 @@ export default function DemoProjectContent({ title }: Props) {
       </div>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <DownloadProjectButton link={project.download} />
+        <DownloadProjectButton link={download(project)} />
       </div>
 
       <div

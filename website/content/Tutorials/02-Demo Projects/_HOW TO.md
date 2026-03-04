@@ -4,9 +4,11 @@ All demo project pages are auto-generated from the data file at `src/data/demo-p
 
 ## Adding a new project
 
-1. Add the `.coollab` file to `static/demo-projects/`
-2. Add the thumbnail image to `static/img/demo-project-thumbnails/`
-3. Add an entry to the `projects` array in `src/data/demo-projects.js`:
+1. Add an entry to the `projects` array in `src/data/demo-projects.js` with `title`, `slug`, and `authorId`
+2. Add the `.coollab` file to `static/demo-projects/<slug>.coollab`
+3. Add the thumbnail image to `static/img/demo-project-thumbnails/<slug>.png`
+
+The `slug` is used to derive both the URL (`/Demo Projects/<slug>`) and the file paths automatically.
 
 That's it! The page and grid card are generated automatically.
 

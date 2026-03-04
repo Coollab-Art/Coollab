@@ -5,7 +5,7 @@ description: Audioreactive Disk demo project shared by Jules Fouchy
 keywords:
   - Coollab
   - Coollab demo
-image: /img/demo-project-thumbnails/audioreactive_disk.png
+image: /img/demo-project-thumbnails/audioreactive-disk.png
 ---
 
 import DemoProjectContent from '@site/src/components/DemoProjectContent'

@@ -1,6 +1,6 @@
 const fs = require("fs")
 const path = require("path")
-const { authors, projects, slugify } = require("../data/demo-projects")
+const { authors, projects, image } = require("../data/demo-projects")
 
 const outputDir = path.resolve(
   __dirname,
@@ -19,7 +19,7 @@ function generate() {
   fs.mkdirSync(outputDir, { recursive: true })
 
   projects.forEach((project, index) => {
-    const slug = project.slug || slugify(project.title)
+    const slug = project.slug
     const author = authors[project.authorId]
     const authorName = author ? author.name : "Unknown"
 
@@ -33,7 +33,7 @@ description: ${project.title} demo project shared by ${authorName}
 keywords:
   - Coollab
   - Coollab demo
-image: ${project.image}${isFirst ? "\npagination_prev: null" : ""}${isLast ? "\npagination_next: null" : ""}
+image: ${image(project)}${isFirst ? "\npagination_prev: null" : ""}${isLast ? "\npagination_next: null" : ""}
 ---
 
 import DemoProjectContent from '@site/src/components/DemoProjectContent'

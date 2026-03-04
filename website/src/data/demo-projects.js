@@ -6,75 +6,32 @@ const authors = {
 }
 
 const projects = [
-  {
-    title: "Carré Pattern",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/carre_pattern.png",
-    download: "/demo-projects/carre_pattern.coollab",
-  },
-  {
-    title: "Kaleidoscope",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/kaleidoscope.png",
-    download: "/demo-projects/kaleidoscope.coollab",
-  },
+  { title: "Carré Pattern", slug: "carre-pattern", authorId: "jules" },
+  { title: "Kaleidoscope", slug: "kaleidoscope", authorId: "jules" },
   {
     title: "Audioreactive Disk",
+    slug: "audioreactive-disk",
     authorId: "jules",
-    image: "/img/demo-project-thumbnails/audioreactive_disk.png",
-    download: "/demo-projects/audioreactive_disk.coollab",
   },
   {
     title: "Chromatic Aberration",
+    slug: "chromatic-aberration",
     authorId: "jules",
-    image: "/img/demo-project-thumbnails/chromatic_aberration.png",
-    download: "/demo-projects/chromatic_aberration.coollab",
   },
-  {
-    title: "Colored Squares",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/colored_squares.png",
-    download: "/demo-projects/colored_squares.coollab",
-  },
-  {
-    title: "Particules",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/particules.png",
-    download: "/demo-projects/particules.coollab",
-  },
-  {
-    title: "Soleils",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/soleils.png",
-    download: "/demo-projects/soleils.coollab",
-  },
-  {
-    title: "Space Noise",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/space_noise.png",
-    download: "/demo-projects/space_noise.coollab",
-  },
-  {
-    title: "Spiral Pattern",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/spiral_pattern.png",
-    download: "/demo-projects/spiral_pattern.coollab",
-  },
-  {
-    title: "Trailer Particles",
-    authorId: "jules",
-    image: "/img/demo-project-thumbnails/trailer_particles.png",
-    download: "/demo-projects/trailer_particles.coollab",
-  },
+  { title: "Colored Squares", slug: "colored-squares", authorId: "jules" },
+  { title: "Particules", slug: "particules", authorId: "jules" },
+  { title: "Soleils", slug: "soleils", authorId: "jules" },
+  { title: "Space Noise", slug: "space-noise", authorId: "jules" },
+  { title: "Spiral Pattern", slug: "spiral-pattern", authorId: "jules" },
+  { title: "Trailer Particles", slug: "trailer-particles", authorId: "jules" },
 ]
 
-function slugify(title) {
-  return title
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // remove accents
-    .replace(/[^a-z0-9]+/g, "-") // non-alphanumeric to hyphens
-    .replace(/^-|-$/g, "") // trim leading/trailing hyphens
+function image(project) {
+  return `/img/demo-project-thumbnails/${project.slug}.png`
 }
 
-module.exports = { authors, projects, slugify }
+function download(project) {
+  return `/demo-projects/${project.slug}.coollab`
+}
+
+module.exports = { authors, projects, image, download }

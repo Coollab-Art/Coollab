@@ -1,6 +1,6 @@
 import React from "react";
 import DemoProjectCard from "@site/src/components/DemoProjectCard/DemoProjectCard";
-const { authors, projects, slugify } = require("@site/src/data/demo-projects");
+const { authors, projects, image } = require("@site/src/data/demo-projects");
 
 export default function DemoProjectsGrid() {
   return (
@@ -13,16 +13,15 @@ export default function DemoProjectsGrid() {
       }}
     >
       {projects.map((project) => {
-        const slug = project.slug || slugify(project.title);
         const author = authors[project.authorId];
         return (
           <DemoProjectCard
-            key={slug}
+            key={project.slug}
             title={project.title}
-            slug={`/Demo Projects/${slug}`}
+            slug={`/Demo Projects/${project.slug}`}
             author={author ? author.name : "Unknown"}
             authorLink={author?.link}
-            image={project.image}
+            image={image(project)}
           />
         );
       })}

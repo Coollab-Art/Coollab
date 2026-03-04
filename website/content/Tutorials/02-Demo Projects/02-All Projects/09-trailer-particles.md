@@ -5,7 +5,7 @@ description: Trailer Particles demo project shared by Jules Fouchy
 keywords:
   - Coollab
   - Coollab demo
-image: /img/demo-project-thumbnails/trailer_particles.png
+image: /img/demo-project-thumbnails/trailer-particles.png
 pagination_next: null
 ---
 
