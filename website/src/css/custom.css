@@ -245,7 +245,8 @@ To get its classes, inspect or check Docusaurus Documentation.*/
 }
 
 /* Docu */
-div[class*="docRoot"] {
+div[class*="docRoot"],
+.blog-wrapper {
   padding-top: 6em;
 }
 

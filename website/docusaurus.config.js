@@ -49,6 +49,7 @@ const config = {
             "./src/css/icomoon.css",
           ],
         },
+        blog: { showReadingTime: false },
       }),
     ],
   ],
@@ -107,11 +108,7 @@ const config = {
             position: "left",
             label: "Contribute",
           },
-          {
-            to: "https://github.com/Coollab-Art/Coollab/wiki",
-            position: "left",
-            label: "Wiki",
-          },
+          { to: "blog", label: "Blog", position: "left" },
           {
             type: "html",
             position: "right",

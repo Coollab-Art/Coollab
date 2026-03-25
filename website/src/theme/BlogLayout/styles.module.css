@@ -1,0 +1,11 @@
+/* Reuses the same layout structure as the doc pages */
+
+.blogWrapper {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.blogPage {
+  display: flex;
+  width: 100%;
+}
