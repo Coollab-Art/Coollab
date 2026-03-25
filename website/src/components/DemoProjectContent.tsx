@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "@docusaurus/Link";
-import {useDoc} from '@docusaurus/theme-common/internal';
+import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import DownloadProjectButton from "@site/src/components/DownloadProjectButton";
 const { authors, projects, image, download } = require("@site/src/data/demo-projects");
 
