@@ -106,7 +106,7 @@ To get its classes, inspect or check Docusaurus Documentation.*/
 }
 
 .navbar__items {
-  gap: 25px;
+  gap: 10px;
 }
 
 .navbar__brand {
