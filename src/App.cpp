@@ -30,6 +30,7 @@
 #include "Cool/Webcam/WebcamsConfigs.hpp"
 #include "Debug/DebugOptions.h"
 #include "Dependencies/Camera2DManager.h"
+#include "ISFExport/ISFExport.h"
 #include "ModulesGraph/ModulesGraph.h"
 #include "ProjectManager/COOLLAB_FILE_EXTENSION.hpp"
 #include "ProjectManager/Command_OpenProjectOnNextFrame.hpp"
@@ -641,6 +642,42 @@ void App::export_menu()
             },
             Cool::icon_fmt("Share online", ICOMOON_EARTH, true)
         );
+        float const button_width = ImGui::CalcTextSize(Cool::icon_fmt("Share online", ICOMOON_EARTH, true).c_str()).x + 2.f * ImGui::GetStyle().FramePadding.x;
+        if (ImGui::Button(Cool::icon_fmt("ISF Shader", ICOMOON_FILE_PLAY, true).c_str(), ImVec2(button_width, 0.0f)))
+        {
+            auto const path = Cool::File::file_saving_dialog(Cool::File::file_dialog_args{
+                .file_filters = {{"ISF Fragment Shader", "fs"}},
+            });
+            if (path)
+            {
+                auto const  cam_2D = project().camera_2D_manager.camera();
+                auto const& cam_3D = project().camera_3D_manager.camera();
+                auto const  result = export_as_isf(
+                    ISFExportParams{
+                        .graph                = project().modules_graph->graph(),
+                        .root_node_id         = project().modules_graph->get_main_node_id(),
+                        .get_node_definition  = Cool::GetNodeDefinition_Ref<NodeDefinition>{_nodes_library_manager.library()},
+                        .camera_2D_transform  = cam_2D.transform_matrix(),
+                        .camera_2D_view       = cam_2D.view_matrix(),
+                        .camera_3D_view       = cam_3D.view_matrix(),
+                        .camera_3D_fov        = cam_3D.projection().field_of_view_in_radians,
+                        .camera_3D_near_plane = cam_3D.projection().near_plane,
+                        .camera_3D_far_plane  = cam_3D.projection().far_plane,
+                    },
+                    *path
+                );
+                if (!result)
+                {
+                    ImGuiNotify::send({.type = ImGuiNotify::Type::Error, .title = "ISF Export", .content = result.error()});
+                }
+                else
+                {
+                    ImGuiNotify::send({.type = ImGuiNotify::Type::Success, .title = "ISF Export", .content = fmt::format("Exported to {}", path->string())});
+                    for (auto const& warning : result->warnings)
+                        ImGuiNotify::send({.type = ImGuiNotify::Type::Warning, .title = "ISF Export", .content = warning});
+                }
+            }
+        }
         _gallery_publisher.imgui_open_sharing_form();
         ImGui::PopStyleVar();
         ImGui::EndMenu();
@@ -806,13 +843,11 @@ void App::check_inputs__project()
                 ctx.execute(Command_OpenProjectOnNextFrame{*path});
         }
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadAdd)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Equal))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadAdd) || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Equal))
     {
         Cool::user_settings().change_ui_zoom(+1.f);
     }
-    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadSubtract)
-             || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Minus))
+    else if (ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_KeypadSubtract) || ImGui::IsKeyChordPressed(ImGuiMod_Ctrl | ImGuiKey_Minus))
     {
         Cool::user_settings().change_ui_zoom(-1.f);
     }
