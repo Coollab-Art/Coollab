@@ -1,6 +1,6 @@
 import React from "react";
 import DemoProjectCard from "@site/src/components/DemoProjectCard/DemoProjectCard";
-const { authors, projects, image } = require("@site/src/data/demo-projects");
+const { authors, projects, thumbnail } = require("@site/src/data/demo-projects");
 
 export default function DemoProjectsGrid() {
   return (
@@ -21,7 +21,7 @@ export default function DemoProjectsGrid() {
             slug={`/Demo Projects/${project.slug}`}
             author={author ? author.name : "Unknown"}
             authorLink={author?.link}
-            image={image(project)}
+            image={thumbnail(project)}
           />
         );
       })}

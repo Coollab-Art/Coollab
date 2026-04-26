@@ -6,7 +6,8 @@ All demo project pages are auto-generated from the data file at `src/data/demo-p
 
 1. Add an entry to the `projects` array in `src/data/demo-projects.js` with `title`, `slug`, and `authorId`
 2. Add the `.coollab` file to `static/demo-projects/<slug>.coollab`
-3. Add the thumbnail image to `static/img/demo-project-thumbnails/<slug>.png`
+3. Add the thumbnail image to `static/img/demo-project-thumbnails/<slug>.<ext>` (`.png`, `.jpg`, `.jpeg`, `.webp` or `.avif`). The thumbnail is used for the card on the all-projects page and as the page's social preview.
+4. Optionally also add `static/img/demo-project-thumbnails/<slug>.gif` — when present, the project page itself will display the gif instead of the static thumbnail.
 
 The `slug` is used to derive both the URL (`/Demo Projects/<slug>`) and the file paths automatically.
 
