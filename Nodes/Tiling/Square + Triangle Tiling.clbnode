@@ -1,0 +1,54 @@
+INPUT float 'Cell Size';
+
+vec2 get_id_center(ivec2 id, float cell_size)
+{
+    return vec2(float(id.x)/2., (float(id.y) + .5) * sqrt(3.)/ 2.) * cell_size;
+}
+
+Tiling main(UV uv){
+    Tiling tile;
+
+    float cell_size = 2 * 'Cell Size';
+    tile.id.y = 2 * int(floor(uv.y * 2 / ((2. + rac(3.)) * cell_size)));
+    float square_tri = (uv.y - idy * (2. + rac(3.)) * cell_size / 2.) / cell_size;
+    tile.id.y = 
+    if (square_tri < 0)
+    {
+        square_tri += (2. + rac(3.)) * cell_size;
+    }
+    
+    if(square_tri <= 2)
+    {
+        tile.id = id1;
+        tile.center = center1;
+    }
+    else
+    {
+        tile.id.y++;
+        tile.center = center2;
+    }
+
+    float grid_size = 0.5 / 'Cell Size';
+    uv *= grid_size;
+    uv.y *= sqrt(3.);
+    vec2 TriRatio = vec2(1, sqrt(3.)/2.);
+    vec2 h = TriRatio*.5;  
+    vec2 a = mod(uv, TriRatio);
+    a.x -= h.x;
+    vec2 b = mod(uv - vec2(h.x, 0.), TriRatio);
+    b.x -= h.x;
+    (mod(floor(uv.y / TriRatio.y), 2.) == 0.0)?a.y = abs(a.y - TriRatio.y):b.y = abs(b.y - TriRatio.y);
+
+    vec2 gv;
+    if (length(vec2(a.x * TriRatio.y * 2., a.y))<length(vec2(b.x * TriRatio.y * 2., b.y)))
+    {
+        gv=mod(uv, TriRatio)-h;
+    }
+    else
+    {
+        gv=mod(uv - vec2(h.x, 0.), TriRatio) - h;
+    }
+    tile.uv = 2 * gv;
+
+    return tile;
+}

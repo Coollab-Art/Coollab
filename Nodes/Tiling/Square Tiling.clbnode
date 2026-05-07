@@ -2,7 +2,6 @@ INPUT float 'Cell Size';
 
 vec2 Cool_sqa_uv(vec2 uv, float cell_size)
 {
-    cell_size *= 2.;
     vec2  uv2 = uv / cell_size - 0.5;
 
     vec2 gid = floor(uv2);
@@ -15,9 +14,10 @@ vec2 Cool_sqa_uv(vec2 uv, float cell_size)
 }
 
 Tiling main(UV uv){
+    float cell_size = 'Cell Size' * 2;
     return Tiling(
         Cool_sqa_uv(uv, 'Cell Size'),
-        ivec2(floor(uv.x/'Cell Size'), floor(uv.y/'Cell Size')),
-        floor(uv / 'Cell Size') * 'Cell Size' + 1. / (2. / 'Cell Size')
+        ivec2(floor(uv.x/cell_size), floor(uv.y/cell_size)),
+        floor(uv / cell_size) * cell_size + 1. / (2. / cell_size)
     );
 }

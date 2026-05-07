@@ -1,50 +1,50 @@
 INPUT float 'Cell Size';
-
-INPUT int 'Number of Tiles';
 INPUT int 'Mode';
 
-vec2 center_id(vec2 uv)
-{
-    vec2 gv = floor(uv * 'Number of Tiles') + .5;
-    ivec2 id = ivec2(floor(uv * 'Number of Tiles'));
+Tiling main(UV uv){
+    Tiling tile;
+
+    float cell_size = 2 * 'Cell Size';
+    uv = uv / cell_size;
+    vec2 gv = floor(uv);
+    vec2 dec = uv - gv;
+    ivec2 id = ivec2(floor(uv));
     id.x *= 2;
 
     // Up Left -> Down Right
     if ('Mode' == 0)
     {
-        if (gv.y + gv.x > 1)
+        if (dec.y + dec.x > 1)
         {
-            gv += .5;
+            gv += .75;
             id.x++;
         }
         else
         {
-            gv -= .5;
+            gv += .25;
         }
     }
     // Up Right -> Down Left
-    else //if ('Mode' == 1)
+    else // ('Mode' == 1)
     {
-        if (1 - gv.y + gv.x > 1)
-        if (gv.y + gv.x > 1)
+        if (1 - dec.y + dec.x > 1)
         {
-            gv.x += .5;
-            gv.y -= .5;
+            gv.x += .75;
+            gv.y += .25;
             id.x++;
         }
         else
         {
-            gv.x -= .5;
-            gv.y += .5;
+            gv.x += .25;
+            gv.y += .75;
         }
     }
-    return gv;
-}
 
-Tiling main(UV uv){
-    Tiling tile;
-    tile.uv = center_id(uv);
-    tile.id = ivec2(center_id(uv));
-    tile.center = center_id(uv);
+    vec2  uv2 = uv / cell_size - 0.5;
+    vec2 ret = normalize_uv_with_aspect_ratio(fract(uv2), 1.);
+   
+    tile.uv = ret;
+    tile.id = id;
+    tile.center = gv * cell_size;
     return tile;
 }

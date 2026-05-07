@@ -4,5 +4,5 @@ INPUT float 'Exponent';
 
 float main(float x)
 {
-    return (exp('Exponent' * x) - 1) / exp('Exponent');
+    return (exp('Exponent' * x) - 1) / (exp('Exponent') - 1);
 }

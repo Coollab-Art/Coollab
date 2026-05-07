@@ -1,6 +1,8 @@
 // To learn how to write nodes, see https://coollab-art.com/Tutorials/Writing%20Nodes/Intro
+INPUT float 'A';
+INPUT float 'B';
 
-bool main(float A, float B)
+bool main()
 {
-    return A > B;
+    return 'A' > 'B';
 }

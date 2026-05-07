@@ -1,3 +1,0 @@
-sRGB main(Tiling tiling){
-    return vec3(tiling.uv, 0.);
-}

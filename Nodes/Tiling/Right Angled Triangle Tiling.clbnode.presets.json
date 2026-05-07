@@ -23,6 +23,24 @@
                                     }
                                 }
                             }
+                        },
+                        {
+                            "index": 1,
+                            "data": {
+                                "Name": "Mode",
+                                "Value": 0,
+                                "Metadata": {
+                                    "Bounds": {
+                                        "Has min bound": false,
+                                        "Min": 0,
+                                        "Has max bound": false,
+                                        "Max": 12,
+                                        "Drag speed": 0.019999999552965165,
+                                        "Use slider": false,
+                                        "Is logarithmic": false
+                                    }
+                                }
+                            }
                         }
                     ]
                 }
