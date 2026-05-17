@@ -106,7 +106,7 @@ To get its classes, inspect or check Docusaurus Documentation.*/
 }
 
 .navbar__items {
-  gap: 25px;
+  gap: 10px;
 }
 
 .navbar__brand {
@@ -245,7 +245,8 @@ To get its classes, inspect or check Docusaurus Documentation.*/
 }
 
 /* Docu */
-div[class*="docPage"] {
+div[class*="docRoot"],
+.blog-wrapper {
   padding-top: 6em;
 }
 
@@ -282,7 +283,7 @@ aside {
   background-color: rgba(255, 255, 255, 0.14);
 }
 
-.sidebar_node_modules-\@docusaurus-theme-classic-lib-theme-DocSidebar-Desktop-styles-module {
+div[class*="docSidebarContainer"] div[class*="sidebar_"] {
   padding-top: 5rem !important;
 }
 

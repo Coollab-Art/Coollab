@@ -10,3 +10,4 @@ User data
 .venv
 **/__pycache__/
 **/.tmp-projections
+website/.claude/settings.local.json

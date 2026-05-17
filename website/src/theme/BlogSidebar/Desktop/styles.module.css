@@ -1,0 +1,67 @@
+/* Mirrors the doc sidebar container styling */
+
+.sidebarContainer {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .sidebarContainer {
+    display: block;
+    width: var(--doc-sidebar-width);
+    margin-top: calc(-1 * var(--ifm-navbar-height));
+    border-right: 1px solid var(--ifm-toc-border-color);
+    will-change: width;
+    transition: width var(--ifm-transition-fast) ease;
+    clip-path: inset(0);
+  }
+
+  .sidebarViewport {
+    top: 0;
+    position: sticky;
+    height: 100%;
+    max-height: 100vh;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 2.5rem;
+    width: var(--doc-sidebar-width);
+    overflow-y: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.sidebarItemTitle {
+  font-size: var(--ifm-h3-font-size);
+  font-weight: var(--ifm-font-weight-bold);
+}
+
+.sidebarItemList {
+  font-size: 0.9rem;
+}
+
+.sidebarItem {
+  margin-top: 0.7rem;
+}
+
+.sidebarItemLink {
+  color: var(--ifm-font-color-base);
+  display: block;
+}
+
+.sidebarItemLink:hover {
+  text-decoration: none;
+}
+
+.sidebarItemLinkActive {
+  color: var(--ifm-color-primary) !important;
+}
+
+.yearGroupHeading {
+  margin-top: 1.6rem;
+  margin-bottom: 0.4rem;
+}

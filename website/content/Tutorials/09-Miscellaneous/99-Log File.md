@@ -1,5 +1,6 @@
 import YoutubeVideo from "@site/src/components/YoutubeVideo"
 import OsTab from "@site/src/components/OsTab"
+import TabItem from "@theme/TabItem"
 
 If you experience a crash or another problem in Coollab, you can send us the log file to help us debugging the issue. Here is how to find it:
 

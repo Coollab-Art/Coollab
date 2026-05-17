@@ -1,0 +1,1 @@
+[Some additional user-written documentation can be found on our Wiki!](https://github.com/Coollab-Art/Coollab/wiki)

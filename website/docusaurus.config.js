@@ -1,11 +1,8 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github")
-const darkCodeTheme = require("prism-react-renderer/themes/dracula")
-
-const math = require("remark-math")
-const katex = require("rehype-katex")
+import { themes as prismThemes } from "prism-react-renderer"
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
 
 const organizationName = "Coollab-Art"
 const projectName = "Lab"
@@ -42,19 +39,21 @@ const config = {
         docs: {
           path: "content",
           routeBasePath: "/",
-          sidebarPath: require.resolve("./sidebars.js"),
-          remarkPlugins: [math],
-          rehypePlugins: [katex],
+          sidebarPath: "./sidebars.js",
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         theme: {
           customCss: [
-            require.resolve("./src/css/custom.css"),
-            require.resolve("./src/css/icomoon.css"),
+            "./src/css/custom.css",
+            "./src/css/icomoon.css",
           ],
         },
+        blog: { showReadingTime: false },
       }),
     ],
   ],
+  plugins: ["./src/plugins/demo-projects-plugin.js"],
   stylesheets: [
     {
       href: "https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
@@ -109,11 +108,7 @@ const config = {
             position: "left",
             label: "Contribute",
           },
-          {
-            to: "https://github.com/Coollab-Art/Coollab/wiki",
-            position: "left",
-            label: "Wiki",
-          },
+          { to: "blog", label: "Blog", position: "left" },
           {
             type: "html",
             position: "right",
@@ -152,7 +147,7 @@ const config = {
         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
           <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
         </svg>
-      </a>   
+      </a>
     </div>
   `,
           },
@@ -164,11 +159,11 @@ const config = {
         ],
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
         additionalLanguages: ["glsl", "cmake"],
       },
     }),
 }
 
-module.exports = config
+export default config
