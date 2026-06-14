@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.7 Mask to Shape
+
+- ⚡ Improved performance a lot, especially when using an audio input device (eg a microphone)
+
 ## 1.7.6 Mask to Shape
 
 - 🟦 Added "Function to Curve" node

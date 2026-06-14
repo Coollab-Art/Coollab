@@ -3,10 +3,10 @@
 <plist version="1.0">
     <dict>
         <key>CFBundleVersion</key>
-        <string>1.7.6</string>
+        <string>1.7.7</string>
 
         <key>CFBundleShortVersionString</key>
-        <string>1.7.6</string>
+        <string>1.7.7</string>
 
         <key>CFBundleName</key>
         <string>Coollab</string>
