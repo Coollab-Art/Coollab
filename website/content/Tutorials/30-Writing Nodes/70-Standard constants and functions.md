@@ -1,2 +1,0 @@
-
-You have access to quite a few constants and functions like `PI`, `TAU`, `saturate()` and `smooth_min_polynomial()` *without having to include anything*. For a complete list check out [*math.glsl*](https://github.com/Coollab-Art/Cool/blob/main/res/shaders/math.glsl), [rand.glsl](https://github.com/Coollab-Art/Cool/blob/main/res/shaders/rand.glsl) and [*shader-utils.glsl*](https://github.com/Coollab-Art/Coollab/tree/main/res/shader-utils.glsl).
