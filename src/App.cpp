@@ -586,7 +586,7 @@ void App::save_as()
 
 void App::file_menu()
 {
-    if (ImGui::BeginMenu(Cool::icon_fmt("File", ICOMOON_FILE_TEXT2, true).c_str()))
+    if (Cool::ImGuiExtras::BeginMenu(Cool::icon_fmt("File", ICOMOON_FILE_TEXT2, true).c_str()))
     {
         auto const ctx = command_execution_context();
         if (ImGui::MenuItem("Save", ctrl_or_cmd "+S"))
@@ -610,7 +610,7 @@ void App::file_menu()
 
 void App::performance_menu()
 {
-    if (ImGui::BeginMenu(Cool::icon_fmt("Performance", ICOMOON_POWER, true).c_str()))
+    if (Cool::ImGuiExtras::BeginMenu(Cool::icon_fmt("Performance", ICOMOON_POWER, true).c_str()))
     {
         project().view_constraint.imgui_nb_pixels();
         ImGui::EndMenu();
@@ -631,7 +631,7 @@ void App::performance_menu()
 
 void App::export_menu()
 {
-    if (ImGui::BeginMenu(Cool::icon_fmt("Export", ICOMOON_UPLOAD2, true).c_str()))
+    if (Cool::ImGuiExtras::BeginMenu(Cool::icon_fmt("Export", ICOMOON_UPLOAD2, true).c_str()))
     {
         ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, ImVec2{0.f, 0.5f});
         project().exporter.imgui_menu_items(
@@ -649,7 +649,7 @@ void App::export_menu()
 
 void App::settings_menu()
 {
-    if (ImGui::BeginMenu(Cool::icon_fmt("Settings", ICOMOON_COG, true).c_str()))
+    if (Cool::ImGuiExtras::BeginMenu(Cool::icon_fmt("Settings", ICOMOON_COG, true).c_str()))
     {
         Cool::ImGuiExtras::separator_text("History");
         project().history.imgui_max_size(&Cool::ImGuiExtras::help_marker);
@@ -668,7 +668,7 @@ void App::settings_menu()
 
 void App::commands_menu()
 {
-    if (ImGui::BeginMenu(Cool::icon_fmt("Commands", ICOMOON_ROCKET, true).c_str()))
+    if (Cool::ImGuiExtras::BeginMenu(Cool::icon_fmt("Commands", ICOMOON_ROCKET, true).c_str()))
     {
         if (ImGui::Selectable(ICOMOON_BUBBLE " Show all the tips"))
             _tips_manager.open_all_tips_window();
@@ -698,7 +698,7 @@ void App::commands_menu()
 
 void App::debug_menu()
 {
-    if (ImGui::BeginMenu("Debug"))
+    if (Cool::ImGuiExtras::BeginMenu("Debug"))
     {
         DebugOptionsManager::imgui_ui_for_all_options();
         ImGui::EndMenu();
@@ -707,7 +707,7 @@ void App::debug_menu()
 
 void App::about_menu()
 {
-    if (ImGui::BeginMenu("About"))
+    if (Cool::ImGuiExtras::BeginMenu("About"))
     {
         if (ImGui::Button("Website"))
             Cool::open_link("https://coollab-art.com/");
