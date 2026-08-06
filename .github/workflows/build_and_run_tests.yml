@@ -19,8 +19,45 @@ env:
   cmake_target: Tests-Coollab
 
 jobs:
+  check-linux-clang-without-openssl:
+    name: Check if should run Linux Clang Without OpenSSL
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.should_run.outputs.skip == 'false' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check if should run
+        id: should_run
+        run: |
+          NEW_COMMIT_COUNT=$(git log --oneline --all --since '1 week ago' | wc -l)
+          LAST_RUN=$(gh run list \
+            --workflow build_and_run_tests.yml \
+            --json createdAt,conclusion \
+            -q '.[] | select(.conclusion == "success") | .createdAt' | head -1)
+          
+          if [ -z "$LAST_RUN" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Last run: never found, will run"
+          else
+            LAST_RUN_EPOCH=$(date -d "$LAST_RUN" +%s)
+            NOW_EPOCH=$(date +%s)
+            DIFF_DAYS=$(( (NOW_EPOCH - LAST_RUN_EPOCH) / 86400 ))
+            
+            if [ $DIFF_DAYS -ge 7 ] && [ $NEW_COMMIT_COUNT -gt 1 ]; then
+              echo "skip=false" >> $GITHUB_OUTPUT
+              echo "Last run: $DIFF_DAYS days ago, commits: $NEW_COMMIT_COUNT - WILL RUN"
+            else
+              echo "skip=true" >> $GITHUB_OUTPUT
+              echo "Last run: $DIFF_DAYS days ago, commits: $NEW_COMMIT_COUNT - WILL SKIP"
+            fi
+          fi
+
   build-and-run-tests:
     name: ${{matrix.config.name}} ${{matrix.build_type}}
+    needs: check-linux-clang-without-openssl
     runs-on: ${{matrix.config.os}}
     strategy:
       fail-fast: false
@@ -47,6 +84,12 @@ jobs:
               cmake_configure_args: -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++ -G Ninja,
             }
           - {
+              name: Linux Clang Without OpenSSL,
+              os: ubuntu-latest,
+              cmake_configure_args: -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -D COOLLAB_REQUIRE_ALL_FEATURES=OFF -G Ninja,
+              is_without_openssl: true,
+            }
+          - {
               name: MacOS Clang,
               os: macos-latest,
               cmake_configure_args: -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++ -G Ninja -D OPENSSL_ROOT_DIR=/usr/local/opt/openssl,
@@ -54,12 +97,31 @@ jobs:
         build_type:
           - Debug
           - Release
+        exclude:
+          - config:
+              name: Linux Clang Without OpenSSL
+            build_type: Debug
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+      
+      - name: Set should_build variable
+        if: matrix.config.is_without_openssl
+        shell: bash
+        run: |
+          if [ "${{ needs.check-linux-clang-without-openssl.outputs.should_run }}" == "true" ]; then
+            echo "should_build=true" >> $GITHUB_ENV
+          else
+            echo "should_build=false" >> $GITHUB_ENV
+          fi
 
+      - name: Set should_build=true for other configs
+        if: ${{ !matrix.config.is_without_openssl }}
+        shell: bash
+        run: echo "should_build=true" >> $GITHUB_ENV
+      
       - name: Set up MSVC # NOTE: required to find cl.exe when using the Ninja generator. And we need to use Ninja in order for ccache to be able to cache stuff with MSVC.
         if: matrix.config.name == 'Windows MSVC'
         uses: ilammy/msvc-dev-cmd@v1.13.0
@@ -94,7 +156,7 @@ jobs:
         shell: cmd
 
       - name: Install Windows dependencies
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && !contains(matrix.config.name, 'Without OpenSSL')
         run: |
           ${{ runner.temp }}\vcpkg\vcpkg.exe install openssl:x64-windows
         shell: cmd
@@ -103,12 +165,19 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y
+          if [ "${{ matrix.config.is_without_openssl }}" != "true" ]; then
+            sudo apt-get install -y libssl-dev
+          fi
           sudo apt-get install -y libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev mesa-common-dev build-essential libgtk-3-dev
           sudo apt-get install -y libssl-dev
           sudo apt-get install -y libpulse-dev libasound2-dev
           sudo apt-get install -y libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libpostproc-dev libswresample-dev libswscale-dev
           sudo apt-get install -y libdbus-1-dev
           sudo apt-get install -y libjpeg-dev
+          # Ensure all libssl packages are completely removed for without-openssl config
+          if [ "${{ matrix.config.is_without_openssl }}" == "true" ]; then
+            sudo apt-get remove -y libssl-dev
+          fi
 
       - name: Install MacOS dependencies
         if: runner.os == 'MacOS'
@@ -120,7 +189,7 @@ jobs:
           key: ${{matrix.config.name}}-${{matrix.build_type}}
 
       - name: Set CMake Toolchain Argument
-        if: runner.os == 'Windows'
+        if: runner.os == 'Windows' && env.should_build == 'true'
         run: echo "CMAKE_TOOLCHAIN_ARG=-D CMAKE_TOOLCHAIN_FILE=${{ runner.temp }}\vcpkg\scripts\buildsystems\vcpkg.cmake" >> $GITHUB_ENV
         shell: bash
 
