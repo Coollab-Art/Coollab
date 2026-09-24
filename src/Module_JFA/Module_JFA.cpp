@@ -16,39 +16,38 @@ static auto module_id()
 
 static constexpr auto texture_format = Cool::TextureFormat{.num_components = 4, .type = Cool::PixelType::Float16};
 
-static auto make_init_shader() -> Cool::FullscreenPipeline
+/// A shader that fails to load or compile here leaves the pipeline empty, and FullscreenPipeline::draw()
+/// then silently does nothing. So we must report the failure, otherwise the only symptom is a black image.
+static auto make_shader(std::filesystem::path const& path) -> Cool::FullscreenPipeline
 {
     auto shader = Cool::FullscreenPipeline{};
-    shader.compile(*Cool::File::to_string(Cool::Path::root() / "res/JFA/init.frag"));
+    auto source = Cool::File::to_string(Cool::Path::root() / path);
+    if (!source)
+    {
+        Cool::Log::error("JFA", fmt::format("Failed to read \"{}\":\n{}", path, source.error()));
+        return shader;
+    }
+    auto const compilation = shader.compile(*source);
+    if (!compilation)
+        Cool::Log::error("JFA", fmt::format("Failed to compile \"{}\":\n{}", path, compilation.error().message));
     return shader;
 }
+
 static auto init_shader() -> Cool::FullscreenPipeline&
 {
-    static auto instance = make_init_shader();
+    static auto instance = make_shader("res/JFA/init.frag");
     return instance;
 }
 
-static auto make_flood_step_shader() -> Cool::FullscreenPipeline
-{
-    auto shader = Cool::FullscreenPipeline{};
-    shader.compile(*Cool::File::to_string(Cool::Path::root() / "res/JFA/flood_step.frag"));
-    return shader;
-}
 static auto flood_step_shader() -> Cool::FullscreenPipeline&
 {
-    static auto instance = make_flood_step_shader();
+    static auto instance = make_shader("res/JFA/flood_step.frag");
     return instance;
 }
 
-static auto make_convert_to_image_shader() -> Cool::FullscreenPipeline
-{
-    auto shader = Cool::FullscreenPipeline{};
-    shader.compile(*Cool::File::to_string(Cool::Path::root() / "res/JFA/convert_to_image.frag"));
-    return shader;
-}
 static auto convert_to_image_shader() -> Cool::FullscreenPipeline&
 {
-    static auto instance = make_convert_to_image_shader();
+    static auto instance = make_shader("res/JFA/convert_to_image.frag");
     return instance;
 }
 

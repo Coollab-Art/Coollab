@@ -1,4 +1,23 @@
-#include "_COOL_RES_/shaders/rand.glsl"
+#ifdef COOLLAB_PARTICLES_3D
+#define COOLLAB_PARTICLES_DIMENSION 3
+#else
+#define COOLLAB_PARTICLES_DIMENSION 2
+#endif
+
+layout(std430, binding = 0) buffer _positions_buffer
+{
+    float _positions[];
+};
+
+layout(std430, binding = 1) buffer _velocities_buffer
+{
+    float _velocities[];
+};
+
+layout(std430, binding = 2) buffer _sizes_buffer
+{
+    float _sizes[];
+};
 
 layout(std430, binding = 3) buffer _lifetimes_buffer
 {
@@ -10,9 +29,29 @@ layout(std430, binding = 4) buffer _lifetime_maxs_buffer
     float _lifetime_maxs[];
 };
 
+layout(std430, binding = 5) buffer _colors_buffer
+{
+    float _colors[];
+};
+
 void cool_main()
 {
-    uint gid            = gl_GlobalInvocationID.x;
-    _lifetimes[gid]     = 0.;
-    _lifetime_maxs[gid] = 0.;
+    uint gid = gl_GlobalInvocationID.x;
+    // Zero *every* buffer, not just the lifetimes: the buffers are allocated with
+    // glBufferData(..., nullptr, ...), and whether that memory happens to be zeroed or is recycled
+    // garbage (possibly containing NaN bit patterns) is up to the driver. No shader should ever
+    // read uninitialized GPU memory.
+    uint dimension = uint(COOLLAB_PARTICLES_DIMENSION);
+    for (uint i = 0u; i < dimension; ++i)
+    {
+        _positions[gid * dimension + i]  = 0.;
+        _velocities[gid * dimension + i] = 0.;
+    }
+    _sizes[gid]            = 0.;
+    _lifetimes[gid]        = 0.;
+    _lifetime_maxs[gid]    = 0.;
+    _colors[gid * 4u + 0u] = 0.;
+    _colors[gid * 4u + 1u] = 0.;
+    _colors[gid * 4u + 2u] = 0.;
+    _colors[gid * 4u + 3u] = 0.;
 }
