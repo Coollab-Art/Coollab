@@ -3,6 +3,7 @@
 ##
 
 - 🐛 Fix particles not working on some computers
+- 🐛 Fix sliders, camera and gizmos jumping to huge values when dragging them on Linux Wayland
 
 ## 1.7.7 Mask to Shape
 
